@@ -1,0 +1,251 @@
+{% extends('@App/Admin/base-admin.html.twig') %}
+
+{% block body %}
+    <body class="hold-transition skin-purple sidebar-mini">
+        <div class="wrapper">
+            <!-- Main Header -->
+            <header class="main-header">
+
+                <!-- Logo -->
+                <a href="{{ path('agp_index') }}" class="logo">
+                    <!-- mini logo for sidebar mini 50x50 pixels -->
+                    <span class="logo-mini"><b class="white">AGP</b></span>
+                    <!-- logo for regular state and mobile devices -->
+                    <span class="logo-lg"><b class="white">AGP</b> <span class="beta">beta</span></span>
+                </a>
+
+                <!-- Header Navbar -->
+                <nav class="navbar navbar-static-top" role="navigation">
+                    <!-- Sidebar toggle button-->
+                    <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
+                        <span class="sr-only">Toggle navigation</span>
+                    </a>
+                    <!-- Navbar Right Menu -->
+                    <div class="navbar-custom-menu">
+                        <ul class="nav navbar-nav">
+                            {% if app.user.dossier is empty %}
+                                <li class="dropdown notifications-menu">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-bell-o"></i>
+                                        <span class="label label-danger">!</span>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <div class="no-dossier"><i class="fa fa-exclamation-circle" aria-hidden="true"></i> Dossier d'inscription non créé</div>
+                                        <li class="footer no-dossier-footer"><a href="{{ path('agp_new_dossier') }}">Créer le dossier</a></li>
+                                    </ul>
+                                </li>
+                                {% elseif app.user.dossier.enabled == 0 %}
+                                    <li class="dropdown notifications-menu">
+                                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                            <i class="fa fa-bell-o"></i>
+                                            <span class="label label-warning">?</span>
+                                        </a>
+                                        <ul class="dropdown-menu">
+                                            <div class="pending-dossier"><i class="fa fa-question-circle margin-r-5" aria-hidden="true"></i>Dossier en attente de validation</div>
+                                        </ul>
+                                    </li>
+                            {% endif %}
+                            <!-- User Account Menu -->
+                            <li class="dropdown user user-menu">
+                                <!-- Menu Toggle Button -->
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                    <!-- The user image in the navbar-->
+                                    {% if app.user.image.id is not defined %}
+                                        <img src="{{ asset('/img/no-user.png') }}" class="user-image"/>
+                                    {% else %}
+                                        <img src="{{ asset('/uploads/user/') }}user-{{ app.user.id }}.{{ app.user.image.extension }}" class="user-image" alt="User Image">
+                                    {% endif %}
+
+                                    <!-- hidden-xs hides the username on small devices so only the image appears. -->
+                                    <span class="hidden-xs">{{ app.user.firstName }}</span>
+                                </a>
+                                <ul class="dropdown-menu">
+                                    <!-- The user image in the menu -->
+                                    <li class="user-header">
+                                        {% if app.user.image.id is not defined %}
+                                            <img src="{{ asset('/img/no-user.png') }}" class="img-circle"/>
+                                        {% else %}
+                                            <img src="{{ asset('/uploads/user/') }}user-{{ app.user.id }}.{{ app.user.image.extension }}" class="img-circle" alt="User Image">
+                                        {% endif %}
+                                        <p>
+                                            {{ app.user.firstName }} {{ app.user.lastName }}
+                                            <small>
+                                                {{ app_role_service.getHighestRole(app.user.roles)|trans }}
+                                            </small>
+                                        </p>
+                                    </li>
+                                    <!-- Menu Footer-->
+                                    <li class="user-footer">
+                                        <div class="pull-left">
+                                            <a href="{{ path('agp_show_profile') }}" class="btn btn-default btn-flat">Profil</a>
+                                        </div>
+                                        <div class="pull-right">
+                                            <a href="{{ path('fos_user_security_logout') }}" class="btn btn-default btn-flat">Déconnexion</a>
+                                        </div>
+                                    </li>
+                                </ul>
+                            </li>
+                            <!-- Control Sidebar Toggle Button -->
+                            <li>
+                                <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
+                            </li>
+                        </ul>
+                    </div>
+                </nav>
+            </header>
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="main-sidebar">
+
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
+
+                    <!-- Sidebar user panel (optional) -->
+                    <div class="user-panel">
+                        <div class="pull-left image">
+                            {% if app.user.image.id is not defined %}
+                                <img src="{{ asset('/img/no-user.png') }}" class="img-circle"/>
+                            {% else %}
+                                <img src="{{ asset('/uploads/user/') }}user-{{ app.user.id }}.{{ app.user.image.extension }}" class="img-circle"/>
+                            {% endif %}
+                        </div>
+                        <div class="pull-left info">
+                            <p>{{ app.user.firstName }}</p>
+                            <!-- Status -->
+                            <a href="#"><i class="fa fa-circle text-success"></i> En ligne</a>
+                        </div>
+                    </div>
+
+                    <!-- search form (Optional) -->
+                    <form action="#" method="get" class="sidebar-form">
+                        <div class="input-group">
+                            <input type="text" name="q" class="form-control" placeholder="Rechercher...">
+                            <span class="input-group-btn">
+                              <button type="submit" name="search" id="search-btn" class="btn btn-flat"><i class="fa fa-search"></i>
+                              </button>
+                            </span>
+                        </div>
+                    </form>
+                    <!-- /.search form -->
+
+                    <!-- Sidebar Menu -->
+                    <ul class="sidebar-menu" data-widget="tree">
+                        <li class="header">ASSOCIATION</li>
+                        <li class="active"><a href="{{ path('agp_dashboard') }}"><i class="fa fa-tachometer"></i> <span>Tableau de bord</span></a></li>
+                        <li class="treeview">
+                            <a href="#"><i class="fa fa-users"></i> <span>Utilisateurs</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                {% if is_granted('ROLE_MEMBRE_CA') %}
+                                <li><a href="{{ path('agp_list_users') }}">Tous les utilisateurs</a></li>
+                                {% endif %}
+                                <li><a href="{{ path('agp_show_profile') }}">Mon profil</a></li>
+                            </ul>
+                        </li>
+                        {% if is_granted('ROLE_MEMBRE_CA') %}
+                            <li><a href="{{ path('agp_list_dossiers') }}"><i class="fa fa-file"></i> <span>Dossiers</span></a></li>
+                        {% endif %}
+                        {% if is_granted('ROLE_AIDE_ENCADRANT') %}
+                            <li><a href="{{ path('agp_trombinoscope') }}"><i class="fa fa-user-circle-o"></i> <span>Trombinoscope</span></a></li>
+                        {% endif %}
+                        {% if is_granted('ROLE_AIDE_ENCADRANT') %}
+                            <li class="treeview">
+                                <a href="#"><img src="{{ asset('img/training.png') }}" class="menu-icon"/><span>Entraînements</span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="{{ path('agp_list_trainings') }}">Tous les entraînements</a></li>
+                                    {% if is_granted('ROLE_ENCADRANT') %}
+                                        <li><a href="{{ path('agp_new_training') }}">Ajouter un entraînement</a></li>
+                                    {% endif %}
+                                    {% if is_granted('ROLE_MEMBRE_CA') %}
+                                        <li><a href="{{ path('agp_new_training_ref') }}">Ajouter un créneau</a></li>
+                                    {% endif %}
+                                </ul>
+                            </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_MEMBRE_CA') %}
+                            <li class="treeview">
+                                <a href="#"><i class="fa fa-calendar margin-r-5" aria-hidden="true"></i><span>Initiations</span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="{{ path('agp_list_trainings') }}">Toutes les initiations</a></li>
+                                    <li><a href="{{ path('agp_new_training') }}">Ajouter une initiation</a></li>
+                                </ul>
+                            </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_MEMBRE_CA') %}
+                            <li class="treeview">
+                                <a href="#"><i class="fa fa-pencil"></i> <span>Articles</span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="{{ path('agp_list_articles') }}">Tous les articles</a></li>
+                                    <li><a href="{{ path('agp_new_article') }}">Ajouter</a></li>
+                                </ul>
+                            </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_ADMIN') %}
+                            <li><a href="http://google.fr"><i class="fa fa-cogs"></i> <span>Paramètres</span></a></li>
+                        {% endif %}
+                    </ul>
+                    <!-- /.sidebar-menu -->
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+
+            <!-- Content Wrapper. Contains page content -->
+            <div class="content-wrapper">
+                {% if app.user.dossier is empty %}
+                    <div class="missing-dossier">
+                        <a href="{{ path('agp_new_dossier') }}">
+                            <div class="alert alert-warning alert-dismissible">
+                                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
+                                <h4><i class="fa fa-info-circle" aria-hidden="true"></i> Dossier d'inscription manquant !</h4>
+                                Vous n'avez pas encore créé de dossier, certaines informations ne seront pas visibles.
+                            </div>
+                        </a>
+                    </div>
+                {% endif %}
+
+                {% block content %}{% endblock %}
+                {% block fos_user_content %}{% endblock %}
+            </div>
+            <!-- /.content-wrapper -->
+
+            <!-- Main Footer -->
+            <footer class="main-footer">
+                <!-- Default to the left -->
+                <strong>Copyright &copy; {{ "now"|date("Y") }} <a href="{{ path('agp_index') }}">AGP</a>.</strong>
+            </footer>
+
+            <!-- Control Sidebar -->
+            <aside class="control-sidebar control-sidebar-dark">
+                <!-- Create the tabs -->
+                <ul class="nav nav-tabs nav-justified control-sidebar-tabs">
+                </ul>
+                <!-- Tab panes -->
+                <div class="tab-content">
+                    <!-- Home tab content -->
+                    <div class="tab-pane active" id="control-sidebar-home-tab">
+                        <!-- /.control-sidebar-menu -->
+                        <!-- /.control-sidebar-menu -->
+                    </div>
+                    <!-- /.tab-pane -->
+                </div>
+            </aside>
+            <!-- /.control-sidebar -->
+            <div class="control-sidebar-bg"></div>
+        </div>
+    </body>
+    <!-- ./wrapper -->
+{% endblock %}

@@ -1,0 +1,65 @@
+{% extends "@App/Admin/views/layout.html.twig" %}
+
+{% block content %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Article
+            <small>Ajouter un article</small>
+        </h1>
+    </section>
+
+    {{ include('@App/Admin/views/template_article.html.twig') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <!-- CKEditor -->
+    <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
+    <!-- Croppie -->
+    <script>
+        CKEDITOR.replace( 'article_content', {
+            language: 'fr',
+            height: 450
+        });
+    </script>
+    <script type="text/javascript">
+        // Initialize image cropper
+        var $uploadCrop = $('#article-image-preview').croppie({
+            viewport: {
+                width: 900,
+                height: 300,
+                type: 'square'
+            },
+            boundary: {
+                width: 900,
+                height: 400
+            },
+            enableOrientation: true,
+            enableExif: true
+        });
+
+        $('#article_image_file').on('change', function() {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $uploadCrop.croppie('bind', {
+                    url: e.target.result
+                })
+            };
+            reader.readAsDataURL(this.files[0]);
+        });
+
+        $('.save-result').on('click', function (ev) {
+            $uploadCrop.croppie('result', {
+                type: 'canvas',
+                size: 'viewport'
+            }).then(function (resp) {
+                $("#add-article-image-preview").attr('src', resp);
+                var temp = resp;
+
+                document.getElementById('base64File_image').value = temp;
+            });
+        });
+    </script>
+{% endblock %}

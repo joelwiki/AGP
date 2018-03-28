@@ -1,0 +1,95 @@
+{% extends "@App/Admin/views/layout.html.twig" %}
+
+{% block content %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Dossier
+            <small>Modifier le dossier</small>
+        </h1>
+    </section>
+
+    {{ include('@App/Admin/views/template_dossier.html.twig') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <!-- Croppie -->
+    <script type="text/javascript">
+        // Initialize image cropper
+        var $uploadCrop = $('#article-image-preview').croppie({
+            viewport: {
+                width: 200,
+                height: 200,
+                type: 'square'
+            },
+            boundary: {
+                width: 300,
+                height: 300
+            },
+            enableOrientation: true,
+            enableExif: true
+        });
+
+        $('#article_image_file').on('change', function() {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $uploadCrop.croppie('bind', {
+                    url: e.target.result
+                })
+            };
+            reader.readAsDataURL(this.files[0]);
+        });
+
+        $('.save-result').on('click', function (ev) {
+            $uploadCrop.croppie('result', {
+                type: 'canvas',
+                size: 'viewport'
+            }).then(function (resp) {
+                $("#add-article-image-preview").attr('src', resp);
+                var temp = resp;
+
+                document.getElementById('base64File_image').value = temp;
+            });
+        });
+    </script>
+
+    <!-- Input masks -->
+    <script type="text/javascript">
+        $(function () {
+
+            $('[data-mask]').inputmask();
+
+            var birthDateInput = $('input#dossier_birthDate');
+
+            $(birthDateInput).keyup(function() {
+                if (birthDateInput.inputmask('isComplete')) {
+                    $.ajax({
+                        url: "{{ path('agp_calculate_age') }}",
+                        dataType: 'json',
+                        type: 'POST',
+                        data: { date : birthDateInput.val() },
+                        success: function (data, textStatus, jqXHR) {
+                            if (data < 18) {
+                                $('input#dossier_parentalAuthorization').prop('required', true);
+                                $('div.parentalAuthorization').removeClass('no-display')
+                            } else {
+                                $('input#dossier_parentalAuthorization').prop('required', false);
+                                $('div.parentalAuthorization').addClass('no-display');
+                            }
+                        },
+                        error: function (jqXHR, textStatus, errorThrown) {
+                            console.log('Veuillez remplir la date de naissance')
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
+    <!-- Remove required on edit for ajax image upload -->
+    <script type="text/javascript">
+        $('input#article_image_file').prop('required', false);
+    </script>
+{% endblock %}

@@ -1,0 +1,422 @@
+body {
+    font-family: "Roboto", 'Helvetica Neue', sans-serif !important;
+}
+
+h1, h2, h3, h4, h5, p {
+    font-family: "Roboto", 'Helvetica Neue', sans-serif !important;
+}
+
+b, strong, label {
+    color: #545454;
+}
+
+.white {
+    color: #FFFFFF;
+}
+
+.pre-block-separator {
+    border-top: 1px solid #f4f4f4;
+    height: 10px;
+    width: 100%;
+    vertical-align: bottom;
+    display: inline-block;
+    margin: 0 0 0 5px;
+}
+
+.pre-block-title {
+    display: inline-block;
+    text-transform: uppercase;
+    font-size: 10px;
+    font-weight: 600;
+    color: #9a9a9a;
+}
+
+#pre-block-infos {
+    max-width: 92%;
+}
+
+#pre-block-contact {
+    max-width: 94%;
+}
+
+.box-padding {
+    padding: 20px;
+}
+
+.cr-boundary {
+    width: unset !important;
+    background: rgba(0, 0, 0, 0.6);
+}
+
+.menu-icon {
+    width: 17px;
+    display: inline-block;
+    margin: 0 7px 0 0;
+}
+
+.training-icon {
+    width: 17px;
+    display: inline-block;
+    margin: 0 5px 0 0;
+}
+
+img.menu-icon {
+    -webkit-filter: grayscale(100%) contrast(50%);
+    -moz-filter: grayscale(100%) contrast(50%);
+    -o-filter: grayscale(100%) contrast(50%);
+    filter: grayscale(100%) contrast(50%);
+}
+
+.treeview:hover img.menu-icon {
+    -webkit-filter: grayscale(100%) contrast(100%);
+    -moz-filter: grayscale(100%) contrast(100%);
+    -o-filter: grayscale(100%) contrast(100%);
+    filter: grayscale(100%) contrast(100%);
+}
+
+.profile-name {
+    font-size: 30pt;
+    color: #565656;
+}
+
+.profile-infos-block {
+    margin: 0 0 20px 0;
+}
+
+.profile-infos {
+    padding: 10px 0 0 10px;
+}
+
+#profile-infos-label {
+    font-weight: 600;
+    color: #565656;
+}
+
+#dossier-summary-buttons {
+    padding-top: 10px;
+}
+
+.nav-tabs-custom>.tab-content {
+    padding: 20px 10px 10px 10px !important;
+}
+
+form label, .show-dossier label {
+    padding-top: 15px;
+}
+
+form#login-form label {
+    padding-top: 0;
+}
+
+form#login-form .fa-lock {
+    padding: 0 2.5px;
+}
+
+form#login-form .input-group {
+    margin: 15px 0;
+}
+
+.box-grey {
+    background: #fbfbfb !important;
+    padding: 10px;
+}
+
+.list-dossiers span.btn, .list-users span.btn {
+    padding: 3px 12px !important;
+}
+
+.list-dossiers span.btn:hover, .list-users span.btn {
+    cursor: default;
+}
+
+.medium-input {
+    max-width: 341px;
+}
+
+.medium-input-addon {
+    max-width: 303px;
+}
+
+.small-input {
+    max-width: 150px;
+}
+
+.extra-small-input {
+    max-width: 80px;
+}
+
+.emergencyContactTwo .box {
+    background: none;
+    border: none;
+    box-shadow: none;
+    padding: 0 !important;
+}
+
+.emergencyContactTwo .box-header {
+    padding: 0 !important;
+}
+
+.emergencyContactTwo .box-body {
+    padding: 0 !important;
+}
+
+span.required {
+    color: red;
+}
+
+form[name="dossier"] .box {
+    padding: 10px 30px;
+}
+
+form[name="dossier"] h3 {
+    color: #4c4c4c;
+}
+
+.margin-r-15 {
+    margin-right: 15px;
+}
+
+.margin-r-10 {
+    margin-right: 10px;
+}
+
+#profile-infos div, #profile-infos-label div {
+    margin: 5px 0;
+}
+
+div#dossier-summary-buttons a {
+    color: #525252;
+}
+
+.btn-primary:hover {
+    border-color: #3479a9 !important;
+}
+
+.create-dossier, .create-children {
+    padding: 10px 0;
+    font-size: 12pt;
+}
+
+.create-dossier a, .create-children a {
+    text-decoration: none !important;
+}
+
+.form-control-inline {
+    display: inline-block !important;
+}
+
+#map {
+    height: 250px;
+    width: 100%;
+    margin: 30px 0 0 0;
+}
+
+.no-dossier, .pending-dossier {
+    text-align: center;
+    padding: 25px 15px 20px 15px;
+    font-size: 13pt;
+}
+
+.no-dossier-footer {
+    border-top: 1px solid #eee;
+}
+
+.no-dossier-footer a {
+    background: #f9f9f9 !important;
+    font-size: 11pt !important;
+}
+
+.no-dossier .fa {
+    color: #dd4b39;
+}
+
+.pending-dossier .fa {
+    color: #f39c12;
+}
+
+.small-page-header {
+    margin: 5px 0 20px 0;
+    font-size: 17px;
+    border-bottom: 1px solid #eee;
+    padding: 0 0 9px 0;
+}
+
+.add-article-image-preview-container {
+    padding: 0 0 10px 0;
+}
+
+.missing-dossier {
+    padding: 10px 10px 0 10px;
+}
+
+.box-header>.box-tools {
+    top: 15px !important;
+}
+
+.list-header {
+    padding: 25px 10px 10px 10px !important;
+}
+
+.hr {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border: 0;
+    border-top: 1px solid #eee;
+}
+
+form input#training_ref_categoryStart, form input#training_ref_categoryEnd {
+    height: 25px;
+    width: 65px;
+}
+
+.box-show-location {
+    padding-bottom: 18px;
+}
+
+.bootstrap-timepicker {
+    display: inline-block;
+    max-width: 180px;
+}
+
+span.timepicker-in-between {
+    display: inline-block;
+    vertical-align: top;
+    padding: 10px 10px 0 10px;
+}
+
+span.category-in-between {
+    display: inline-block;
+    vertical-align: top;
+    padding: 5px 10px;
+}
+
+#place-icon {
+    display: none;
+}
+
+.modele {
+    padding: 5px 0;
+}
+
+.modele-attestation {
+    padding: 11px 0;
+}
+
+.select2-container--default .select2-selection--single, .select2-selection .select2-selection--single {
+    height: 34px !important;
+    border-radius: 0 !important;
+    border: 1px solid #d2d6de !important;
+}
+
+.select2 {
+    max-width: 100%;
+}
+
+select#dossier_emergencyContactTwoRelation + span.select2, select#dossier_emergencyContactRelation + span.select2  {
+    width: 100% !important;
+}
+
+.custom-file-input {
+    max-width: 100%
+}
+
+.list-trombinoscope td {
+    border: none !important;
+}
+
+.list-trombinoscope .box {
+    box-shadow: none;
+    padding-bottom: 30px;
+}
+
+.trombinoscope-name {
+    font-size: 16pt;
+    padding: 5px 0;
+    color: #585858;
+}
+
+.img-trombinoscope {
+    width: 140px;
+}
+
+div.parentalAuthorization {
+    -webkit-transition: ease-in-out 0.3s;
+    -moz-transition: ease-in-out 0.3s;
+    -ms-transition: ease-in-out 0.3s;
+    -o-transition: ease-in-out 0.3s;
+    transition: ease-in-out 0.3s;
+    opacity: 1;
+}
+
+div.parentalAuthorization.no-display {
+    -webkit-transition: ease-in-out 0.3s;
+    -moz-transition: ease-in-out 0.3s;
+    -ms-transition: ease-in-out 0.3s;
+    -o-transition: ease-in-out 0.3s;
+    transition: ease-in-out 0.3s;
+    opacity: 0;
+}
+
+.parentalText {
+    height: 10px;
+}
+
+.forgotten-password {
+    font-size: 10pt;
+    float: right;
+    padding: 8px 0 0 0;
+}
+
+.remember-me {
+    padding: 5px 0 20px 0;
+    color: dimgrey;
+    display: inline-block;
+}
+
+.btn-login-submit {
+    width: 100%;
+}
+
+.not-registered {
+    text-align: center;
+    padding: 20px 0 0 0;
+    font-size: 9pt;
+    color: dimgrey;
+}
+
+.bold {
+    font-weight: 700 !important;
+}
+
+.login-page, .register-page {
+    background: #ececec !important;
+}
+
+.login-box-body, .register-box-body {
+    border: 1px solid #dedddd;
+    padding: 40px 20px !important;
+}
+
+span.arkour {
+    font-size: 22pt;
+}
+
+span.beta {
+    font-size: 13pt;
+}
+
+@media (min-width: 768px) {
+    .modal-article .modal-dialog {
+        width: 1200px !important;
+    }
+
+    .collapse-quick-menu {
+        display: none;
+    }
+}
+
+@media (max-width: 1400px) {
+    .parentalText {
+        height: 100%;
+    }
+}

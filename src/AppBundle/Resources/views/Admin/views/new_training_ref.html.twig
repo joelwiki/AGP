@@ -1,0 +1,91 @@
+{% extends "@App/Admin/views/layout.html.twig" %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <link rel="stylesheet" href="{{ asset('plugins/timepicker/bootstrap-timepicker.min.css') }}"/>
+{% endblock %}
+
+{% block content %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Type d'entraînement
+            <small>Ajouter un créneau d'entraînement</small>
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary box-padding">
+                    <div>
+                        <h2 class="page-header"><i class="fa fa-calendar margin-r-15" aria-hidden="true"></i>Nouveau créneau</h2>
+                    </div>
+                    {{ form_start(form) }}
+                    <div>
+                        <label>Catégorie d'âge</label>
+                        <div>
+                            {{ form_widget(form.categoryStart) }}
+                            <span class="category-in-between">à</span>
+                            {{ form_widget(form.categoryEnd) }}
+                            <span class="category-in-between">ans</span>
+                        </div>
+                        <label>Type d'entraînement</label>
+                        <div>{{ form_widget(form.type) }}</div>
+                        <label>Jour de la semaine</label>
+                        <div>{{ form_widget(form.weekDay) }}</div>
+                        <div>
+                            <label>Créneau horaire</label>
+                        </div>
+                        <div class="bootstrap-timepicker">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-clock-o"></i>
+                                    </div>
+                                    {{ form_widget(form.hourStart) }}
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                            <!-- /.form group -->
+                        </div>
+                        <span class="timepicker-in-between">à</span>
+                        <div class="bootstrap-timepicker">
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon">
+                                        <i class="fa fa-clock-o"></i>
+                                    </div>
+                                    {{ form_widget(form.hourEnd) }}
+                                </div>
+                                <!-- /.input group -->
+                            </div>
+                            <!-- /.form group -->
+                        </div>
+                        <div>{{ form_widget(form.submit) }}</div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+
+    </section>
+    <!-- /.content -->
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <!-- TimePicker -->
+    <script src="{{ asset('js/bootstrap/bootstrap-timepicker.min.js') }}"></script>
+    <script>
+        $(function () {
+            $('.timepicker').timepicker({
+                showInputs: false,
+                showMeridian: false
+            })
+        })
+    </script>
+{% endblock %}

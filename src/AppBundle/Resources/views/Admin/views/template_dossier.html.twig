@@ -1,0 +1,306 @@
+{% block content %}
+
+    <div class="modal fade modal-dossier" id="cropp-image" tabindex="-1" role="dialog" aria-labelledby="cropp-image" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-article" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="cropp-image-title">Redimensionnez la photo</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="article-image-preview"></div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                    <button type="button" class="btn btn-success save-result" data-dismiss="modal">Valider</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main content -->
+    <section class="content container-fluid">
+        <div class="box box-primary box-padding">
+            <div class="row">
+                <div class="col-md-12">
+                    <div>
+                        <h2 class="page-header"><i class="fa fa-file-o margin-r-15" aria-hidden="true"></i>Dossier d'inscription à l'Association Grenobloise de Parkour</h2>
+                    </div>
+                </div>
+                <div class="col-md-12">
+                    {{ form_start(form) }}
+                    {{ form_errors(form) }}
+                    <div class="col-md-6">
+                        <h3>Informations personnelles</h3>
+                        <div class="box box-grey box-primary">
+                            <div class="add-article-image">
+                                <div class="add-article-image-label">
+                                    <label><b>Photo</b></label> <span class="required">*</span>
+                                </div>
+                                <div class="add-article-image-preview-container">
+                                    <img id="add-article-image-preview" class="img-responsive"/>
+                                </div>
+                                <input type="hidden" name="base64File[image]" id="base64File_image" required/>
+                                <input type="file" class="custom-file-input" data-toggle="modal" data-target="#cropp-image" id="article_image_file" required>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{ form_label(form.lastName) }} <span class="required">*</span>
+                                    {% if user.dossier is not empty %}
+                                        {{ form_widget(form.lastName) }}
+                                    {% else %}
+                                        {{ form_widget(form.lastName, {'value' : user.lastName}) }}
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_label(form.firstName) }} <span class="required">*</span>
+                                    {% if user.dossier is not empty %}
+                                        {{ form_widget(form.firstName) }}
+                                    {% else %}
+                                        {{ form_widget(form.firstName, {'value' : user.firstName}) }}
+                                    {% endif %}
+                                </div>
+                            </div>
+
+                            <!-- -->
+                            <div class="row">
+                                <div class="col-lg-6 col-md-12">
+                                    {{ form_label(form.birthDate) }} <span class="required">*</span>
+                                    <div class="input-group medium-input">
+                                        <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                        {% if user.dossier is not empty %}
+                                            {{ form_widget(form.birthDate, {'value' : user.dossier.birthDate|date('d/m/Y')}) }}
+                                        {% else %}
+                                            {{ form_widget(form.birthDate, {'value' : user.birthDate|date('d/m/Y')}) }}
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-lg-6 col-md-12">
+                                    <div class="parentalAuthorization no-display">
+                                        {{ form_label(form.parentalAuthorization) }} <span class="required">*</span>
+                                        <p class="text-muted parentalText">
+                                            {{ form_widget(form.parentalAuthorization) }}
+                                            Je réalise cette inscription pour un enfant mineur et je m'engage à venir chercher mon enfant ou l'autorise à rentrer par ses propres moyens (seul) pendant ou après l’entraînement.
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div>
+                                        {{ form_label(form.sex) }} <span class="required">*</span>
+                                        <div>{{ form_widget(form.sex) }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3>Certificat médical</h3>
+                        <div class="box box-grey box-primary">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{ form_label(form.medicalCertificate.image) }} <span class="required">*</span>
+                                    {{ form_widget(form.medicalCertificate.image) }}
+                                    <p class="muted modele">
+                                        <a href="https://drive.google.com/file/d/0B51_MBaWYvfheTdsN0FDcEk2U2M/view">
+                                            <i class="fa fa-external-link margin-r-5" aria-hidden="true"></i> Modèle téléchargeable
+                                        </a>
+                                    </p>
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_label(form.medicalCertificate.date) }} <span class="required">*</span>
+                                    <div class="input-group medium-input">
+                                        <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                                        {{ form_widget(form.medicalCertificate.date) }}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    {{ form_label(form.medicalCertificate.doctorName) }} <span class="required">*</span>
+                                    {{ form_widget(form.medicalCertificate.doctorName) }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_label(form.medicalCertificate.doctorPhone) }} <span class="required">*</span>
+                                    <div class="input-group medium-input">
+                                        <span class="input-group-addon"><i class="fa fa-phone" aria-hidden="true"></i></span>
+                                        {{ form_widget(form.medicalCertificate.doctorPhone) }}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3>Attestation de responsabilité civile</h3>
+                        <div class="box box-grey box-primary">
+                            <div>
+                                {{ form_label(form.civilLiabilityCertificate) }} <span class="required">*</span>
+                                <div>{{ form_widget(form.civilLiabilityCertificate) }}</div>
+                                <div class="muted modele-attestation">
+                                    <p class="text-muted">L'attestation doit dater de moins d'un an.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <h3>Localisation & Contact</h3>
+                        <div class="box box-grey box-primary">
+                            {{ form_label(form.email) }} <span class="required">*</span>
+                            <div class="input-group medium-input">
+                                <span class="input-group-addon">@</span>
+                                {% if user.dossier is not empty %}
+                                    {{ form_widget(form.email) }}
+                                {% else %}
+                                    {{ form_widget(form.email, {'value' : user.email}) }}
+                                {% endif %}
+                            </div>
+
+                            {{ form_label(form.phone) }}
+                            <div class="input-group medium-input">
+                                <span class="input-group-addon"><i class="fa fa-phone" aria-hidden="true"></i></span>
+                                {% if user.dossier is not empty %}
+                                    {{ form_widget(form.phone) }}
+                                {% else %}
+                                    {% if user.phone is defined %}
+                                        {{ form_widget(form.phone, {'value' : user.phone}) }}
+                                    {% endif %}
+                                {% endif %}
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-4">
+                                    {{ form_label(form.city) }} <span class="required">*</span>
+                                    {{ form_widget(form.city) }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form_label(form.zipCode) }} <span class="required">*</span>
+                                    {{ form_widget(form.zipCode) }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ form_label(form.street) }} <span class="required">*</span>
+                                    {{ form_widget(form.street) }}
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12"><hr></div>
+                                <div class="col-md-12"><h4>Contact d'urgence #1</h4></div>
+                                <div class="col-md-6">
+                                    {{ form_label(form.emergencyContactLastName) }} <span class="required">*</span>
+                                    {{ form_widget(form.emergencyContactLastName) }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_label(form.emergencyContactFirstName) }} <span class="required">*</span>
+                                    {{ form_widget(form.emergencyContactFirstName) }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_label(form.emergencyContactPhone) }} <span class="required">*</span>
+                                    <div class="input-group medium-input">
+                                        <span class="input-group-addon"><i class="fa fa-phone" aria-hidden="true"></i></span>
+                                        {{ form_widget(form.emergencyContactPhone) }}
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_label(form.emergencyContactRelation) }} <span class="required">*</span>
+                                    {{ form_widget(form.emergencyContactRelation) }}
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12"><hr></div>
+                                <div class="col-md-12 emergencyContactTwo">
+                                    <div class="box collapsed-box">
+                                        <div class="box-header">
+                                            <h4>Contact d'urgence #2</h4>
+                                            <div class="box-tools pull-right">
+                                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                                                </button>
+                                            </div>
+                                            <!-- /.box-tools -->
+                                        </div>
+                                        <!-- /.box-header -->
+                                        <div class="box-body" style="display: none;">
+                                            <div class="row">
+                                                <div class="col-md-6">
+                                                    {{ form_row(form.emergencyContactTwoLastName) }}
+                                                </div>
+                                                <div class="col-md-6">
+                                                    {{ form_row(form.emergencyContactTwoFirstName) }}
+                                                </div>
+                                                <div class="col-md-6">
+                                                    {{ form_label(form.emergencyContactTwoPhone) }}
+                                                    <div class="input-group medium-input">
+                                                        <span class="input-group-addon"><i class="fa fa-phone" aria-hidden="true"></i></span>
+                                                        {{ form_widget(form.emergencyContactTwoPhone) }}
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-6">
+                                                    {{ form_row(form.emergencyContactTwoRelation) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <!-- /.box-body -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <h3>Cotisation</h3>
+                        <div class="box box-grey box-primary">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div>
+                                        {{ form_label(form.shirtSize) }} <span class="required">*</span>
+                                        <div>{{ form_widget(form.shirtSize) }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div>
+                                        {{ form_label(form.paymentType) }} <span class="required">*</span>
+                                        <div>{{ form_widget(form.paymentType) }}</div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="muted modele">
+                                        <p class="text-muted">Je m'engage à régler la cotisation, au quel cas le dossier ne sera pas validé.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12"><hr></div>
+                <div class="col-md-12">
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                        <div>
+                            {{ form_label(form.imageRight) }}
+                            <p class="text-muted">
+                                {{ form_widget(form.imageRight) }}
+                                J’autorise l’Association Grenobloise de Parkour à utiliser mon image / l’image de mon enfant pour promouvoir ses activités sur son site web, sa page facebook et lors de forums et d’événements sportifs.
+                            </p>
+                        </div>
+                        <div>
+                            {{ form_label(form.responsability) }} <span class="required">*</span>
+                            <p class="text-muted">
+                                {{ form_widget(form.responsability) }}
+                                Je certifie avoir pris connaissance des activités proposées par l’Association Grenobloise de Parkour (AGP) et déclare qu’elles n’engagent que ma seule responsabilité en cas d’accident ou d’incident.
+                            </p>
+                        </div>
+                        <div>
+                            {{ form_label(form.termsOfAgreement) }} <span class="required">*</span>
+                            <p class="text-muted">
+                                {{ form_widget(form.termsOfAgreement) }}
+                                J'atteste avoir lu et compris la charte de la Fédération de Parkour.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12"><hr></div>
+                <div class="col-md-12 text-center">
+                    {% if user.dossier is not empty %}
+                        {{ form_row(form.submit, {'label' : 'Modifier'}) }}
+                    {% else %}
+                        {{ form_row(form.submit, {'label' : 'Ajouter'}) }}
+                    {% endif %}
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
+{% endblock %}

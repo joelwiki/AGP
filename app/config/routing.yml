@@ -1,0 +1,128 @@
+app:
+    resource: '@AppBundle/Controller/'
+    type: annotation
+
+#### IMPORTS ####
+agp_registration:
+    resource: "@FOSUserBundle/Resources/config/routing/registration.xml"
+    prefix: /register
+
+agp_resetting:
+    resource: "@FOSUserBundle/Resources/config/routing/resetting.xml"
+    prefix: /resetting
+
+agp_security:
+    resource: "@FOSUserBundle/Resources/config/routing/security.xml"
+
+agp_change_password:
+    resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
+    prefix: /profil
+
+#### CUSTOM ROUTES ####
+agp_index:
+    path: /
+    defaults: { _controller: AppBundle:App:index }
+
+agp_dashboard:
+    path: /dashboard/
+    defaults: { _controller: AppBundle:Admin:index }
+
+agp_show_article:
+    path: /article/show/{slug}
+    defaults: { _controller: AppBundle:Article:showArticle }
+
+agp_list_articles:
+    path: /articles/list
+    defaults: { _controller: AppBundle:Article:listArticles }
+
+agp_new_article:
+    path: /article/new
+    defaults: { _controller: AppBundle:Article:newArticle }
+
+agp_edit_article:
+    path: /article/{id}/edit
+    defaults: { _controller: AppBundle:Article:editArticle }
+
+agp_list_users:
+    path: /users/list
+    defaults: { _controller: AppBundle:User:listUsers }
+
+agp_show_profile:
+    path: /profil
+    defaults: { _controller: AppBundle:User:showProfile }
+
+agp_edit_profile:
+    path: /profil/edit
+    defaults: { _controller: AppBundle:User:editProfile }
+
+agp_show_user:
+    path: /user/{id}
+    defaults: { _controller: AppBundle:User:showUser }
+
+agp_edit_user:
+    path: /user/{id}/edit
+    defaults: { _controller: AppBundle:User:editUser }
+
+agp_edit_user_image:
+    path: /{id}/editUserImage
+    defaults: { _controller: AppBundle:User:editUserImage }
+
+agp_deactivate_user:
+    path: /user/{id}/deactivate
+    defaults: { _controller: AppBundle:User:deactivateUser }
+
+agp_activate_user:
+    path: /user/{id}/activate
+    defaults: { _controller: AppBundle:User:activateUser }
+
+agp_new_children:
+    path: /user/{parentId}/children/new
+    defaults: { _controller: AppBundle:User:newChildren }
+
+agp_new_dossier:
+    path: /profil/dossier/new
+    defaults: { _controller: AppBundle:Dossier:newDossier }
+
+agp_show_dossier:
+    path: /user/{id}/dossier/{dossierId}/show
+    defaults: { _controller: AppBundle:Dossier:showDossier }
+
+agp_edit_dossier:
+    path: /user/{id}/dossier/{dossierId}/edit
+    defaults: { _controller: AppBundle:Dossier:editDossier }
+
+agp_list_dossiers:
+    path: /dossiers/list
+    defaults: { _controller: AppBundle:Dossier:listDossiers }
+
+agp_deactivate_dossier:
+    path: /user/{id}/dossier/{dossierId}/deactivate
+    defaults: { _controller: AppBundle:Dossier:deactivateDossier }
+
+agp_activate_dossier:
+    path: /user/{id}/dossier/{dossierId}/activate
+    defaults: { _controller: AppBundle:Dossier:activateDossier }
+
+agp_new_training_ref:
+    path: /training-ref/new
+    defaults: { _controller: AppBundle:Training:newTrainingType }
+
+agp_new_training:
+    path: /training/new
+    defaults: { _controller: AppBundle:Training:newTraining }
+
+agp_list_trainings:
+    path: /trainings/list
+    defaults: { _controller: AppBundle:Training:listTrainings }
+
+agp_edit_training:
+    path: /training/{id}/edit
+    defaults: { _controller: AppBundle:Training:editTraining }
+
+agp_trombinoscope:
+    path: /trombinoscope
+    defaults: { _controller: AppBundle:App:trombinoscope }
+
+agp_calculate_age:
+    path: /calculate-age
+    defaults: { _controller: AppBundle:Dossier:calculateAge }

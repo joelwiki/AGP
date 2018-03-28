@@ -1,0 +1,58 @@
+<div class="modal fade modal-article" id="cropp-image" tabindex="-1" role="dialog" aria-labelledby="cropp-image" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-article" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="cropp-image-title">Redimensionnez l'image d'en-tête</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div id="article-image-preview"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Fermer</button>
+                <button type="button" class="btn btn-success save-result" data-dismiss="modal">Valider</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Main content -->
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-md-9">
+            <div class="box box-primary box-padding">
+                <div>
+                    <h2 class="page-header"><i class="fa fa-pencil margin-r-15" aria-hidden="true"></i>Nouvel article</h2>
+                </div>
+                {{ form_start(form) }}
+
+                {{ form_row(form.title) }}
+                {{ form_row(form.content) }}
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="box box-primary box-padding">
+                <div>
+                    <h4 class="small-page-header">Publier</h4>
+                </div>
+                {{ form_widget(form.submit) }}
+            </div>
+            <div class="box box-primary box-padding">
+                <div class="add-article-image">
+                    <div>
+                        <h4 class="small-page-header">Image d'en-tête</h4>
+                    </div>
+                    <div class="add-article-image-preview-container">
+                        <img id="add-article-image-preview" class="img-responsive"/>
+                    </div>
+                    <input type="hidden" name="base64File[image]" id="base64File_image" required/>
+                    <input type="file" class="custom-file-input" data-toggle="modal" data-target="#cropp-image" id="article_image_file" required>
+                </div>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+</section>
+<!-- /.content -->

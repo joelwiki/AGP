@@ -1,0 +1,322 @@
+{% extends('@App/Admin/views/layout.html.twig') %}
+
+{% block content %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            {% if user.id == app.user.id %}
+                Mon profil
+                <small>Aperçu de mon profil</small>
+            {% else %}
+                Profil de {{ user.firstName }} {{ user.lastName }}
+                <small>Aperçu du profil</small>
+            {% endif %}
+        </h1>
+    </section>
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="row">
+            <div class="col-md-3">
+
+                <!-- Profile Image -->
+                <div class="box box-primary">
+                    <div class="box-body box-profile">
+                        {% if user.image.id is not defined %}
+                            <img src="{{ asset('/img/no-user.png') }}" class="profile-user-img img-responsive img-circle"/>
+                        {% else %}
+                            <img class="profile-user-img img-responsive img-circle" src="{{ asset('/uploads/user/') }}user-{{ user.id }}.{{ user.image.extension }}" alt="User profile picture">
+                        {% endif %}
+
+
+                        <h3 class="profile-username text-center">{{ user.firstName }} {{ user.lastName }}</h3>
+
+                        <a href="mailto:{{ user.email }}" class="btn btn-primary btn-block"><b class="white">Contacter</b></a>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+
+                <!-- About Me Box -->
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">A propos</h3>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body">
+                        <strong><i class="fa fa-tasks margin-r-5"></i> Complétion du dossier</strong>
+
+                        <p class="text-muted">
+                            {% if user.dossier is empty %}
+                                Dossier non créé
+                            {% elseif user.dossier.enabled == 0 %}
+                                Dossier en attente de validation
+                            {% elseif user.dossier.enabled == 1 %}
+                                Dossier validé
+                            {% endif %}
+                        </p>
+
+                        <hr>
+
+                        <strong><img src="/img/training-black.png" class="training-icon"></i> Catégorie</strong>
+
+                        <p class="text-muted">12-14 ans</p>
+
+                        <hr>
+
+                        <strong><i class="fa fa-calendar margin-r-5"></i> Membre depuis</strong>
+
+                        <p class="text-muted">{{ user.dateRegister|date('d') }} {{ user.dateRegister|date('F') | trans }} {{ user.dateRegister|date('Y') }}</p>
+
+                        <hr>
+
+                        <strong><i class="fa fa-file-text-o margin-r-5"></i> Enfants associés</strong>
+
+                        <p class="text-muted">
+                            {% if user.children is not empty %}
+                                {% for child in children %}
+                                    <div>
+                                        <a target="_blank" href="{{ path('agp_show_user', {'id' : child.id}) }}">{{ child.firstName }} {{ child.lastName }}</a>
+                                    </div>
+                                {% endfor %}
+                                {% else %}
+                                    Aucun enfant associé
+                            {% endif %}
+                        </p>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+                <!-- /.box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-9">
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#informations" data-toggle="tab">Informations</a></li>
+                        <li>
+                            <a href="#folder" data-toggle="tab">
+                                {% if app.user.id == user.id %}
+                                    Mon dossier
+                                    {% elseif is_granted('ROLE_ADMIN') %}
+                                        Dossier
+                                    {% elseif user.parent is not empty %}
+                                        {% if app.user.id == user.parent.id %}
+                                            Dossier
+                                        {% endif %}
+                                {% endif %}
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#children" data-toggle="tab">
+                                {% if app.user.id == user.id %}
+                                    Mes enfants
+                                    {% elseif is_granted('ROLE_ADMIN') and user.parent is empty %}
+                                        Enfants
+                                    {% else %}
+                                {% endif %}
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="active tab-pane" id="informations">
+                            <div class="profile-infos-block" id="infos">
+                                <div class="pre-block-title">
+                                    Informations
+                                </div>
+                                <div class="pre-block-separator" id="pre-block-infos"></div>
+                                <div class="profile-infos">
+                                    <div class="row">
+                                        <div class="col-md-2 col-sm-6 col-xs-6" id="profile-infos-label">
+                                            <div>Nom:</div>
+                                            <div>Prénom:</div>
+                                            <div>Lieu:</div>
+                                            <div>Date de naissance:</div>
+                                        </div>
+                                        <div class="col-md-10 col-sm-6 col-xs-6" id="profile-infos">
+                                            <div>{{ user.firstName }}</div>
+                                            <div>{{ user.lastName }}</div>
+                                            <div>
+                                                {% if user.city is empty %}
+                                                    {% if user.dossier.city is not defined %}
+                                                        -
+                                                    {% else %}
+                                                        {{ user.dossier.city }}
+                                                    {% endif %}
+                                                {% else %}
+                                                    {{ user.city }}
+                                                {% endif %}
+                                            </div>
+                                            <div>{{ user.birthdate|date('d/m/Y') }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="profile-infos-block" id="contact">
+                                <div class="pre-block-title">
+                                    Contact
+                                </div>
+                                <div class="pre-block-separator" id="pre-block-contact"></div>
+                                <div class="profile-infos">
+                                    <div class="row">
+                                        <div class="col-md-2 col-sm-6 col-xs-6" id="profile-infos-label">
+                                            <div>Téléphone:</div>
+                                            <div>Email:</div>
+                                        </div>
+                                        <div class="col-md-10 col-sm-6 col-xs-6" id="profile-infos">
+                                            <div>
+                                                {% if user.phone is empty %}
+                                                    {% if user.dossier.phone is not defined %}
+                                                            -
+                                                        {% else %}
+                                                            {{ user.dossier.phone }}
+                                                    {% endif %}
+                                                {% else %}
+                                                    {{ user.phone }}
+                                                {% endif %}
+                                            </div>
+                                            <div>{{ user.email }}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="folder">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="tab-content">
+                                        <div class="col-md-12">
+                                        {% if user.dossier is empty %}
+                                            {% if app.user.id == user.id %}
+                                                <div class="alert alert-warning">
+                                                    <h4><i class="fa fa-info-circle" aria-hidden="true"></i> Dossier d'inscription manquant !</h4>
+                                                    Vous n'avez pas encore créé de dossier.<br>
+                                                    <div class="create-dossier">
+                                                        <a href="{{ path('agp_new_dossier') }}"><b class="white">+ Créer un dossier</b></a>
+                                                    </div>
+                                                </div>
+                                            {% elseif is_granted('ROLE_ADMIN') %}
+                                                <div class="alert alert-warning">
+                                                    <h4><i class="fa fa-info-circle" aria-hidden="true"></i> Dossier d'inscription manquant !</h4>
+                                                    L'utilisateur n'a pas encore créé de dossier.
+                                                    <div class="create-dossier">
+                                                        <a href="{{ path('agp_new_dossier', {'userId' : user.id}) }}"><b class="white">+ Créer un dossier</b></a>
+                                                    </div>
+                                                </div>
+                                                {% elseif user.parent is not empty %}
+                                                    {% if app.user.id == user.parent.id %}
+                                                        <div class="alert alert-warning">
+                                                            <h4><i class="fa fa-info-circle" aria-hidden="true"></i> Dossier de l'enfant manquant !</h4>
+                                                            L'enfant associé n'a pas encore de dossier créé.
+                                                            <div class="create-dossier">
+                                                                <a href="{{ path('agp_new_dossier', {'userId' : user.id}) }}"><b class="white">+ Créer un dossier</b></a>
+                                                            </div>
+                                                        </div>
+                                                    {% endif %}
+                                            {% endif %}
+                                        {% else %}
+                                                <h4 class="box-title">Résumé du dossier</h4>
+                                                <div class="box-body">
+                                                    <div class="col-md-3 col-sm-7 col-xs-7" id="profile-infos-label">
+                                                        <div>Nom complet:</div>
+                                                        <div>Date de naissance:</div>
+                                                        <div>Ville:</div>
+                                                        <div>Numéro et nom de rue:</div>
+                                                        <div>Adresse email:</div>
+                                                        <div>Numéro de téléphone:</div>
+                                                        <hr>
+                                                        <div>Certificat médical:</div>
+                                                        <div>Nom du médecin:</div>
+                                                        <div>Numéro de téléphone du médecin:</div>
+                                                        <hr>
+                                                        <div>Attestation de responsabilité civile:</div>
+                                                    </div>
+                                                    <div class="col-md-9 col-sm-5 col-xs-5" id="profile-infos">
+                                                        <div>{{ user.dossier.firstName }} {{ user.dossier.lastName }}</div>
+                                                        <div>{{ user.dossier.birthdate|date('d/m/Y') }}</div>
+                                                        <div>{{ user.dossier.city }}</div>
+                                                        <div>{{ user.dossier.street }}</div>
+                                                        <div>{{ user.dossier.email }}</div>
+                                                        <div>{{ user.dossier.phone }}</div>
+                                                        <hr>
+                                                        <div>
+                                                            <a target="_blank" href="{{ asset('uploads/dossier/medical_certificate/certificat-' ~ user.dossier.uniqueId ~ '.' ~ user.dossier.medicalCertificate.image.extension ~ '') }}">
+                                                                <i class="fa fa-external-link margin-r-5" aria-hidden="true"></i> Voir le certificat
+                                                            </a>
+                                                        </div>
+                                                        <div>Docteur {{ user.dossier.medicalCertificate.doctorName }}</div>
+                                                        <div>{{ user.dossier.medicalCertificate.doctorPhone }}</div>
+                                                        <hr>
+                                                        <div>
+                                                            <a target="_blank" href="{{ asset('uploads/dossier/civil_certificate/attestation-' ~ user.dossier.uniqueId ~ '.' ~ user.dossier.civilLiabilityCertificate.extension ~ '') }}">
+                                                                <i class="fa fa-external-link margin-r-5" aria-hidden="true"></i> Voir l'attestation
+                                                            </a>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-12 col-sm-12 col-xs-12" id="dossier-summary-buttons">
+                                                        <hr>
+                                                        <a href="{{ path('agp_show_dossier', {'id' : user.id, 'dossierId' : user.dossier.id}) }}">
+                                                            <button class="btn btn-primary"><b class="white">Voir</b></button>
+                                                        </a>
+                                                        <a href="{{ path('agp_edit_dossier', {'id' : user.id, 'dossierId' : user.dossier.id}) }}">
+                                                            <button class="btn">Modifier</button>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                                <!-- /.box-body -->
+                                        {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.tab-pane -->
+                        <div class="tab-pane" id="children">
+                            <div class="container-fluid">
+                                <div class="row">
+                                    <div class="tab-content">
+                                        <div class="col-md-12">
+                                            {% if user.children is not empty %}
+                                                {% for child in children %}
+                                                    <div>
+                                                        <h4>Mes enfants</h4>
+                                                        <ul>
+                                                            <li>
+                                                                <a target="_blank" href="{{ path('agp_show_user', {'id' : child.id}) }}">{{ child.firstName }} {{ child.lastName }}</a>
+                                                            </li>
+                                                        </ul>
+                                                    </div>
+                                                {% endfor %}
+                                                <div class="create-children">
+                                                    <a href="{{ path('agp_new_children', {'parentId' : user.id}) }}">
+                                                        <button class="btn btn-primary"><b class="white">Ajouter un enfant</b></button>
+                                                    </a>
+                                                </div>
+                                            {% else %}
+                                                <div class="alert alert-info alert-dismissible">
+                                                    <h4><i class="fa fa-info-circle" aria-hidden="true"></i> Aucun enfant associé !</h4>
+                                                    Vous n'avez aucun enfant associé à votre compte.
+                                                    <div class="create-children">
+                                                        <a href="{{ path('agp_new_children', {'parentId' : user.id}) }}">
+                                                            <b class="white">+ Ajouter un enfant</b>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!-- /.tab-pane -->
+                    </div>
+                    <!-- /.tab-content -->
+                </div>
+                <!-- /.nav-tabs-custom -->
+            </div>
+            <!-- /.col -->
+        </div>
+        <!-- /.row -->
+    </section>
+    <!-- /.content -->
+{% endblock %}

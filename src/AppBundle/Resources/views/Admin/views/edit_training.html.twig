@@ -1,0 +1,49 @@
+{% extends "@App/Admin/views/layout.html.twig" %}
+
+{% block content %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Entraînement
+            <small>Modifier un entraînement</small>
+        </h1>
+    </section>
+
+    {{ include('@App/Admin/views/template_training.html.twig') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <!-- Datepicker -->
+    <script>
+        $('.datepicker').datepicker({
+            format: "dd/mm/yyyy",
+            language: "fr",
+            changeMonth: true,
+            changeYear: true
+        })
+    </script>
+
+    <!-- Google Maps -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBK84QHE-QGhrHs6dWDyf6Ip4K-Q3D0ij0&callback=initMap&libraries=places"></script>
+    <script type="text/javascript" src="{{ asset('js/training-map.js') }}"></script>
+
+    <!-- Change inputs state -->
+    <script>
+        $(function() {
+            $('input#training_places').prop('disabled', true);
+
+            $('input#training_limitedPlaces').change(function()
+            {
+                if ($(this).is(':checked')) {
+                    $('input#training_places').prop('disabled', false);
+                    $('input#training_places').prop('required', true);
+                } else {
+                    $('input#training_places').prop('disabled', true);
+                    $('input#training_places').prop('required', false);
+                };
+            });
+        });
+    </script>
+{% endblock %}
