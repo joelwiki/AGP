@@ -168,10 +168,10 @@ class UserController extends Controller {
      * @param User $user
      * @return JsonResponse
      */
-    public function editUserImageAction(Request $request, User $user){
+    public function editUserImageAction(Request $request, User $user) {
         $em = $this->getDoctrine()->getManager();
 
-        if($data = $request->request->get('image')) {
+        if ($data = $request->request->get('image')) {
             $user->getImage() ? $image = $user->getImage() : $image = new UserImage();
 
             list($type, $data) = explode(';', $data);

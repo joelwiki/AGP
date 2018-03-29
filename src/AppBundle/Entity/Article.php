@@ -37,7 +37,7 @@ class Article {
     private $title;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="text")
      * @Assert\NotBlank()
      */
     private $content;
@@ -63,7 +63,6 @@ class Article {
 
     /**
      * @ORM\Column(type="string")
-     * @Assert\NotBlank()
      */
     private $slug;
 

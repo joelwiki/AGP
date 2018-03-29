@@ -10,6 +10,10 @@ b, strong, label {
     color: #545454;
 }
 
+a:hover, a:focus {
+    text-decoration: none !important;
+}
+
 .white {
     color: #FFFFFF;
 }
@@ -67,7 +71,7 @@ img.menu-icon {
     filter: grayscale(100%) contrast(50%);
 }
 
-.treeview:hover img.menu-icon {
+.treeview:hover img.menu-icon, .treeview.menu-open img.menu-icon {
     -webkit-filter: grayscale(100%) contrast(100%);
     -moz-filter: grayscale(100%) contrast(100%);
     -o-filter: grayscale(100%) contrast(100%);

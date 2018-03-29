@@ -42,11 +42,65 @@
                 <div class="box box-primary box-padding">
                     {{ form_start(form) }}
                     {{ form(form) }}
+                    <div class="add-article-image">
+                        <div>
+                            <h4 class="small-page-header">Image d'en-tête</h4>
+                        </div>
+                        <div class="add-article-image-preview-container">
+                            <img id="add-article-image-preview" class="img-responsive"/>
+                        </div>
+                        <input type="hidden" name="base64File[image]" id="base64File_image" required/>
+                        <input type="file" class="custom-file-input" data-toggle="modal" data-target="#cropp-image" id="article_image_file" required>
+                    </div>
                     {{ form_end(form) }}
                 </div>
             </div>
         </div>
-
     </section>
     <!-- /.content -->
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        // Initialize image cropper
+        var $uploadCrop = $('#article-image-preview').croppie({
+            viewport: {
+                width: 300,
+                height: 300,
+                type: 'square'
+            },
+            boundary: {
+                width: 400,
+                height: 400
+            },
+            enableOrientation: true,
+            enableExif: true
+        });
+
+        $('#article_image_file').on('change', function() {
+            var reader = new FileReader();
+            reader.onload = function (e) {
+                $uploadCrop.croppie('bind', {
+                    url: e.target.result
+                })
+            };
+            reader.readAsDataURL(this.files[0]);
+        });
+
+        $('.save-result').on('click', function (ev) {
+            $uploadCrop.croppie('result', {
+                type: 'canvas',
+                size: 'viewport'
+            }).then(function (resp) {
+
+                $.ajax({
+                    url: "{{ path('agp_edit_user_image', {'id' : user.id }) }}",
+                    type: "POST",
+                    data: {"image":resp},
+                });
+            });
+        });
+    </script>
 {% endblock %}

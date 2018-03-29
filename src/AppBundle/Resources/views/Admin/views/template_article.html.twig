@@ -34,10 +34,17 @@
         </div>
         <div class="col-md-3">
             <div class="box box-primary box-padding">
-                <div>
-                    <h4 class="small-page-header">Publier</h4>
-                </div>
-                {{ form_widget(form.submit) }}
+                {% if article.id is defined %}
+                    <div>
+                        <h4 class="small-page-header">Modifier</h4>
+                    </div>
+                    {{ form_widget(form.submit, {'label' : 'Modifier l\'article'}) }}
+                {% else %}
+                    <div>
+                        <h4 class="small-page-header">Publier</h4>
+                    </div>
+                    {{ form_widget(form.submit, {'label' : 'Publier l\'article'}) }}
+                {% endif %}
             </div>
             <div class="box box-primary box-padding">
                 <div class="add-article-image">

@@ -14,6 +14,7 @@ use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use AppBundle\Entity\Article;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -68,7 +69,7 @@ class ArticleController extends Controller {
             $em->persist($article);
             $em->flush();
 
-            return $this->redirectToRoute('agp_index');
+            return $this->redirectToRoute('agp_list_articles');
         }
 
         return $this->render('@App/Admin/views/new_article.html.twig', array(
@@ -94,7 +95,7 @@ class ArticleController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $articles = $em->getRepository('AppBundle:Article')->findAll();
 
-        return $this->render('@App/Admin/views/list_articles.twig', array(
+        return $this->render('@App/Admin/views/list_articles.html.twig', array(
             'articles' => $articles
         ));
     }
@@ -125,5 +126,40 @@ class ArticleController extends Controller {
             'article' => $article,
             'form' => $form->createView()
         ));
+    }
+
+    /**
+     * @param Request $request
+     * @param Article $article
+     * @return JsonResponse
+     */
+    public function editArticleImageAction(Request $request, Article $article) {
+        $em = $this->getDoctrine()->getManager();
+
+        if ($data = $request->request->get('image')) {
+            $article->getImage() ? $image = $article->getImage() : $image = new ArticleImage();
+
+            list($type, $data) = explode(';', $data);
+            list(, $data)      = explode(',', $data);
+            $data = str_replace('data:image/png;base64,', '', $data);
+            $data = str_replace(' ', '+', $data);
+
+            $data = base64_decode($data);
+
+            $imageName = 'article-' . $article->getUniqueId() . '.png';
+
+            file_put_contents('uploads/article/' . $imageName, $data);
+
+            $file = new UploadedFile('uploads/article/' . $imageName, $imageName, 'image/png');
+
+            $image->setArticle($article);
+            $article->setImage($image);
+            $image->setFile($file);
+
+            $em->flush();
+
+            return new JsonResponse("Image changed", 200);
+        }
+        return new JsonResponse("Image not changed", 500);
     }
 }

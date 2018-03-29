@@ -17,13 +17,13 @@
 
     <!-- CKEditor -->
     <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
-    <!-- Croppie -->
     <script>
         CKEDITOR.replace( 'article_content', {
             language: 'fr',
             height: 450
         });
     </script>
+    <!-- Croppie -->
     <script type="text/javascript">
         // Initialize image cropper
         var $uploadCrop = $('#article-image-preview').croppie({
@@ -55,10 +55,12 @@
                 type: 'canvas',
                 size: 'viewport'
             }).then(function (resp) {
-                $("#add-article-image-preview").attr('src', resp);
-                var temp = resp;
 
-                document.getElementById('base64File_image').value = temp;
+                $.ajax({
+                    url: "{{ path('agp_edit_article_image', {'id' : article.id }) }}",
+                    type: "POST",
+                    data: {"image":resp},
+                });
             });
         });
     </script>

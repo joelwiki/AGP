@@ -1,0 +1,35 @@
+<!-- Main content -->
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary box-padding">
+                <div>
+                    <h2 class="page-header">
+                        <i class="fa fa-calendar margin-r-15" aria-hidden="true"></i>
+                        {% if initiation.id is defined %}
+                            Modifier l'initiation
+                        {% else %}
+                            Nouvelle initiation
+                        {% endif %}
+                    </h2>
+                </div>
+                {{ form_start(form) }}
+
+                {{ form_row(form.title) }}
+                {{ form_row(form.content) }}
+
+                <hr>
+
+                <div class="text-center">
+                    {% if initiation.id is defined %}
+                        {{ form_widget(form.submit, {'label' : 'Modifier l\'initiation'}) }}
+                    {% else %}
+                        {{ form_widget(form.submit, {'label' : 'Ajouter l\'initiation'}) }}
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </div>
+</section>
+<!-- /.content -->

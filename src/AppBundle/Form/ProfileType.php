@@ -9,6 +9,7 @@
 namespace AppBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
@@ -65,14 +66,11 @@ class ProfileType extends AbstractType {
                 ],
                 'error_bubbling' => true
             ))
-            ->add('image', ProfileImageType::class, array(
-                'required' => false,
-                'label' => 'Image',
+            ->add('submit', SubmitType::class, array(
+                'label' => 'Créer',
                 'attr' => [
-                    'class' => 'edit-profile-avatar-input',
-                    'placeholder' => 'Image',
-                ],
-                'error_bubbling' => true
+                    'class' => 'btn btn-primary bold',
+                ]
             ))
         ;
     }

@@ -1,0 +1,26 @@
+{% extends "@App/Admin/views/layout.html.twig" %}
+
+{% block content %}
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <h1>
+            Initiation
+            <small>Modifier une initiation</small>
+        </h1>
+    </section>
+
+    {{ include('@App/Admin/views/template_initiation.html.twig') }}
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <!-- CKEditor -->
+    <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
+    <script>
+        CKEDITOR.replace( 'initiation_content', {
+            language: 'fr',
+            height: 450,
+        });
+    </script>
+{% endblock %}

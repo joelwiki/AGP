@@ -4,7 +4,14 @@
         <div class="col-md-12">
             <div class="box box-primary box-padding">
                 <div>
-                    <h2 class="page-header"><img src="{{ asset('img/training-black.png') }}" class="training-icon margin-r-10">Nouvel entraînement</h2>
+                    <h2 class="page-header">
+                        <img src="{{ asset('img/training-black.png') }}" class="training-icon margin-r-10">
+                        {% if training.id is defined %}
+                            Modifier l'entraînement
+                        {% else %}
+                            Nouvel entraînement
+                        {% endif %}
+                    </h2>
                 </div>
                 {{ form_start(form) }}
                 <div class="row">

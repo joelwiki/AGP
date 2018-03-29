@@ -1,11 +1,5 @@
 {% extends "@App/Admin/views/layout.html.twig" %}
 
-{% block stylesheets %}
-    {{ parent() }}
-
-    <link rel="stylesheet" href="{{ asset('plugins/timepicker/bootstrap-timepicker.min.css') }}"/>
-{% endblock %}
-
 {% block content %}
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -79,7 +73,6 @@
     {{ parent() }}
 
     <!-- TimePicker -->
-    <script src="{{ asset('js/bootstrap/bootstrap-timepicker.min.js') }}"></script>
     <script>
         $(function () {
             $('.timepicker').timepicker({
