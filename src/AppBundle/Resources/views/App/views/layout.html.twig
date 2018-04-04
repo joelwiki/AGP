@@ -1,6 +1,86 @@
 {% extends '@App/App/base.html.twig' %}
 
 {% block body %}
-    Layout
+    <nav class="navbar navbar-fixed-top main-navbar">
+        <div class="main-navbar-container">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#agp-collapse" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">AGP - Parkour Grenoble</a>
+                </div>
+
+                <div class="collapse navbar-collapse" id="agp-collapse">
+                    <ul class="nav navbar-nav">
+
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="active"><a href="#">Accueil</a></li>
+                        <li><a href="#">News</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">AGP <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Bureau et conseil d’administration</a></li>
+                                <li><a href="#">Encadrants</a></li>
+                                <li><a href="#">Entraînements</a></li>
+                                <li><a href="#">Prestations et Réalisations</a></li>
+                                <li><a href="#">Ressources</a></li>
+                            </ul>
+                        </li>
+                        <li><a href="#">Inscriptions</a></li>
+                        <li><a href="#">Forum</a></li>
+                        <li><a href="#">La Fédération – FPK</a></li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">A propos <span class="caret"></span></a>
+                            <ul class="dropdown-menu">
+                                <li><a href="#">Informations</a></li>
+                                <li><a href="#">Partenaires</a></li>
+                                <li><a href="#">Contact</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div><!-- /.navbar-collapse -->
+            </div><!-- /.container-fluid -->
+        </div>
+    </nav>
     {% block content %}{% endblock %}
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="footer-links">
+                        <div class="col-md-3">
+                            <a href="#">
+                                A propos
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="#">
+                                Contact
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="#">
+                                Informations
+                            </a>
+                        </div>
+                        <div class="col-md-3">
+                            <a href="#">
+                                Conditions d'utilisation
+                            </a>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="copyright text-center">
+                        <div>Parkour Grenoble - AGP</div>
+                        <div>© 2006 - {{ "now"|date("Y") }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
 {% endblock %}

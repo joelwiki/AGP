@@ -48,7 +48,7 @@ class TrainingRefType extends AbstractType {
                     'class' => 'form-control select2 small-input'
                 ],
                 'choices' => array(
-                    'Masculin' => 'Masculin',
+                    'Mixte' => 'Mixte',
                     'Féminin' => 'Féminin'
                 ),
                 'error_bubbling' => true

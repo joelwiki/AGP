@@ -31,6 +31,10 @@ agp_trombinoscope:
     path: /trombinoscope
     defaults: { _controller: AppBundle:App:trombinoscope }
 
+agp_chartre:
+    path: /chartre
+    defaults: { _controller: AppBundle:App:chartre }
+
 ## Article ##
 agp_show_article:
     path: /article/show/{slug}

@@ -179,13 +179,15 @@ class DossierType extends AbstractType {
                     'class' => 'form-control',
                 ],
                 'choices' => [
-                    'Parent' => 'Parent',
-                    'Frère/Soeur' => 'Frère/Soeur',
-                    'Grand-parent' => 'Grand-parent',
-                    'Oncle/Tante' => 'Oncle/Tante',
-                    'Cousin/Cousine' => 'Cousine/Cousine',
-                    'Tuteur légal' => 'Tuteur légal',
-                    'Ami' => 'Ami'
+                    'Père' => 'Pere',
+                    'Mère' => 'Mere',
+                    'Grand-père' => 'Grand-pere',
+                    'Grand-mère' => 'Grand-mère',
+                    'Frère' => 'Frere',
+                    'Soeur' => 'Soeur',
+                    'Conjoint' => 'Conjoint',
+                    'Conjointe' => 'Conjointe',
+                    'Autre' => 'Autre'
                 ],
                 'error_bubbling' => true
             ))

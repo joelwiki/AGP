@@ -6,10 +6,24 @@
     <title>{% block title %}AGP{% endblock %}</title>
 
     {% block stylesheets %}
+        <!-- Main style -->
+        <link rel="stylesheet" href="{{ asset('css/style.css') }}">
+        <!-- Bootstrap 3.3.7 -->
+        <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap.min.css') }}">
+        <!-- Font Awesome -->
+        <link rel="stylesheet" href="{{ asset('fonts/font-awesome/css/font-awesome.min.css') }}">
+        <!-- Roboto font -->
+        <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Raleway:400,500,600,700" rel="stylesheet">
     {% endblock %}
 </head>
 <body>
 {% block body %}{% endblock %}
-{% block javascript %}{% endblock %}
+{% block javascripts %}
+    <!-- jQuery 3 -->
+    <script src="{{ asset('js/jquery/jquery.min.js') }}"></script>
+    <!-- Bootstrap 3.3.7 -->
+    <script src="{{ asset('js/bootstrap/bootstrap.min.js') }}"></script>
+{% endblock %}
 </body>
 </html>
