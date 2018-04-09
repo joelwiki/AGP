@@ -425,7 +425,7 @@ span.beta {
     background: url(/img/header3.jpg) center;
     background-size: cover;
     background-attachment: fixed, fixed, fixed;
-    min-height: 900px;
+    min-height: 100vh;
     padding: 30em 0 0 0;
     position: relative;
     z-index: 1;
@@ -456,10 +456,11 @@ ul.header-action {
 ul.header-action:after {
     background: #ffffff;
     content: '';
-    height: 200px;
+    height: 500px;
     position: absolute;
     top: 100%;
     width: 2px;
+    z-index: 1;
 }
 
 .header-action li {
@@ -500,6 +501,8 @@ ul.header-action:after {
 section.index-one {
     padding: 120px 0;
     line-height: 2.5em;
+    z-index: 2;
+    position: relative;
 }
 
 section.index-two {

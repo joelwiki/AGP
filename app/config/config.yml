@@ -80,6 +80,8 @@ fos_user:
      profile:
         form:
             type: AppBundle\Form\ProfileType
+     group:
+            group_class: AppBundle\Entity\Group
      registration:
         form:
             type: AppBundle\Form\RegistrationType

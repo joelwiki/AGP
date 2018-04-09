@@ -181,7 +181,9 @@
                         {% if is_granted('ROLE_AIDE_ENCADRANT') %}
                             <li><a href="{{ path('agp_trombinoscope') }}"><i class="fa fa-user-circle-o"></i> <span>Trombinoscope</span></a></li>
                         {% endif %}
-                        <li class="header">APPLICATION</li>
+                        {% if is_granted('ROLE_MEMBRE_CA') %}
+                            <li class="header">APPLICATION</li>
+                        {% endif %}
                         {% if is_granted('ROLE_ADMIN') %}
                             <li><a href="http://google.fr"><i class="fa fa-file"></i> <span>Pages</span></a></li>
                         {% endif %}

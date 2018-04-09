@@ -180,4 +180,28 @@ class TrainingRef {
     public function setCategoryEnd($categoryEnd) {
         $this->categoryEnd = $categoryEnd;
     }
+
+    /**
+     * Add training
+     *
+     * @param Training $training
+     *
+     * @return TrainingRef
+     */
+    public function addTraining(Training $training)
+    {
+        $this->trainings[] = $training;
+
+        return $this;
+    }
+
+    /**
+     * Remove training
+     *
+     * @param Training $training
+     */
+    public function removeTraining(Training $training)
+    {
+        $this->trainings->removeElement($training);
+    }
 }

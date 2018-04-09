@@ -96,15 +96,17 @@ class UserController extends Controller {
 
         $user = $em->getRepository('AppBundle:User')->find($id);
 
-        /*if (false === $this->get('security.authorization_checker')->isGranted('ROLE_ADMIN')) {
-            throw new Exception('Erreur');
-        }*/
-
         $form = $this->createForm(ProfileType::class, $user);
 
         $form = $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $birthDate = $user->getBirthDate();
+            $today = new \DateTime('now');
+            $interval = $birthDate->diff($today);
+
+            $user->setAge($interval->y);
+
             $em->flush();
 
             return $this->redirectToRoute('agp_dashboard');

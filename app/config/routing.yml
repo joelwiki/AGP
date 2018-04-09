@@ -18,6 +18,10 @@ agp_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profil
 
+agp_group:
+    resource: "@FOSUserBundle/Resources/config/routing/group.xml"
+    prefix: /group
+
 #### CUSTOM ROUTES ####
 agp_index:
     path: /

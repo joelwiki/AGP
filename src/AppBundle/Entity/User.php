@@ -50,6 +50,11 @@ class User extends BaseUser {
     private $birthDate;
 
     /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $age;
+
+    /**
      * @var \DateTime
      *
      * @ORM\Column(type="date")
@@ -83,6 +88,12 @@ class User extends BaseUser {
      * @ORM\OneToMany(targetEntity="AppBundle\Entity\User", mappedBy="parent")
      */
     private $children;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Group")
+     * @ORM\JoinColumn(name="group_id", referencedColumnName="id")
+     */
+    protected $group;
 
     public function __construct()
     {
@@ -282,5 +293,33 @@ class User extends BaseUser {
     public function getChildren()
     {
         return $this->children;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getGroup() {
+        return $this->group;
+    }
+
+    /**
+     * @param mixed $group
+     */
+    public function setGroup($group) {
+        $this->group = $group;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getAge() {
+        return $this->age;
+    }
+
+    /**
+     * @param mixed $age
+     */
+    public function setAge($age) {
+        $this->age = $age;
     }
 }
