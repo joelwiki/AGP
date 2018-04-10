@@ -8,7 +8,10 @@
 
 namespace AppBundle\Controller;
 
+use AppBundle\Form\GlobalParametersType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\RedirectResponse;
+use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class AppController extends Controller {
@@ -37,5 +40,31 @@ class AppController extends Controller {
      */
     public function chartreAction() {
         return $this->render('@App/App/views/chartre.html.twig');
+    }
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse|Response
+     */
+    public function globalParametersAction(Request $request) {
+        $em = $this->getDoctrine()->getManager();
+
+        $global = $em->getRepository('AppBundle:GlobalParameters')->find(1);
+
+        $form = $this->createForm(GlobalParametersType::class, $global);
+
+        $form = $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            $em->flush();
+
+            return $this->redirectToRoute('agp_dashboard');
+        }
+
+        return $this->render('@App/Admin/views/global_parameters.html.twig', array(
+            'global' => $global,
+            'form' => $form->createView()
+        ));
     }
 }

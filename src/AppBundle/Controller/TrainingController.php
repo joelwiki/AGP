@@ -108,7 +108,7 @@ class TrainingController extends Controller {
             /** @var TrainingLocationImage $trainingLocationImage */
             $trainingLocationImage = $training->getTrainingLocation()->getImage();
 
-            if ($trainingLocationImage->getFIle()) {
+            if ($trainingLocationImage->getFile()) {
                 $trainingLocationImage->upload();
                 $fileName = 'training-' . $training->getUniqueId() . '.' . $trainingLocationImage->getExtension();
                 $trainingLocationImage->getFile()->move($trainingLocationImage->getUploadDir(), $fileName);

@@ -39,6 +39,10 @@ agp_chartre:
     path: /chartre
     defaults: { _controller: AppBundle:App:chartre }
 
+agp_global_parameters:
+    path: /params
+    defaults: { _controller: AppBundle:App:globalParameters }
+
 ## Article ##
 agp_show_article:
     path: /article/show/{slug}
