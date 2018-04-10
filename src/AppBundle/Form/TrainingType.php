@@ -10,6 +10,7 @@ namespace AppBundle\Form;
 
 
 use AppBundle\Entity\Training;
+use AppBundle\Entity\TrainingLocation;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
@@ -40,6 +41,17 @@ class TrainingType extends AbstractType {
                     },
                     'required' => true,
                 ))
+            ->add('trainingLocation', EntityType::class, array(
+                'class' => TrainingLocation::class,
+                'label' => 'Lieu d\'entraînement',
+                'attr' => [
+                    'class' => 'form-control select2 medium-input'
+                ],
+                'choice_label' => function ($trainingLocation) {
+                    return $trainingLocation->getLocation();
+                },
+                'required' => true,
+            ))
             ->add('date', TextType::class, array(
                 'required' => true,
                 'label' => 'Date',
@@ -49,7 +61,7 @@ class TrainingType extends AbstractType {
                 ]
             ))
             ->add('location', TextType::class, array(
-                'required' => true,
+                'required' => false,
                 'label' => 'Lieu',
                 'attr' => [
                     'class' => 'form-control',
@@ -57,7 +69,7 @@ class TrainingType extends AbstractType {
                 ]
             ))
             ->add('lat', TextType::class, array(
-                'required' => true,
+                'required' => false,
                 'label' => 'Latitude',
                 'attr' => [
                     'class' => 'form-control',
@@ -65,7 +77,7 @@ class TrainingType extends AbstractType {
                 ]
             ))
             ->add('lng', TextType::class, array(
-                'required' => true,
+                'required' => false,
                 'label' => 'Longitude',
                 'attr' => [
                     'class' => 'form-control',
@@ -78,10 +90,6 @@ class TrainingType extends AbstractType {
                 'attr' => [
                     'class' => 'form-control medium-input'
                 ]
-            ))
-            ->add('image', TrainingImageType::class, array(
-                'label' => 'Image du lieu',
-                'data' => $training->getImage()
             ))
             ->add('limitedPlaces', CheckboxType::class, array(
                 'required' => false,

@@ -14,10 +14,10 @@ use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="agp_training_image")
+ * @ORM\Table(name="agp_training_location_image")
  * @ORM\HasLifecycleCallbacks
  */
-class TrainingImage {
+class TrainingLocationImage {
     /**
      * @ORM\Column(name="id", type="integer")
      * @ORM\Id
@@ -48,8 +48,8 @@ class TrainingImage {
     private $tempFilename;
 
     /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\Training", inversedBy="image")
-     * @ORM\JoinColumn(name="training_id", referencedColumnName="id", onDelete="CASCADE")
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\TrainingLocation", inversedBy="image")
+     * @ORM\JoinColumn(name="training_location_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $training;
 
@@ -82,7 +82,7 @@ class TrainingImage {
 
         if ($this->tempFilename != $this->alt) {
 
-            $oldFile = "{$this->getUploadRootDir()}/training-{$this->getTraining()->getUniqueId()}.{$this->extension}";
+            $oldFile = "{$this->getUploadRootDir()}/training-{$this->getTraining()->getId()}.{$this->extension}";
 
             if (file_exists($oldFile)) {
                 unlink($oldFile);

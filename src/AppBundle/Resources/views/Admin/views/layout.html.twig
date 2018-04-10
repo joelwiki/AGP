@@ -162,6 +162,9 @@
                                     {% if is_granted('ROLE_MEMBRE_CA') %}
                                         <li><a href="{{ path('agp_new_training_ref') }}">Ajouter un créneau</a></li>
                                     {% endif %}
+                                    {% if is_granted('ROLE_MEMBRE_CA') %}
+                                        <li><a href="{{ path('agp_new_training_location') }}">Ajouter un lieu</a></li>
+                                    {% endif %}
                                 </ul>
                             </li>
                         {% endif %}

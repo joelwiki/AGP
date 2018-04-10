@@ -11,7 +11,10 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Training;
 use AppBundle\Entity\TrainingImage;
+use AppBundle\Entity\TrainingLocation;
+use AppBundle\Entity\TrainingLocationImage;
 use AppBundle\Entity\TrainingRef;
+use AppBundle\Form\TrainingLocationType;
 use AppBundle\Form\TrainingRefType;
 use AppBundle\Form\TrainingType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
@@ -59,10 +62,6 @@ class TrainingController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $training = new Training();
-        $trainingImage = new TrainingImage();
-
-        $trainingImage->setTraining($training);
-        $training->setImage($trainingImage);
 
         $form = $this->createForm(TrainingType::class, $training);
 
@@ -75,14 +74,8 @@ class TrainingController extends Controller {
             $uniqueId = substr(md5(mt_rand()), 0, 7);
             $training->setUniqueId($uniqueId);
 
-            /** @var TrainingImage $trainingImage */
-            $trainingImage = $training->getImage();
-
             $em->persist($training);
             $em->flush();
-
-            $fileName = 'training-' . $training->getUniqueId() . '.' . $trainingImage->getExtension();
-            $trainingImage->getFile()->move($trainingImage->getUploadDir(), $fileName);
 
             return $this->redirectToRoute('agp_list_trainings');
         }
@@ -139,6 +132,44 @@ class TrainingController extends Controller {
 
         return $this->render('@App/Admin/views/list_trainings.html.twig', array(
             'trainings' => $trainings
+        ));
+    }
+
+    /**
+     * @param Request $request
+     * @return Response
+     * @Security("has_role('ROLE_ENCADRANT')")
+     */
+    public function newTrainingLocationAction(Request $request) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $trainingLocation = new TrainingLocation();
+        $trainingImage = new TrainingLocationImage();
+
+        $trainingImage->setTraining($trainingLocation);
+        $trainingLocation->setImage($trainingImage);
+
+        $form = $this->createForm(TrainingLocationType::class, $trainingLocation);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            /** @var TrainingLocationImage $trainingImage */
+            $trainingImage = $trainingLocation->getImage();
+
+            $em->persist($trainingLocation);
+            $em->flush();
+
+            $fileName = 'training-' . $trainingLocation->getId() . '.' . $trainingImage->getExtension();
+            $trainingImage->getFile()->move($trainingImage->getUploadDir(), $fileName);
+
+            return $this->redirectToRoute('agp_list_trainings');
+        }
+
+        return $this->render('@App/Admin/views/new_training_location.html.twig', array(
+            'form' => $form->createView()
         ));
     }
 }

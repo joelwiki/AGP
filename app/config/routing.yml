@@ -127,6 +127,10 @@ agp_new_training_ref:
     path: /training-ref/new
     defaults: { _controller: AppBundle:Training:newTrainingType }
 
+agp_new_training_location:
+    path: /training-location/new
+    defaults: { _controller: AppBundle:Training:newTrainingLocation }
+
 agp_new_training:
     path: /training/new
     defaults: { _controller: AppBundle:Training:newTraining }

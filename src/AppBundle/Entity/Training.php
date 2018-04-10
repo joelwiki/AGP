@@ -31,6 +31,12 @@ class Training {
     private $uniqueId;
 
     /**
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\TrainingLocation", inversedBy="trainings")
+     * @ORM\JoinColumn(name="training_location_id", referencedColumnName="id")
+     */
+    private $trainingLocation;
+
+    /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\TrainingRef", inversedBy="trainings")
      * @ORM\JoinColumn(name="training_type_id", referencedColumnName="id")
      */
@@ -43,20 +49,17 @@ class Training {
     private $date;
 
     /**
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank()
+     * @ORM\Column(type="string", nullable=true)
      */
     private $location;
 
     /**
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank()
+     * @ORM\Column(type="string", nullable=true)
      */
     private $lat;
 
     /**
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank()
+     * @ORM\Column(type="string", nullable=true)
      */
     private $lng;
 
@@ -64,12 +67,6 @@ class Training {
      * @ORM\Column(type="string", nullable=true)
      */
     private $info;
-
-    /**
-     * @ORM\OneToOne(targetEntity="AppBundle\Entity\TrainingImage", mappedBy="training", cascade={"all"})
-     * @Assert\Valid
-     */
-    private $image;
 
     /**
      * @ORM\ManyToOne(targetEntity="AppBundle\Entity\User")
@@ -141,20 +138,6 @@ class Training {
      */
     public function setInfo($info) {
         $this->info = $info;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getImage() {
-        return $this->image;
-    }
-
-    /**
-     * @param mixed $image
-     */
-    public function setImage($image) {
-        $this->image = $image;
     }
 
     /**
@@ -253,5 +236,19 @@ class Training {
      */
     public function setPlaces($places) {
         $this->places = $places;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getTrainingLocation() {
+        return $this->trainingLocation;
+    }
+
+    /**
+     * @param mixed $trainingLocation
+     */
+    public function setTrainingLocation($trainingLocation) {
+        $this->trainingLocation = $trainingLocation;
     }
 }

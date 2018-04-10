@@ -9,17 +9,17 @@
 namespace AppBundle\Form;
 
 
-use AppBundle\Entity\TrainingImage;
+use AppBundle\Entity\TrainingLocationImage;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class TrainingImageType extends AbstractType {
+class TrainingLocationImageType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
-        /** @var TrainingImage $trainingImage */
+        /** @var TrainingLocationImage $trainingImage */
         $trainingImage = $options['data'];
 
         $builder
@@ -34,7 +34,7 @@ class TrainingImageType extends AbstractType {
 
     public function configureOptions(OptionsResolver $resolver) {
         $resolver->setDefaults(array(
-            'data_class' => TrainingImage::class
+            'data_class' => TrainingLocationImage::class
         ));
     }
 }
