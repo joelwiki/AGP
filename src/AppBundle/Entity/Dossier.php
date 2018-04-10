@@ -611,5 +611,3 @@ class Dossier {
         $this->paymentType = $paymentType;
     }
 }
-
-

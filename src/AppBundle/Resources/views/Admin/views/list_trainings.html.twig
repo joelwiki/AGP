@@ -49,7 +49,13 @@
                             <td>{{ training.trainingType.weekDay }}</td>
                             <td>{{ training.date }} - {{ training.trainingType.hourStart|date('G') }}h à {{ training.trainingType.hourEnd|date('G') }}h</td>
                             <td>{{ training.trainingType.categoryStart }}-{{ training.trainingType.categoryEnd }} ans</td>
-                            <td>{{ training.location }}</td>
+                            <td>
+                                {% if training.location is not empty %}
+                                    {{ training.location }}
+                                {% else %}
+                                    {{ training.trainingLocation.location }}
+                                {% endif %}
+                            </td>
                             <td><a href="{{ path('agp_show_user', {'id' : training.encadrant.id}) }}">{{ training.encadrant }}</a></td>
                             {% if is_granted('ROLE_MEMBRE_CA') %}
                                 <td>

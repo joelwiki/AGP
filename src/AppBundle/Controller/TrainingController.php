@@ -62,6 +62,7 @@ class TrainingController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $training = new Training();
+        $trainingLocation = new TrainingLocation();
 
         $form = $this->createForm(TrainingType::class, $training);
 
@@ -70,6 +71,8 @@ class TrainingController extends Controller {
         if ($form->isSubmitted() && $form->isValid()) {
 
             $training->setEncadrant($this->getUser());
+
+            $trainingLocation->setTrainings($training);
 
             $uniqueId = substr(md5(mt_rand()), 0, 7);
             $training->setUniqueId($uniqueId);
@@ -102,13 +105,13 @@ class TrainingController extends Controller {
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            /** @var TrainingImage $trainingImage */
-            $trainingImage = $training->getImage();
+            /** @var TrainingLocationImage $trainingLocationImage */
+            $trainingLocationImage = $training->getTrainingLocation()->getImage();
 
-            if ($trainingImage->getFIle()) {
-                $trainingImage->upload();
-                $fileName = 'training-' . $training->getUniqueId() . '.' . $trainingImage->getExtension();
-                $trainingImage->getFile()->move($trainingImage->getUploadDir(), $fileName);
+            if ($trainingLocationImage->getFIle()) {
+                $trainingLocationImage->upload();
+                $fileName = 'training-' . $training->getUniqueId() . '.' . $trainingLocationImage->getExtension();
+                $trainingLocationImage->getFile()->move($trainingLocationImage->getUploadDir(), $fileName);
             }
 
             $em->flush();
