@@ -14,6 +14,13 @@
         <div class="box box-primary box-padding">
             <div class="row">
                 <div class="col-md-12">
+                    {% if is_granted('ROLE_MEMBRE_CA') %}
+                        {% if user.dossier.enabled == 0 %}
+                            <div>
+                                <a href="{{ path('agp_activate_dossier', {'id' : user.id, 'dossierId' : user.dossier.id}) }}" class="btn btn-success pull-right bold">Valider le dossier</a>
+                            </div>
+                        {% endif %}
+                    {% endif %}
                     <div>
                         <h2 class="page-header"><i class="fa fa-file-o margin-r-15" aria-hidden="true"></i>Dossier d'inscription à l'Association Grenobloise de Parkour</h2>
                     </div>
@@ -91,7 +98,7 @@
                                 <div class="col-md-8">
                                     <label>Date du dernier certificat</label>
                                     <div>
-                                        {{ user.dossier.medicalCertificate.date|date('d/m/Y') }}
+                                        {{ user.dossier.medicalCertificate.date }}
                                     </div>
 
                                     <label>Nom du médecin</label>

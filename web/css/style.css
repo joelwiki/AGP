@@ -792,6 +792,22 @@ footer.footer {
     color: #555;
 }
 
+.training-location-submit {
+    padding-top: 15px;
+}
+
+.pad-t-20 {
+    padding-top: 20px;
+}
+
+.mar-t-20 {
+    margin-top: 20px;
+}
+
+section.custom-settings span.select2-selection {
+    min-width: 150px;
+}
+
 /** FIREFOX **/
 @-moz-document url-prefix() {
     .box-location {

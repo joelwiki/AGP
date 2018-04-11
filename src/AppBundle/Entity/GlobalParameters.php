@@ -15,6 +15,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity
  * @ORM\Table(name="agp_global_parameters")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\GlobalParametersRepository")
  */
 class GlobalParameters {
     /**

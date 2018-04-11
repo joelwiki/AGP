@@ -39,6 +39,7 @@ twig:
     strict_variables: '%kernel.debug%'
     globals:
         app_role_service: '@app.role_service'
+        global_parameters: '@app.twig.database_globals_extension'
 
 # Doctrine Configuration
 doctrine:

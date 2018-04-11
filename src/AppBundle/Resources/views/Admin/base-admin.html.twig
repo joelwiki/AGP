@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{% block title %}AGP{% endblock %}</title>
+    <title>{% block title %}{{ global.siteName }}{% endblock %}</title>
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
 
     {% block stylesheets %}
@@ -96,8 +96,6 @@
     </script>
     <!-- Search Tables -->
     <script src="{{ asset('js/dist/search-table.js') }}"></script>
-    <!-- AdminLTE for demo purposes -->
-    <script src="{{ asset('js/dist/demo.js') }}"></script>
     <!-- Input masks -->
     <script src="{{ asset('js/input-mask/jquery.inputmask.js') }}"></script>
     <script src="{{ asset('js/input-mask/jquery.inputmask.date.extensions.js') }}"></script>

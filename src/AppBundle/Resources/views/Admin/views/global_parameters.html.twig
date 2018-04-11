@@ -9,6 +9,41 @@
         </h1>
     </section>
 
-    {{ form_start(form) }}
-    {{ form_end(form) }}
+    <!-- Main content -->
+    <section class="content container-fluid custom-settings">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary box-padding">
+                    <div>
+                        <h2 class="page-header"><i class="fa fa-cogs margin-r-15" aria-hidden="true"></i>Configuration</h2>
+                    </div>
+                    <div>
+                        {{ form_start(form) }}
+                        <div>
+                            {{ form_row(form.siteName) }}
+                        </div>
+                        <div>
+                            {{ form_label(form.themeColor) }}
+                            <div>
+                                {{ form_widget(form.themeColor) }}
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <h2 class="page-header pad-t-20"><i class="fa fa-cogs margin-r-15" aria-hidden="true"></i>Inscriptions</h2>
+                    </div>
+                    <div>
+                        <div>
+                            {{ form_row(form.membershipFee) }}
+                        </div>
+                    </div>
+                    <div>
+                        {{ form_row(form.submit) }}
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </section>
+    <!-- /.content -->
 {% endblock %}

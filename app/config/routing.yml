@@ -33,7 +33,7 @@ agp_dashboard:
 
 agp_trombinoscope:
     path: /trombinoscope
-    defaults: { _controller: AppBundle:App:trombinoscope }
+    defaults: { _controller: AppBundle:Admin:trombinoscope }
 
 agp_chartre:
     path: /chartre
@@ -41,7 +41,7 @@ agp_chartre:
 
 agp_global_parameters:
     path: /params
-    defaults: { _controller: AppBundle:App:globalParameters }
+    defaults: { _controller: AppBundle:Admin:globalParameters }
 
 ## Article ##
 agp_show_article:

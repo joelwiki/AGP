@@ -55,6 +55,12 @@ services:
         autowire: true
         autoconfigure: true
 
+    app.twig.database_globals_extension:
+         class: AppBundle\Twig\Extension\DatabaseGlobalsExtension
+         arguments: ["@doctrine.orm.entity_manager"]
+         tags:
+             - { name: twig.extension }
+
     AppBundle\DataFixtures\:
         resource: '../../src/AppBundle/DataFixtures'
         tags: ['doctrine.fixture.orm']
