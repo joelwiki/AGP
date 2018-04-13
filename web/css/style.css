@@ -422,7 +422,7 @@ span.beta {
 }
 
 .index-header {
-    background: url(/img/header3.jpg) center;
+    background: center;
     background-size: cover;
     background-attachment: fixed, fixed, fixed;
     min-height: 100vh;

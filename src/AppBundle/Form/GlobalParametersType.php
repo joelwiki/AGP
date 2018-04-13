@@ -76,6 +76,12 @@ class GlobalParametersType extends AbstractType {
                     'placeholder' => 'jj/mm/aaaa'
                 ]
             ))
+            ->add('headerImage', HeaderImageType::class, array(
+                'required' => true,
+                'label' => 'Image d\'en-tête',
+                'error_bubbling' => true,
+                'data' => $options['data']->getHeaderImage()
+            ))
             ->add('submit', SubmitType::class, array(
                 'label' => 'Valider les modifications',
                 'attr' => [

@@ -9,6 +9,7 @@
 namespace AppBundle\Controller;
 
 
+use AppBundle\Entity\HeaderImage;
 use AppBundle\Form\GlobalParametersType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
@@ -63,7 +64,19 @@ class AdminController extends Controller {
                 $global->setIsRegistrationOpen(false);
             }
 
+            /** @var HeaderImage $headerImage */
+            $headerImage = $global->getHeaderImage();
+
+            $global->setHeaderImage($headerImage);
+            $headerImage->setGlobal($global);
+
             $em->flush();
+
+            if ($headerImage->getFile()) {
+                $headerImage->upload();
+                $fileName = 'header-' . $global->getId() . '.' . 'png';
+                $headerImage->getFile()->move($headerImage->getUploadDir(), $fileName);
+            }
 
             return $this->redirectToRoute('agp_dashboard');
         }

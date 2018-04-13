@@ -59,6 +59,12 @@ class GlobalParameters {
      */
     private $isRegistrationOpen;
 
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\HeaderImage", mappedBy="global", cascade={"all"})
+     * @Assert\NotBlank()
+     */
+    private $headerImage;
+
     public function __construct() {
         $this->registrationDateStart = new \DateTime();
         $this->registrationDateEnd = new \DateTime();
@@ -160,5 +166,19 @@ class GlobalParameters {
      */
     public function setIsRegistrationOpen($isRegistrationOpen) {
         $this->isRegistrationOpen = $isRegistrationOpen;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHeaderImage() {
+        return $this->headerImage;
+    }
+
+    /**
+     * @param mixed $headerImage
+     */
+    public function setHeaderImage($headerImage) {
+        $this->headerImage = $headerImage;
     }
 }
