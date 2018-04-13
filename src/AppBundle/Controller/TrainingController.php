@@ -10,7 +10,6 @@ namespace AppBundle\Controller;
 
 
 use AppBundle\Entity\Training;
-use AppBundle\Entity\TrainingImage;
 use AppBundle\Entity\TrainingLocation;
 use AppBundle\Entity\TrainingLocationImage;
 use AppBundle\Entity\TrainingRef;

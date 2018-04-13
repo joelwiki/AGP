@@ -804,8 +804,20 @@ footer.footer {
     margin-top: 20px;
 }
 
+.mar-l-5 {
+    margin-left: 5px;
+}
+
+.mar-t-10 {
+    margin-top: 10px;
+}
+
 section.custom-settings span.select2-selection {
     min-width: 150px;
+}
+
+.inline-block {
+    display: inline-block;
 }
 
 /** FIREFOX **/

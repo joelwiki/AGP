@@ -60,6 +60,22 @@ class GlobalParametersType extends AbstractType {
                     'class' => 'form-control medium-input'
                 ]
             ))
+            ->add('registrationDateStart', TextType::class, array(
+                'required' => true,
+                'label' => 'Début des inscriptions',
+                'attr' => [
+                    'class' => 'form-control datepicker medium-input-addon',
+                    'placeholder' => 'jj/mm/aaaa'
+                ]
+            ))
+            ->add('registrationDateEnd', TextType::class, array(
+                'required' => true,
+                'label' => 'Fin des inscriptions',
+                'attr' => [
+                    'class' => 'form-control datepicker medium-input-addon',
+                    'placeholder' => 'jj/mm/aaaa'
+                ]
+            ))
             ->add('submit', SubmitType::class, array(
                 'label' => 'Valider les modifications',
                 'attr' => [

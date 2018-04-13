@@ -35,14 +35,14 @@ class GlobalParameters {
      *
      * @ORM\Column(type="date")
      */
-    private $globalRegistrationDateStart;
+    private $registrationDateStart;
 
     /**
      * @var \DateTime
      *
      * @ORM\Column(type="date")
      */
-    private $globalRegistrationDateEnd;
+    private $registrationDateEnd;
 
     /**
      * @ORM\Column(type="string")
@@ -53,6 +53,16 @@ class GlobalParameters {
      * @ORM\Column(type="string")
      */
     private $themeColor;
+
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $isRegistrationOpen;
+
+    public function __construct() {
+        $this->registrationDateStart = new \DateTime();
+        $this->registrationDateEnd = new \DateTime();
+    }
 
     /**
      * @return mixed
@@ -83,34 +93,6 @@ class GlobalParameters {
     }
 
     /**
-     * @return \DateTime
-     */
-    public function getGlobalRegistrationDateStart() {
-        return $this->globalRegistrationDateStart;
-    }
-
-    /**
-     * @param \DateTime $globalRegistrationDateStart
-     */
-    public function setGlobalRegistrationDateStart($globalRegistrationDateStart) {
-        $this->globalRegistrationDateStart = $globalRegistrationDateStart;
-    }
-
-    /**
-     * @return \DateTime
-     */
-    public function getGlobalRegistrationDateEnd() {
-        return $this->globalRegistrationDateEnd;
-    }
-
-    /**
-     * @param \DateTime $globalRegistrationDateEnd
-     */
-    public function setGlobalRegistrationDateEnd($globalRegistrationDateEnd) {
-        $this->globalRegistrationDateEnd = $globalRegistrationDateEnd;
-    }
-
-    /**
      * @return mixed
      */
     public function getSiteName() {
@@ -136,5 +118,47 @@ class GlobalParameters {
      */
     public function setThemeColor($themeColor) {
         $this->themeColor = $themeColor;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getRegistrationDateStart() {
+        return $this->registrationDateStart;
+    }
+
+    /**
+     * @param \DateTime $registrationDateStart
+     */
+    public function setRegistrationDateStart($registrationDateStart) {
+        $this->registrationDateStart = $registrationDateStart;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getRegistrationDateEnd() {
+        return $this->registrationDateEnd;
+    }
+
+    /**
+     * @param \DateTime $registrationDateEnd
+     */
+    public function setRegistrationDateEnd($registrationDateEnd) {
+        $this->registrationDateEnd = $registrationDateEnd;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getisRegistrationOpen() {
+        return $this->isRegistrationOpen;
+    }
+
+    /**
+     * @param mixed $isRegistrationOpen
+     */
+    public function setIsRegistrationOpen($isRegistrationOpen) {
+        $this->isRegistrationOpen = $isRegistrationOpen;
     }
 }

@@ -30,10 +30,18 @@
                         </div>
                     </div>
                     <div>
-                        <h2 class="page-header pad-t-20"><i class="fa fa-cogs margin-r-15" aria-hidden="true"></i>Inscriptions</h2>
+                        <h2 class="page-header pad-t-20"><i class="fa fa-book margin-r-15" aria-hidden="true"></i>Inscriptions</h2>
                     </div>
                     <div>
-                        <div>
+                        <div class="inline-block">
+                            {{ form_label(form.registrationDateStart) }}
+                            {{ form_widget(form.registrationDateStart, {'value' : global.registrationDateStart|date('d/m/Y')}) }}
+                        </div>
+                        <div class="inline-block mar-l-5">
+                            {{ form_label(form.registrationDateEnd) }}
+                            {{ form_widget(form.registrationDateEnd, {'value' : global.registrationDateEnd|date('d/m/Y')}) }}
+                        </div>
+                        <div class="mar-t-10">
                             {{ form_row(form.membershipFee) }}
                         </div>
                     </div>
@@ -46,4 +54,18 @@
         </div>
     </section>
     <!-- /.content -->
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <!-- Datepicker -->
+    <script>
+        $('.datepicker').datepicker({
+            format: "dd/mm/yyyy",
+            language: "fr",
+            changeMonth: true,
+            changeYear: true
+        })
+    </script>
 {% endblock %}

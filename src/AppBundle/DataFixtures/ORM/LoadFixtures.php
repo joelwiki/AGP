@@ -61,8 +61,8 @@ class LoadFixtures extends Fixture {
     private function loadGlobalParameters(ObjectManager $manager) {
         $global = new GlobalParameters();
         $global->setMembershipFee(150);
-        $global->setGlobalRegistrationDateStart(new \DateTime('2018-02-24'));
-        $global->setGlobalRegistrationDateEnd(new \DateTime('2018-03-24'));
+        $global->setRegistrationDateStart(new \DateTime('now'));
+        $global->setRegistrationDateEnd(new \DateTime('now'));
         $global->setSiteName('AGP - Parkour Grenoble');
         $global->setThemeColor('purple');
 
