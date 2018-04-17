@@ -269,6 +269,17 @@ class DossierType extends AbstractType {
                 'error_bubbling' => true,
                 'data' => $options['data']->getCivilLiabilityCertificate()
             ))
+            ->add('fpkNumber', TextType::class, array(
+                'required' => false,
+                'label' => 'N° d\'adhérent FPK',
+                'error_bubbling' => true,
+                'attr' => [
+                    'class' => 'form-control small-input pk-input',
+                    'placeholder' => 'PKxxxxxxx',
+                    'minlength' => 9,
+                    'maxlength' => 9
+                ]
+            ))
             ->add('submit', SubmitType::class, array(
                 'attr' => [
                     'class' => 'btn btn-primary bold'

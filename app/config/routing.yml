@@ -126,6 +126,10 @@ agp_activate_dossier:
     path: /user/{id}/dossier/{dossierId}/activate
     defaults: { _controller: AppBundle:Dossier:activateDossier }
 
+agp_activate_dossier_fpk:
+    path: /user/{id}/dossier/{dossierId}/activate-fpk
+    defaults: { _controller: AppBundle:Dossier:activateDossierFPK }
+
 ## Training ##
 agp_new_training_ref:
     path: /training-ref/new

@@ -258,6 +258,23 @@ class DossierController extends Controller {
     }
 
     /**
+     * Activate dossier FPK
+     *
+     * @param $dossierId
+     * @return RedirectResponse
+     * @Security("has_role('ROLE_MEMBRE_CA')")
+     */
+    public function activateDossierFPKAction($dossierId) {
+        $em = $this->getDoctrine()->getManager();
+        $dossier = $em->getRepository('AppBundle:Dossier')->find($dossierId);
+
+        $dossier->setEnabled(2);
+        $em->flush();
+
+        return $this->redirectToRoute('agp_list_dossiers');
+    }
+
+    /**
      * @param Request $request
      * @return JsonResponse
      */

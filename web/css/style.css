@@ -769,6 +769,10 @@ ul.dropdown-menu {
     margin-top: 0;
 }
 
+.p-pk-no-mr {
+    margin-bottom: 5px;
+}
+
 footer.footer {
     padding: 30px 0;
 }
@@ -818,6 +822,11 @@ section.custom-settings span.select2-selection {
 
 .inline-block {
     display: inline-block;
+}
+
+.pk-input {
+    height: 25px !important;
+    margin-bottom: 5px !important;
 }
 
 /** FIREFOX **/

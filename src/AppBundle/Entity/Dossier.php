@@ -31,7 +31,7 @@ class Dossier {
     private $uniqueId;
 
     /**
-     * @ORM\Column(type="boolean", nullable=true)
+     * @ORM\Column(type="integer", nullable=true)
      */
     protected $enabled;
 
@@ -190,6 +190,11 @@ class Dossier {
      * @Assert\NotBlank()
      */
     private $medicalCertificate;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $fpkNumber;
 
     /**
      * @return mixed
@@ -609,5 +614,19 @@ class Dossier {
      */
     public function setPaymentType($paymentType) {
         $this->paymentType = $paymentType;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFpkNumber() {
+        return $this->fpkNumber;
+    }
+
+    /**
+     * @param mixed $fpkNumber
+     */
+    public function setFpkNumber($fpkNumber) {
+        $this->fpkNumber = $fpkNumber;
     }
 }

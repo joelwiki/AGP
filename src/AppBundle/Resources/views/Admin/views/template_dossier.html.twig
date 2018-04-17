@@ -267,6 +267,13 @@
                 <div class="col-md-12"><hr></div>
                 <div class="col-md-12">
                     <div class="col-md-12 col-sm-12 col-xs-12">
+                        {{ form_label(form.fpkNumber) }}
+                        <p class="text-muted p-pk-no-mr">
+                            Si vous avez déjà été inscrit à la FPK, renseignez votre numéro d'adhérent :
+                        </p>
+                        <div class="input-group input-group-sm pk-input">
+                            {{ form_widget(form.fpkNumber) }}
+                        </div>
                         <div>
                             {{ form_label(form.imageRight) }}
                             <p class="text-muted">
