@@ -76,6 +76,14 @@ class GlobalParametersType extends AbstractType {
                     'placeholder' => 'jj/mm/aaaa'
                 ]
             ))
+            ->add('endOfYearDate', TextType::class, array(
+                'required' => true,
+                'label' => 'Date de fin d\'année',
+                'attr' => [
+                    'class' => 'form-control datepicker medium-input-addon small-input',
+                    'placeholder' => 'jj/mm/aaaa'
+                ]
+            ))
             ->add('headerImage', HeaderImageType::class, array(
                 'required' => true,
                 'label' => 'Image d\'en-tête',

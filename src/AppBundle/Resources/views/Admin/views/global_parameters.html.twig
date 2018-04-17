@@ -33,7 +33,7 @@
                         </div>
                     </div>
                     <div>
-                        <h2 class="page-header pad-t-20"><i class="fa fa-book margin-r-15" aria-hidden="true"></i>Inscriptions</h2>
+                        <h2 class="page-header pad-t-20"><i class="fa fa-book margin-r-15" aria-hidden="true"></i>Dates & Inscriptions</h2>
                     </div>
                     <div>
                         <div class="inline-block">
@@ -43,6 +43,10 @@
                         <div class="inline-block mar-l-5">
                             {{ form_label(form.registrationDateEnd) }}
                             {{ form_widget(form.registrationDateEnd, {'value' : global.registrationDateEnd|date('d/m/Y')}) }}
+                        </div>
+                        <div class="mar-t-10">
+                            {{ form_label(form.endOfYearDate) }}
+                            {{ form_widget(form.endOfYearDate, {'value' : global.endOfYearDate|date('d/m/Y')}) }}
                         </div>
                         <div class="mar-t-10">
                             {{ form_row(form.membershipFee) }}

@@ -56,6 +56,12 @@ class AdminController extends Controller {
 
             $global->setRegistrationDateEnd($dateRegistrationEnd);
 
+            /** Format endOfYearDate */
+            $endOfYearDate = explode('/', $global->getEndOfYearDate());
+            $endOfYearDate = new \DateTime($endOfYearDate[2]. '-' . $endOfYearDate[1] . '-' . $endOfYearDate[0]);
+
+            $global->setEndOfYearDate($endOfYearDate);
+
             $today = new \DateTime('now');
 
             if ($global->getRegistrationDateStart() < $today && $global->getRegistrationDateEnd() > $today) {

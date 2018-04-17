@@ -63,6 +63,7 @@ class LoadFixtures extends Fixture {
         $global->setMembershipFee(150);
         $global->setRegistrationDateStart(new \DateTime('now'));
         $global->setRegistrationDateEnd(new \DateTime('now'));
+        $global->setEndOfYearDate(new \DateTime('now'));
         $global->setSiteName('AGP - Parkour Grenoble');
         $global->setThemeColor('purple');
 

@@ -65,9 +65,17 @@ class GlobalParameters {
      */
     private $headerImage;
 
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="date")
+     */
+    private $endOfYearDate;
+
     public function __construct() {
         $this->registrationDateStart = new \DateTime();
         $this->registrationDateEnd = new \DateTime();
+        $this->endOfYearDate = new \DateTime();
     }
 
     /**
@@ -180,5 +188,19 @@ class GlobalParameters {
      */
     public function setHeaderImage($headerImage) {
         $this->headerImage = $headerImage;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getEndOfYearDate() {
+        return $this->endOfYearDate;
+    }
+
+    /**
+     * @param \DateTime $endOfYearDate
+     */
+    public function setEndOfYearDate($endOfYearDate) {
+        $this->endOfYearDate = $endOfYearDate;
     }
 }
