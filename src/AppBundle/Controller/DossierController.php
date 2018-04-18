@@ -14,7 +14,9 @@ use AppBundle\Entity\Dossier;
 use AppBundle\Entity\DossierImage;
 use AppBundle\Entity\MedicalCertificate;
 use AppBundle\Entity\MedicalCertificateImage;
+use AppBundle\Form\CivilCertificateType;
 use AppBundle\Form\DossierType;
+use AppBundle\Form\MedicalCertificateType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -24,11 +26,9 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class DossierController extends Controller {
-
     /**
      * @param Request $request
      * @return RedirectResponse|Response
-     * @Security("has_role('ROLE_USER')")
      */
     public function newDossierAction(Request $request) {
 
@@ -36,18 +36,6 @@ class DossierController extends Controller {
         $request->get('userId') ? $id = $request->get('userId') : $id = 0;
 
         $dossier = new Dossier();
-        $medicalCertificate = new MedicalCertificate();
-        $medicalCertificateImage = new MedicalCertificateImage();
-        $civilCertificate = new CivilCertificate();
-
-        $medicalCertificate->setImage($medicalCertificateImage);
-        $medicalCertificateImage->setMedicalCertificate($medicalCertificate);
-
-        $dossier->setMedicalCertificate($medicalCertificate);
-        $medicalCertificate->setDossier($dossier);
-
-        $civilCertificate->setDossier($dossier);
-        $dossier->setCivilLiabilityCertificate($civilCertificate);
 
         $form = $this->createForm(DossierType::class, $dossier);
 
@@ -85,16 +73,9 @@ class DossierController extends Controller {
                 $image->setFile($file);
             }
 
-            /** @var MedicalCertificateImage $medicalCertificateImage */
-            $medicalCertificateImage = $medicalCertificate->getImage();
-            $medicalCertificateImage->setSize($medicalCertificateImage->getFile()->getSize());
-
-            /** Set size of civil certificate */
-            $civilCertificate->setSize($civilCertificate->getFile()->getSize());
-
             /** Format birthDate */
             $birthDate = explode('/', $dossier->getBirthDate());
-            $birthDate = new \DateTime($birthDate[2]. '-' . $birthDate[1] . '-' . $birthDate[0]);
+            $birthDate = new \DateTime($birthDate[2] . '-' . $birthDate[1] . '-' . $birthDate[0]);
 
             $dossier->setBirthDate($birthDate);
 
@@ -102,28 +83,193 @@ class DossierController extends Controller {
             $phone = str_replace(' ', '', $dossier->getPhone());
             $contactPhone = str_replace(' ', '', $dossier->getEmergencyContactPhone());
             $contactTwoPhone = str_replace(' ', '', $dossier->getEmergencyContactTwoPhone());
-            $doctorPhone = str_replace(' ', '', $dossier->getMedicalCertificate()->getDoctorPhone());
 
             $dossier->setPhone($phone);
             $dossier->setEmergencyContactPhone($contactPhone);
             $dossier->setEmergencyContactTwoPhone($contactTwoPhone);
-            $dossier->getMedicalCertificate()->setDoctorPhone($doctorPhone);
-            
+
             $em->persist($dossier);
             $em->flush();
 
-            $fileName = 'certificat-' . $dossier->getUniqueId() . '.' . $medicalCertificateImage->getExtension();
-            $medicalCertificateImage->getFile()->move($medicalCertificateImage->getUploadDir(), $fileName);
-
-            $fileName = 'attestation-' . $dossier->getUniqueId() . '.' . $civilCertificate->getExtension();
-            $civilCertificate->getFile()->move($civilCertificate->getUploadDir(), $fileName);
-
-            return $this->redirectToRoute('agp_dashboard');
+            return $this->redirectToRoute('agp_edit_dossier', array(
+                'id' => $user->getId(),
+                'dossierId' => $dossier->getId()
+            ));
         }
 
         return $this->render('@App/Admin/views/new_dossier.html.twig', array(
             'form' => $form->createView(),
             'user' => $user
+        ));
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @param $dossierId
+     * @return RedirectResponse|Response
+     */
+    public function editDossierAction(Request $request, $id, $dossierId) {
+        $em = $this->getDoctrine()->getManager();
+
+        $user = $em->getRepository('AppBundle:User')->find($id);
+        $dossier = $em->getRepository('AppBundle:Dossier')->find($dossierId);
+
+        if (NULL == $medicalCertificate = $dossier->getMedicalCertificate()) {
+            $medicalCertificate = new MedicalCertificate();
+        }
+        if (NULL == $civilCertificate = $dossier->getCivilLiabilityCertificate()) {
+            $civilCertificate = new CivilCertificate();
+        }
+
+        $form = $this->createForm(DossierType::class, $dossier);
+        $formMedical = $this->createForm(MedicalCertificateType::class, $medicalCertificate);
+        $formCivil = $this->createForm(CivilCertificateType::class, $civilCertificate);
+
+        $form = $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            /** Format birthDate */
+            $birthDate = explode('/', $dossier->getBirthDate());
+            $birthDate = new \DateTime($birthDate[2] . '-' . $birthDate[1] . '-' . $birthDate[0]);
+
+            $dossier->setBirthDate($birthDate);
+
+            /** Format phone numbers */
+            $phone = str_replace(' ', '', $dossier->getPhone());
+            $contactPhone = str_replace(' ', '', $dossier->getEmergencyContactPhone());
+            $contactTwoPhone = str_replace(' ', '', $dossier->getEmergencyContactTwoPhone());
+
+            $dossier->setPhone($phone);
+            $dossier->setEmergencyContactPhone($contactPhone);
+            $dossier->setEmergencyContactTwoPhone($contactTwoPhone);
+
+            $em->flush();
+
+            return $this->redirectToRoute('agp_dashboard');
+        }
+
+        return $this->render('@App/Admin/views/edit_dossier.html.twig', array(
+            'user' => $user,
+            'dossier' => $dossier,
+            'form' => $form->createView(),
+            'formMedical' => $formMedical->createView(),
+            'formCivil' => $formCivil->createView()
+        ));
+    }
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws \Exception
+     */
+    public function editMedicalCertificateAction(Request $request) {
+
+        if (!$dossierId = $request->get('dossierId')) {
+            throw new \Exception('Dossier ID missing');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        $dossier = $em->getRepository('AppBundle:Dossier')->find($dossierId);
+
+        if (NULL == $medicalCertificate = $dossier->getMedicalCertificate()) {
+            $medicalCertificate = new MedicalCertificate();
+            $medicalCertificate->setDossier($dossier);
+        }
+
+        $form = $this->createForm(MedicalCertificateType::class, $medicalCertificate);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            if (NULL == $medicalCertificateImage = $medicalCertificate->getImage()) {
+                $medicalCertificateImage = new MedicalCertificateImage();
+            }
+
+            $medicalCertificate->setImage($medicalCertificateImage);
+            $medicalCertificateImage->setMedicalCertificate($medicalCertificate);
+
+            if ($medicalCertificateImage->getId()) {
+                $medicalCertificateImage->upload();
+            }
+
+            if ($medicalCertificateImage->getFile() != NULL) {
+                $fileName = 'certificat-' . $dossier->getUniqueId() . '.' . $medicalCertificateImage->getFile()->getClientOriginalExtension();
+                $medicalCertificateImage->getFile()->move($medicalCertificateImage->getUploadDir(), $fileName);
+                $medicalCertificateImage->setSize($medicalCertificateImage->getFile()->getClientSize());
+            }
+
+            if (!$medicalCertificateImage->getId()) {
+                $em->persist($medicalCertificateImage);
+            }
+
+            $medicalCertificate->setDoctorPhone(str_replace(' ', '', $medicalCertificate->getDoctorPhone()));
+
+            if (!$medicalCertificate->getId()) {
+                $em->persist($medicalCertificate);
+            }
+
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('agp_edit_dossier', array(
+            'id' => $dossier->getUser()->getId(),
+            'dossierId' => $dossier->getId(),
+            '_fragment' => 'tab_medicalCertificate'
+        ));
+    }
+
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     * @throws \Exception
+     */
+    public function editCivilCertificateAction(Request $request) {
+        if (!$dossierId = $request->get('dossierId')) {
+            throw new \Exception('Dossier ID missing');
+        }
+
+        $em = $this->getDoctrine()->getManager();
+
+        $dossier = $em->getRepository('AppBundle:Dossier')->find($dossierId);
+
+        if (NULL == $civilCertificate = $dossier->getCivilLiabilityCertificate()) {
+            $civilCertificate = new CivilCertificate();
+            $civilCertificate->setDossier($dossier);
+        }
+
+        $form = $this->createForm(CivilCertificateType::class, $civilCertificate);
+
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+
+            if ($civilCertificate->getId()) {
+                $civilCertificate->upload();
+            }
+
+            if ($civilCertificate->getFile() != NULL) {
+                $fileName = 'attestation-' . $dossier->getUniqueId() . '.' . $civilCertificate->getFile()->getClientOriginalExtension();
+                $civilCertificate->getFile()->move($civilCertificate->getUploadDir(), $fileName);
+                $civilCertificate->setSize($civilCertificate->getFile()->getClientSize());
+            }
+
+            if (!$civilCertificate->getId()) {
+                $em->persist($civilCertificate);
+            }
+
+            $em->persist($civilCertificate);
+
+            $em->flush();
+        }
+
+        return $this->redirectToRoute('agp_edit_dossier', array(
+            'id' => $dossier->getUser()->getId(),
+            'dossierId' => $dossier->getId(),
+            '_fragment' => 'tab_civilCertificate'
         ));
     }
 
@@ -141,72 +287,6 @@ class DossierController extends Controller {
         return $this->render('@App/Admin/views/show_dossier.html.twig', array(
             'user' => $user,
             'dossier' => $dossier
-        ));
-    }
-
-    /**
-     * @param Request $request
-     * @param $id
-     * @param $dossierId
-     * @return RedirectResponse|Response
-     */
-    public function editDossierAction(Request $request, $id, $dossierId) {
-        $em = $this->getDoctrine()->getManager();
-
-        $user = $em->getRepository('AppBundle:User')->find($id);
-        $dossier = $em->getRepository('AppBundle:Dossier')->find($dossierId);
-
-        $form = $this->createForm(DossierType::class, $dossier);
-
-        $form = $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            /** Format birthDate */
-            $birthDate = explode('/', $dossier->getBirthDate());
-            $birthDate = new \DateTime($birthDate[2]. '-' . $birthDate[1] . '-' . $birthDate[0]);
-
-            $dossier->setBirthDate($birthDate);
-
-            /** Format phone numbers */
-            $phone = str_replace(' ', '', $dossier->getPhone());
-            $contactPhone = str_replace(' ', '', $dossier->getEmergencyContactPhone());
-            $contactTwoPhone = str_replace(' ', '', $dossier->getEmergencyContactTwoPhone());
-            $doctorPhone = str_replace(' ', '', $dossier->getMedicalCertificate()->getDoctorPhone());
-
-
-            $dossier->setPhone($phone);
-            $dossier->setEmergencyContactPhone($contactPhone);
-            $dossier->setEmergencyContactTwoPhone($contactTwoPhone);
-            $dossier->getMedicalCertificate()->setDoctorPhone($doctorPhone);
-
-            /** @var MedicalCertificateImage $medicalCertificateImage */
-            $medicalCertificateImage = $dossier->getMedicalCertificate()->getImage();
-
-            if ($medicalCertificateImage->getFile()) {
-                $medicalCertificateImage->upload();
-                $fileName = 'certificat-' . $dossier->getUniqueId() . '.' . $medicalCertificateImage->getExtension();
-                $medicalCertificateImage->getFile()->move($medicalCertificateImage->getUploadDir(), $fileName);
-            }
-
-            /** @var CivilCertificate $civilCertificate */
-            $civilCertificate = $dossier->getCivilLiabilityCertificate();
-
-            if ($civilCertificate->getFile()) {
-                $civilCertificate->upload();
-                $fileName = 'attestation-' . $dossier->getUniqueId() . '.' . $civilCertificate->getExtension();
-                $civilCertificate->getFile()->move($civilCertificate->getUploadDir(), $fileName);
-            }
-
-            $em->flush();
-
-            return $this->redirectToRoute('agp_dashboard');
-        }
-
-        return $this->render('@App/Admin/views/edit_dossier.html.twig', array(
-            'user' => $user,
-            'dossier' => $dossier,
-            'form' => $form->createView()
         ));
     }
 
@@ -283,7 +363,7 @@ class DossierController extends Controller {
         if ($data = $request->request->get('date')) {
 
             $birthDate = explode('/', $data);
-            $birthDate = new \DateTime($birthDate[2]. '-' . $birthDate[1] . '-' . $birthDate[0]);
+            $birthDate = new \DateTime($birthDate[2] . '-' . $birthDate[1] . '-' . $birthDate[0]);
 
             $today = new \DateTime('now');
 

@@ -729,7 +729,7 @@ div#agp-collapse {
     color: #dadada;
 }
 
-ul.dropdown-menu {
+.main-navbar-container ul.dropdown-menu {
     background: #222a34;
 }
 
@@ -829,6 +829,31 @@ section.custom-settings span.select2-selection {
     margin-bottom: 5px !important;
 }
 
+
+.main-navbar-container .dropdown .dropdown-menu {
+    -webkit-transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
+    -moz-transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
+    -ms-transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
+    -o-transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
+    transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
+    max-height: 0;
+    display: block;
+    overflow: hidden;
+    opacity: 0;
+    visibility: hidden;
+}
+
+.main-navbar-container .dropdown.open .dropdown-menu {
+    -webkit-transition: max-height 0.7s, opacity 0.1s, visibility 0s;
+    -moz-transition: max-height 0.7s, opacity 0.1s, visibility 0s;
+    -ms-transition: max-height 0.7s, opacity 0.1s, visibility 0s;
+    -o-transition: max-height 0.7s, opacity 0.1s, visibility 0s;
+    transition: max-height 0.7s, opacity 0.1s, visibility 0s;
+    max-height: 250px;
+    opacity: 1;
+    visibility: visible;
+}
+
 /** FIREFOX **/
 @-moz-document url-prefix() {
     .box-location {
@@ -842,30 +867,6 @@ section.custom-settings span.select2-selection {
     section.index-two p {
         font-size: 14pt;
     }
-}
-
-.dropdown .dropdown-menu {
-    -webkit-transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
-    -moz-transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
-    -ms-transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
-    -o-transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
-    transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
-    max-height: 0;
-    display: block;
-    overflow: hidden;
-    opacity: 0;
-    visibility: hidden;
-}
-
-.dropdown.open .dropdown-menu {
-    -webkit-transition: max-height 0.7s, opacity 0.1s, visibility 0s;
-    -moz-transition: max-height 0.7s, opacity 0.1s, visibility 0s;
-    -ms-transition: max-height 0.7s, opacity 0.1s, visibility 0s;
-    -o-transition: max-height 0.7s, opacity 0.1s, visibility 0s;
-    transition: max-height 0.7s, opacity 0.1s, visibility 0s;
-    max-height: 250px;
-    opacity: 1;
-    visibility: visible;
 }
 
 /** MEDIA QUERIES **/

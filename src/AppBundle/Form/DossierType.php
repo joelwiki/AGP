@@ -257,18 +257,6 @@ class DossierType extends AbstractType {
                 'label' => 'Conditions d\'utilisation',
                 'error_bubbling' => true
             ))
-            ->add('medicalCertificate', MedicalCertificateType::class, array(
-                'required' => true,
-                'label' => 'Certificat médical',
-                'error_bubbling' => true,
-                'data' => $options['data']->getMedicalCertificate()
-            ))
-            ->add('civilLiabilityCertificate', CivilCertificateType::class, array(
-                'required' => true,
-                'label' => 'Attestation civile',
-                'error_bubbling' => true,
-                'data' => $options['data']->getCivilLiabilityCertificate()
-            ))
             ->add('fpkNumber', TextType::class, array(
                 'required' => false,
                 'label' => 'N° d\'adhérent FPK',

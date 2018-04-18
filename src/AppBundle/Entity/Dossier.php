@@ -182,13 +182,11 @@ class Dossier {
 
     /**
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\CivilCertificate", mappedBy="dossier", cascade={"all"})
-     * @Assert\NotBlank()
      */
     private $civilLiabilityCertificate;
 
     /**
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\MedicalCertificate", mappedBy="dossier", cascade={"all"})
-     * @Assert\NotBlank()
      */
     private $medicalCertificate;
 

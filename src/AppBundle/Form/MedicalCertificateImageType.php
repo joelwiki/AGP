@@ -19,13 +19,10 @@ class MedicalCertificateImageType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
 
-        /** @var MedicalCertificateImage $medicalCertificateImage */
-        $medicalCertificateImage = $options['data'];
-
         $builder
             ->add('file', FileType::class, array(
                 'label' => false,
-                'required' => $medicalCertificateImage->getMedicalCertificate() ? false : true,
+                'required' => false,
                 'attr' => [
                     'class' => 'custom-file-input'
                 ]

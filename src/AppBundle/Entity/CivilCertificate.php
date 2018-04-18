@@ -62,6 +62,7 @@ class CivilCertificate {
      * @ORM\PreUpdate()
      */
     public function preUpload() {
+
         // If there's not file, do nothing
         if (null === $this->file) {
             return;
@@ -71,7 +72,7 @@ class CivilCertificate {
         $this->alt = $this->file->getClientOriginalName();
 
         // Set file extension
-        $this->extension = $this->file->getClientOriginalExtension();
+        $this->extension = $this->file->guessClientExtension();
     }
 
     /**
@@ -84,17 +85,16 @@ class CivilCertificate {
             return;
         }
 
-        if ($this->tempFilename != $this->alt) {
+        // If tempFilename is null
+        if (null != $this->tempFilename) {
 
-            $oldFile = "{$this->getUploadRootDir()}/attestation-{$this->getDossier()->getUniqueId()}.{$this->extension}";
+            $extension = explode('.', $this->alt);
 
+            $oldFile = $this->getUploadRootDir().'/'.$this->id.'.' . $extension;
+
+            // Remove previous file
             if (file_exists($oldFile)) {
                 unlink($oldFile);
-                // Set alt to file name
-                $this->alt = $this->file->getClientOriginalName();
-                // Set file extension
-                $this->extension = $this->file->getClientOriginalExtension();
-                $this->tempFilename = $this->alt;
             }
         }
     }
@@ -104,7 +104,7 @@ class CivilCertificate {
      */
     public function preRemoveUpload() {
         // Temporary save the file name
-        $this->tempFilename = $this->getUploadRootDir().'/'.$this->id.'.'.$this->extension;
+        $this->tempFilename = $this->getUploadRootDir() . '/' . $this->id . '.' . $this->extension;
     }
 
     /**

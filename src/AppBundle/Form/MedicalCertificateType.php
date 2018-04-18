@@ -10,8 +10,8 @@ namespace AppBundle\Form;
 
 
 use AppBundle\Entity\MedicalCertificate;
-use AppBundle\Entity\MedicalCertificateImage;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -62,6 +62,12 @@ class MedicalCertificateType extends AbstractType {
                     'data-mask' => ""
                 ],
                 'error_bubbling' => true
+            ))
+            ->add('submit', SubmitType::class, array(
+                'label' => 'Envoyer',
+                'attr' => [
+                    'class' => 'btn btn-primary'
+                ]
             ))
         ;
     }

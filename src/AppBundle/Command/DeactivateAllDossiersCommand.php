@@ -25,8 +25,18 @@ class DeactivateAllDossiersCommand extends ContainerAwareCommand {
     }
 
     protected function execute(InputInterface $input, OutputInterface $output) {
-        foreach ($this->em->getRepository('AppBundle:Dossier')->findAllActivatedDossiers() as $dossier) {
-            $dossier->setEnabled(0);
+
+        $global = $this->em->getRepository('AppBundle:GlobalParameters')->find(1);
+
+        $today = new \DateTime('now');
+        $endOfYearDate = $global->getEndOfYearDate();
+
+        if ($today->format('d-m-Y') == $endOfYearDate->format('d-m-Y')) {
+            foreach ($this->em->getRepository('AppBundle:Dossier')->findAllActivatedDossiers() as $dossier) {
+                $dossier->setEnabled(0);
+            }
+        } else {
+            return true;
         }
 
         $this->em->flush();

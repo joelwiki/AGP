@@ -114,6 +114,14 @@ agp_edit_dossier:
     path: /user/{id}/dossier/{dossierId}/edit
     defaults: { _controller: AppBundle:Dossier:editDossier }
 
+agp_edit_medical_certificate:
+    path: /medical-certificate/create
+    defaults: { _controller: AppBundle:Dossier:editMedicalCertificate }
+
+agp_edit_civil_certificate:
+    path: /civil-certificate/create
+    defaults: { _controller: AppBundle:Dossier:editCivilCertificate }
+
 agp_list_dossiers:
     path: /dossiers/list
     defaults: { _controller: AppBundle:Dossier:listDossiers }
