@@ -85,16 +85,16 @@ class CivilCertificate {
             return;
         }
 
-        // If tempFilename is null
-        if (null != $this->tempFilename) {
+        // If thas file
+        if ($this->getFile()) {
 
-            $extension = explode('.', $this->alt);
-
-            $oldFile = $this->getUploadRootDir().'/'.$this->id.'.' . $extension;
+            $oldFiles = glob($this->getUploadDir() . '/attestation-' . $this->dossier->getUniqueId() . '.*');
 
             // Remove previous file
-            if (file_exists($oldFile)) {
-                unlink($oldFile);
+            if (file_exists($this->getFile())) {
+                foreach ($oldFiles as $oldFile) {
+                    unlink($oldFile);
+                }
             }
         }
     }

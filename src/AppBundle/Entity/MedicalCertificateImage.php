@@ -85,16 +85,16 @@ class MedicalCertificateImage {
             return;
         }
 
-        // If tempFilename is null
-        if (null != $this->tempFilename) {
+        // If has file
+        if ($this->getFile()) {
 
-            $extension = explode('.', $this->alt);
-
-            $oldFile = $this->getUploadRootDir().'/'.$this->id.'.' . $extension;
+            $oldFiles = glob($this->getUploadDir() . '/certificat-' . $this->medicalCertificate->getDossier()->getUniqueId() . '.*');
 
             // Remove previous file
-            if (file_exists($oldFile)) {
-                unlink($oldFile);
+            if (file_exists($this->getFile())) {
+                foreach ($oldFiles as $oldFile) {
+                    unlink($oldFile);
+                }
             }
         }
     }
