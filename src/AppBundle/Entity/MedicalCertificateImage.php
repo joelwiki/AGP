@@ -25,7 +25,7 @@ class MedicalCertificateImage {
     private $id;
 
     /**
-     * @ORM\Column(name="extension", type="string", length=255)
+     * @ORM\Column(name="extension", type="string", length=255, nullable=true)
      */
     private $extension;
 

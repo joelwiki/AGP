@@ -22,16 +22,15 @@ class CivilCertificateType extends AbstractType {
 
         $builder
             ->add('file', FileType::class, array(
-                'label' => false,
-                'required' => false,
+                'label' => 'Attestation',
+                'required' => true,
                 'attr' => [
                     'class' => 'custom-file-input'
                 ]
             ))
             ->add('submit', SubmitType::class, array(
-                'label' => 'Envoyer',
                 'attr' => [
-                    'class' => 'btn btn-primary'
+                    'class' => 'btn btn-primary bold'
                 ]
             ))
         ;

@@ -27,7 +27,7 @@ class DossierType extends AbstractType {
                 'required' => true,
                 'label' => 'Prénom',
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control medium-input',
                 ],
                 'error_bubbling' => true
             ))
@@ -35,7 +35,7 @@ class DossierType extends AbstractType {
                 'required' => true,
                 'label' => 'Nom',
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control medium-input',
                 ],
                 'error_bubbling' => true
             ))
@@ -43,7 +43,7 @@ class DossierType extends AbstractType {
                 'required' => true,
                 'label' => 'Date de naissance',
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control medium-input-addon',
                     'placeholder' => 'Ex. 03/05/1980',
                     'data-inputmask' => "'alias': 'dd/mm/yyyy'",
                     'data-mask' => ""
@@ -67,7 +67,7 @@ class DossierType extends AbstractType {
                 'label' => 'Taille de T-shirt',
                 'attr' => [
                     'placeholder' => 'Taille de T-shirt',
-                    'class' => 'form-control small-input'
+                    'class' => 'form-control medium-input'
                 ],
                 'choices' => array(
                     'XS' => 'XS',
@@ -262,7 +262,7 @@ class DossierType extends AbstractType {
                 'label' => 'N° d\'adhérent FPK',
                 'error_bubbling' => true,
                 'attr' => [
-                    'class' => 'form-control small-input pk-input',
+                    'class' => 'form-control small-input',
                     'placeholder' => 'PKxxxxxxx',
                     'minlength' => 9,
                     'maxlength' => 9
@@ -271,8 +271,7 @@ class DossierType extends AbstractType {
             ->add('submit', SubmitType::class, array(
                 'attr' => [
                     'class' => 'btn btn-primary bold'
-                ],
-                'label' => 'Créer le dossier'
+                ]
             ))
         ;
     }

@@ -147,7 +147,9 @@ class DossierController extends Controller {
 
             $em->flush();
 
-            return $this->redirectToRoute('agp_dashboard');
+            return $this->redirectToRoute('agp_edit_dossier', array(
+                '_fragment' => 'infos'
+            ));
         }
 
         return $this->render('@App/Admin/views/edit_dossier.html.twig', array(
@@ -218,7 +220,7 @@ class DossierController extends Controller {
         return $this->redirectToRoute('agp_edit_dossier', array(
             'id' => $dossier->getUser()->getId(),
             'dossierId' => $dossier->getId(),
-            '_fragment' => 'tab_medicalCertificate'
+            '_fragment' => 'documents'
         ));
     }
 
@@ -269,7 +271,7 @@ class DossierController extends Controller {
         return $this->redirectToRoute('agp_edit_dossier', array(
             'id' => $dossier->getUser()->getId(),
             'dossierId' => $dossier->getId(),
-            '_fragment' => 'tab_civilCertificate'
+            '_fragment' => 'documents'
         ));
     }
 

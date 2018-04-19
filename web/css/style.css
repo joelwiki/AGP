@@ -113,7 +113,7 @@ img.menu-icon {
 }
 
 .nav-tabs-custom>.tab-content {
-    padding: 20px 10px 10px 10px !important;
+    padding: 20px !important;
 }
 
 form label, .show-dossier label {
@@ -374,7 +374,13 @@ div.parentalAuthorization.no-display {
 }
 
 .parentalText {
-    height: 10px;
+    height: 30px;
+    max-width: 340px;
+    text-align: justify;
+}
+
+.align-medical {
+    padding: 0 0 114px 0;
 }
 
 .forgotten-password {
@@ -804,6 +810,10 @@ footer.footer {
     padding-top: 20px;
 }
 
+.pad-t-5 {
+    padding-top: 5px;
+}
+
 .mar-t-20 {
     margin-top: 20px;
 }
@@ -814,6 +824,10 @@ footer.footer {
 
 .mar-t-10 {
     margin-top: 10px;
+}
+
+.conditions-text {
+    max-width: 750px;
 }
 
 section.custom-settings span.select2-selection {

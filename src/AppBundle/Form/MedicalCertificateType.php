@@ -26,13 +26,13 @@ class MedicalCertificateType extends AbstractType {
 
         $builder
             ->add('image', MedicalCertificateImageType::class, array(
-                'required' => false,
+                'required' => true,
                 'label' => 'Certificat médical',
                 'data' => $medicalCertificate->getImage(),
                 'error_bubbling' => true
             ))
             ->add('doctorName', TextType::class, array(
-                'required' => false,
+                'required' => true,
                 'label' => 'Nom du médecin',
                 'attr' => [
                     'class' => 'form-control medium-input',
@@ -40,7 +40,7 @@ class MedicalCertificateType extends AbstractType {
                 'error_bubbling' => true
             ))
             ->add('doctorPhone', TelType::class, array(
-                'required' => false,
+                'required' => true,
                 'label' => 'Numéro du médecin',
                 'attr' => [
                     'class' => 'form-control',
@@ -53,7 +53,7 @@ class MedicalCertificateType extends AbstractType {
                 'error_bubbling' => true
             ))
             ->add('date', TextType::class, array(
-                'required' => false,
+                'required' => true,
                 'label' => 'Date du dernier certificat',
                 'attr' => [
                     'class' => 'form-control',
@@ -64,9 +64,8 @@ class MedicalCertificateType extends AbstractType {
                 'error_bubbling' => true
             ))
             ->add('submit', SubmitType::class, array(
-                'label' => 'Envoyer',
                 'attr' => [
-                    'class' => 'btn btn-primary'
+                    'class' => 'btn btn-primary bold'
                 ]
             ))
         ;

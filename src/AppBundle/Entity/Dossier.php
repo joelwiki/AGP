@@ -67,7 +67,6 @@ class Dossier {
 
     /**
      * @ORM\Column(type="string")
-     * @Assert\NotBlank()
      */
     private $shirtSize;
 
