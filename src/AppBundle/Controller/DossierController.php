@@ -148,6 +148,8 @@ class DossierController extends Controller {
             $em->flush();
 
             return $this->redirectToRoute('agp_edit_dossier', array(
+                'id' => $dossier->getUser()->getId(),
+                'dossierId' => $dossier->getId(),
                 '_fragment' => 'infos'
             ));
         }
