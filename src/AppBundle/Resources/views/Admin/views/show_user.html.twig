@@ -240,17 +240,37 @@
                                                         <div>{{ user.dossier.phone }}</div>
                                                         <hr>
                                                         <div>
-                                                            <a target="_blank" href="{{ asset('uploads/dossier/medical_certificate/certificat-' ~ user.dossier.uniqueId ~ '.' ~ user.dossier.medicalCertificate.image.extension ~ '') }}">
-                                                                <i class="fa fa-external-link margin-r-5" aria-hidden="true"></i> Voir le certificat
-                                                            </a>
+                                                            {% if user.dossier.medicalCertificate is not empty %}
+                                                                <a target="_blank" href="{{ asset('uploads/dossier/medical_certificate/certificat-' ~ user.dossier.uniqueId ~ '.' ~ user.dossier.medicalCertificate.image.extension ~ '') }}">
+                                                                    <i class="fa fa-external-link margin-r-5" aria-hidden="true"></i> Voir le certificat
+                                                                </a>
+                                                            {% else %}
+                                                                Aucun certificat
+                                                            {% endif %}
                                                         </div>
-                                                        <div>Docteur {{ user.dossier.medicalCertificate.doctorName }}</div>
-                                                        <div>{{ user.dossier.medicalCertificate.doctorPhone }}</div>
+                                                        <div>
+                                                            {% if user.dossier.medicalCertificate is not empty %}
+                                                                Docteur {{ user.dossier.medicalCertificate.doctorName }}
+                                                            {% else %}
+                                                                -
+                                                            {% endif %}
+                                                        </div>
+                                                        <div>
+                                                            {% if user.dossier.medicalCertificate is not empty %}
+                                                                {{ user.dossier.medicalCertificate.doctorPhone }}
+                                                            {% else %}
+                                                                -
+                                                            {% endif %}
+                                                        </div>
                                                         <hr>
                                                         <div>
-                                                            <a target="_blank" href="{{ asset('uploads/dossier/civil_certificate/attestation-' ~ user.dossier.uniqueId ~ '.' ~ user.dossier.civilLiabilityCertificate.extension ~ '') }}">
-                                                                <i class="fa fa-external-link margin-r-5" aria-hidden="true"></i> Voir l'attestation
-                                                            </a>
+                                                            {% if user.dossier.civilLiabilityCertificate is not empty %}
+                                                                <a target="_blank" href="{{ asset('uploads/dossier/civil_certificate/attestation-' ~ user.dossier.uniqueId ~ '.' ~ user.dossier.civilLiabilityCertificate.extension ~ '') }}">
+                                                                    <i class="fa fa-external-link margin-r-5" aria-hidden="true"></i> Voir l'attestation
+                                                                </a>
+                                                            {% else %}
+                                                                Aucune attestation
+                                                            {% endif %}
                                                         </div>
                                                     </div>
                                                     <div class="col-md-12 col-sm-12 col-xs-12" id="dossier-summary-buttons">

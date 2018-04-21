@@ -88,6 +88,8 @@ class DossierController extends Controller {
             $dossier->setEmergencyContactPhone($contactPhone);
             $dossier->setEmergencyContactTwoPhone($contactTwoPhone);
 
+            $dossier->setEnabled(0);
+
             $em->persist($dossier);
             $em->flush();
 
@@ -318,7 +320,24 @@ class DossierController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $dossier = $em->getRepository('AppBundle:Dossier')->find($dossierId);
 
-        $dossier->setEnabled(0);
+        $dossier->setEnabled(3);
+        $em->flush();
+
+        return $this->redirectToRoute('agp_list_dossiers');
+    }
+
+    /**
+     * Reject dossier
+     *
+     * @param $dossierId
+     * @return RedirectResponse
+     * @Security("has_role('ROLE_MEMBRE_CA')")
+     */
+    public function rejectDossierAction($dossierId) {
+        $em = $this->getDoctrine()->getManager();
+        $dossier = $em->getRepository('AppBundle:Dossier')->find($dossierId);
+
+        $dossier->setEnabled(2);
         $em->flush();
 
         return $this->redirectToRoute('agp_list_dossiers');
@@ -336,23 +355,6 @@ class DossierController extends Controller {
         $dossier = $em->getRepository('AppBundle:Dossier')->find($dossierId);
 
         $dossier->setEnabled(1);
-        $em->flush();
-
-        return $this->redirectToRoute('agp_list_dossiers');
-    }
-
-    /**
-     * Activate dossier FPK
-     *
-     * @param $dossierId
-     * @return RedirectResponse
-     * @Security("has_role('ROLE_MEMBRE_CA')")
-     */
-    public function activateDossierFPKAction($dossierId) {
-        $em = $this->getDoctrine()->getManager();
-        $dossier = $em->getRepository('AppBundle:Dossier')->find($dossierId);
-
-        $dossier->setEnabled(2);
         $em->flush();
 
         return $this->redirectToRoute('agp_list_dossiers');

@@ -43,7 +43,7 @@ class Dossier {
 
     /**
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\User", inversedBy="dossier")
-     * @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * @ORM\JoinColumn(name="user_id", referencedColumnName="id", onDelete="CASCADE")
      */
     private $user;
 

@@ -130,6 +130,10 @@ agp_deactivate_dossier:
     path: /user/{id}/dossier/{dossierId}/deactivate
     defaults: { _controller: AppBundle:Dossier:deactivateDossier }
 
+agp_reject_dossier:
+    path: /user/{id}/dossier/{dossierId}/reject
+    defaults: { _controller: AppBundle:Dossier:rejectDossier }
+
 agp_activate_dossier:
     path: /user/{id}/dossier/{dossierId}/activate
     defaults: { _controller: AppBundle:Dossier:activateDossier }

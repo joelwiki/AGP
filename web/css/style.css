@@ -383,6 +383,16 @@ div.parentalAuthorization.no-display {
     padding: 0 0 114px 0;
 }
 
+.btn-disabled {
+    background-color: #b3b4b5;
+    border-color: #b3b4b5 !important;
+    color: #FFFFFF;
+}
+
+.btn-disabled:hover {
+    color: #FFFFFF !important;
+}
+
 .forgotten-password {
     font-size: 10pt;
     float: right;

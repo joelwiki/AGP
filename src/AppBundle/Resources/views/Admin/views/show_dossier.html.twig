@@ -25,6 +25,7 @@
                         <h2 class="page-header"><i class="fa fa-file-o margin-r-15" aria-hidden="true"></i>Dossier d'inscription à l'Association Grenobloise de Parkour</h2>
                     </div>
                 </div>
+
                 <div class="col-md-12">
                     <div class="col-md-6">
                         <h3>Informations personnelles</h3>
@@ -37,7 +38,7 @@
                                         </div>
                                         <div>
                                             {% if dossier.image is defined %}
-                                            <img src="{{ asset('uploads/dossier/image/image-' ~ user.dossier.uniqueId ~ '.' ~ user.dossier.image.extension ~ '') }}" class="img-responsive"/>
+                                                <img src="{{ asset('uploads/dossier/image/image-' ~ user.dossier.uniqueId ~ '.' ~ user.dossier.image.extension ~ '') }}" class="img-responsive"/>
                                             {% else %}
                                                 <img src="{{ asset('img/no-user.png') }}" class="img-responsive"/>
                                             {% endif %}
@@ -68,66 +69,6 @@
                                 </div>
                             </div>
                         </div>
-
-                        <h3>Certificat médical</h3>
-                        <div class="box box-grey box-primary">
-                            <div class="row">
-                                <div class="col-md-4">
-                                    <label>Certificat médical</label>
-                                    <div>
-                                        <a target="_blank" href="{{ asset('uploads/dossier/medical_certificate/certificat-' ~ user.dossier.uniqueId ~ '.' ~ user.dossier.medicalCertificate.image.extension ~ '') }}">
-                                            <ul class="mailbox-attachments clearfix">
-                                                <li>
-                                                    <span class="mailbox-attachment-icon"><i class="fa fa-file-image-o"></i></span>
-
-                                                    <div class="mailbox-attachment-info">
-                                                        <a target="_blank" href="{{ asset('uploads/dossier/medical_certificate/certificat-' ~ user.dossier.uniqueId ~ '.' ~ user.dossier.medicalCertificate.image.extension ~ '') }}" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> {{ 'certificat-' ~ user.dossier.uniqueId ~ '.' ~ user.dossier.medicalCertificate.image.extension }}</a>
-                                                        <span class="mailbox-attachment-size">
-                                                    {% if user.dossier.medicalCertificate.image.size|length < 7 %}
-                                                        {{ user.dossier.medicalCertificate.image.size|slice(0, 3) }} KB
-                                                    {% else %}
-                                                        {{ user.dossier.medicalCertificate.image.size|slice(0, 1) }},{{ user.dossier.medicalCertificate.image.size|slice(1, 2) }} MB
-                                                    {% endif %}
-                                                </span>
-                                                    </div>
-                                                </li>
-                                            </ul>
-                                        </a>
-                                    </div>
-                                </div>
-                                <div class="col-md-8">
-                                    <label>Date du dernier certificat</label>
-                                    <div>
-                                        {{ user.dossier.medicalCertificate.date }}
-                                    </div>
-
-                                    <label>Nom du médecin</label>
-                                    <div>
-                                        {{ user.dossier.medicalCertificate.doctorName }}
-                                    </div>
-
-                                    <label>Numéro du médecin</label>
-                                    <div>
-                                        {{ user.dossier.medicalCertificate.doctorPhone }}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <h3>Cotisation</h3>
-                        <div class="box box-grey box-primary">
-                            <div>
-                                <label>Taille de T-shirt</label>
-                                <div>
-                                    {{ user.dossier.shirtSize }}
-                                </div>
-                            </div>
-                            <div>
-                                <label>Type de paiement</label>
-                                <div>
-                                    {{ user.dossier.paymentType }}
-                                </div>
-                            </div>
-                        </div>
                     </div>
                     <div class="col-md-6">
                         <h3>Localisation & Contact</h3>
@@ -146,7 +87,7 @@
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="row">
                                 <div class="col-md-4">
                                     <label>Ville</label>
@@ -191,55 +132,110 @@
                                 </div>
                             </div>
                             {% if user.dossier.emergencyContactTwoFirstName is not empty %}
-                            <div class="row">
-                                <div class="col-md-12"><hr></div>
-                                <div class="col-md-12 emergencyContactTwo">
-                                    <div class="box collapsed-box">
-                                        <div class="box-header">
-                                            <h4>Contact d'urgence #2</h4>
-                                            <div class="box-tools pull-right">
-                                                <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
-                                                </button>
+                                <div class="row">
+                                    <div class="col-md-12"><hr></div>
+                                    <div class="col-md-12 emergencyContactTwo">
+                                        <div class="box collapsed-box">
+                                            <div class="box-header">
+                                                <h4>Contact d'urgence #2</h4>
+                                                <div class="box-tools pull-right">
+                                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-plus"></i>
+                                                    </button>
+                                                </div>
+                                                <!-- /.box-tools -->
                                             </div>
-                                            <!-- /.box-tools -->
-                                        </div>
-                                        <!-- /.box-header -->
-                                        <div class="box-body" style="display: none;">
-                                            <div class="row">
-                                                <div class="col-md-6">
-                                                    <label>Nom du contact</label>
-                                                    <div>
-                                                        {{ user.dossier.emergencyContactTwoLastName }}
+                                            <!-- /.box-header -->
+                                            <div class="box-body" style="display: none;">
+                                                <div class="row">
+                                                    <div class="col-md-6">
+                                                        <label>Nom du contact</label>
+                                                        <div>
+                                                            {{ user.dossier.emergencyContactTwoLastName }}
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label>Prénom du contact</label>
-                                                    <div>
-                                                        {{ user.dossier.emergencyContactTwoFirstName }}
+                                                    <div class="col-md-6">
+                                                        <label>Prénom du contact</label>
+                                                        <div>
+                                                            {{ user.dossier.emergencyContactTwoFirstName }}
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label>Numéro du contact</label>
-                                                    <div>
-                                                        {{ user.dossier.emergencyContactTwoPhone }}
+                                                    <div class="col-md-6">
+                                                        <label>Numéro du contact</label>
+                                                        <div>
+                                                            {{ user.dossier.emergencyContactTwoPhone }}
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div class="col-md-6">
-                                                    <label>Relation</label>
-                                                    <div>
-                                                        {{ user.dossier.emergencyContactTwoRelation }}
+                                                    <div class="col-md-6">
+                                                        <label>Relation</label>
+                                                        <div>
+                                                            {{ user.dossier.emergencyContactTwoRelation }}
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
+                                            <!-- /.box-body -->
                                         </div>
-                                        <!-- /.box-body -->
+                                    </div>
+                                </div>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        {% if user.dossier.medicalCertificate is not empty %}
+                            <h3>Certificat médical</h3>
+                            <div class="box box-grey box-primary">
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <label>Certificat médical</label>
+                                        <div>
+                                            <a target="_blank" href="{{ asset('uploads/dossier/medical_certificate/certificat-' ~ user.dossier.uniqueId ~ '.' ~ user.dossier.medicalCertificate.image.extension ~ '') }}">
+                                                <ul class="mailbox-attachments clearfix">
+                                                    <li>
+                                                        <span class="mailbox-attachment-icon"><i class="fa fa-file-image-o"></i></span>
+
+                                                        <div class="mailbox-attachment-info">
+                                                            <a target="_blank" href="{{ asset('uploads/dossier/medical_certificate/certificat-' ~ user.dossier.uniqueId ~ '.' ~ user.dossier.medicalCertificate.image.extension ~ '') }}" class="mailbox-attachment-name"><i class="fa fa-paperclip"></i> {{ 'certificat-' ~ user.dossier.uniqueId ~ '.' ~ user.dossier.medicalCertificate.image.extension }}</a>
+                                                            <span class="mailbox-attachment-size">
+                                                        {% if user.dossier.medicalCertificate.image.size|length < 7 %}
+                                                            {{ user.dossier.medicalCertificate.image.size|slice(0, 3) }} KB
+                                                        {% else %}
+                                                            {{ user.dossier.medicalCertificate.image.size|slice(0, 1) }},{{ user.dossier.medicalCertificate.image.size|slice(1, 2) }} MB
+                                                        {% endif %}
+                                                    </span>
+                                                        </div>
+                                                    </li>
+                                                </ul>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-8">
+                                        <label>Date du dernier certificat</label>
+                                        <div>
+                                            {{ user.dossier.medicalCertificate.date }}
+                                        </div>
+
+                                        <label>Nom du médecin</label>
+                                        <div>
+                                            {{ user.dossier.medicalCertificate.doctorName }}
+                                        </div>
+
+                                        <label>Numéro du médecin</label>
+                                        <div>
+                                            {{ user.dossier.medicalCertificate.doctorPhone }}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            {% endif %}
-                        </div>
-                        <h3>Attestation de responsabilité civile</h3>
-                        <div class="box box-grey box-primary">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-6">
+                        {% if user.dossier.civilLiabilityCertificate is not empty %}
+                            <h3>Attestation de responsabilité civile</h3>
+                            <div class="box box-grey box-primary">
                             <label>Attestation</label>
                             <div>
                                 <a target="_blank" href="{{ asset('uploads/dossier/civil_certificate/attestation-' ~ user.dossier.uniqueId ~ '.' ~ user.dossier.civilLiabilityCertificate.extension ~ '') }}">
@@ -262,8 +258,31 @@
                                 </a>
                             </div>
                         </div>
+                        {% endif %}
                     </div>
                 </div>
+
+                <div class="col-md-12">
+                    <div class="col-md-6">
+                        <h3>Cotisation</h3>
+                        <div class="box box-grey box-primary">
+                            <div>
+                                <label>Taille de T-shirt</label>
+                                <div>
+                                    {{ user.dossier.shirtSize }}
+                                </div>
+                            </div>
+                            <div>
+                                <label>Type de paiement</label>
+                                <div>
+                                    {{ user.dossier.paymentType }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6"></div>
+                </div>
+
                 <div class="col-md-12"><hr></div>
                 <div class="col-md-12">
                     <div class="col-md-12 col-sm-12 col-xs-12">

@@ -30,16 +30,17 @@
             <div class="box-body table-responsive no-padding">
                 <table class="table table-striped list-table list-dossiers">
                     <thead>
-                    <tr>
-                        <th>ID unique</th>
-                        <th>Propriétaire</th>
-                        <th>Dossier</th>
-                        <th>Statut</th>
-                        {% if is_granted('ROLE_MEMBRE_CA') %}
-                        <th>Actions</th>
-                        {% endif %}
-                    </tr>
+                        <tr>
+                            <th>ID unique</th>
+                            <th>Propriétaire</th>
+                            <th>Dossier</th>
+                            <th>Statut</th>
+                            {% if is_granted('ROLE_MEMBRE_CA') %}
+                                <th>Actions</th>
+                            {% endif %}
+                        </tr>
                     </thead>
+
                     <tbody>
                     {% for key, dossier in dossiers %}
                         <tr>
@@ -47,34 +48,57 @@
                             <td>{{ dossier.user.firstName }} {{ dossier.user.lastName }}</td>
                             <td><a target="_blank" href="{{ path('agp_show_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}">Accéder au dossier</a></td>
                             <td>
-                                {% if dossier.enabled is null %}
-                                    <span class="btn btn-warning">En attente</span>
-                                    {% elseif dossier.enabled == 2 %}
-                                        <span class="btn btn-success">Validé FPK</span>
-                                    {% elseif dossier.enabled == 1 %}
-                                        <span class="btn btn-success">Validé</span>
-                                    {% elseif dossier.enabled == 0 %}
+                                {% if dossier.enabled == 0 %}
+                                    {% if dossier.medicalCertificate is null or dossier.civilLiabilityCertificate is null %}
                                         <span class="btn btn-danger">Incomplet</span>
+                                    {% else %}
+                                        <span class="btn btn-warning">En attente</span>
+                                    {% endif %}
+                                {% endif %}
+
+                                {% if dossier.enabled == 1 %}
+                                    {% if dossier.fpkNumber is not empty %}
+                                        <span class="btn btn-success">Validé FPK</span>
+                                    {% else %}
+                                        <span class="btn btn-success">Validé</span>
+                                    {% endif %}
+                                {% endif %}
+
+                                {% if dossier.enabled == 2 %}
+                                    <span class="btn btn-danger">Refusé</span>
+                                    {% if dossier.medicalCertificate is not empty and dossier.civilLiabilityCertificate is not empty %}
+                                        <span class="btn btn-warning">En attente</span>
+                                    {% endif %}
+                                {% endif %}
+
+                                {% if dossier.enabled == 3 %}
+                                    <span class="btn btn-disabled">Désactivé</span>
                                 {% endif %}
                             </td>
                             {% if is_granted('ROLE_MEMBRE_CA') %}
-                            <td>
-                                <a href="{{ path('agp_edit_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}" title="Editer le dossier">Editer</a> |
-                                {% if dossier.enabled is null %}
-                                    <a href="{{ path('agp_deactivate_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}" title="Refuser">Refuser</a> |
-                                    {% if dossier.enabled is null and dossier.fpkNumber is not null %}
-                                        <a href="{{ path('agp_activate_dossier_fpk', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}" title="Valider FPK">Valider et inscrit à la FPK</a>
+                                <td>
+                                    <a href="{{ path('agp_edit_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}" title="Editer le dossier">Editer</a>
+
+                                    {% if dossier.enabled == 0 %}
+                                        {% if dossier.medicalCertificate is empty or dossier.civilLiabilityCertificate is empty %}
                                         {% else %}
-                                            <a href="{{ path('agp_activate_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}" title="Valider">Valider</a>
+                                            | <a href="{{ path('agp_reject_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}" title="Refuser">Refuser</a>
+                                            | <a href="{{ path('agp_activate_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}" title="Valider">Valider</a>
+                                        {% endif %}
                                     {% endif %}
-                                    {% elseif dossier.enabled == 1 or dossier.enabled == 2 %}
-                                        <a href="{{ path('agp_deactivate_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}" title="Désactiver">Désactiver</a>
-                                    {% elseif dossier.enabled == 0 and dossier.fpkNumber is not null %}
-                                        <a href="{{ path('agp_activate_dossier_fpk', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}" title="Valider FPK">Valider et inscrit à la FPK</a>
-                                    {% else %}
-                                        <a href="{{ path('agp_activate_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}" title="Valider">Valider</a>
-                                {% endif %}
-                            </td>
+
+                                    {% if dossier.enabled == 1 %}
+                                        | <a href="{{ path('agp_deactivate_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}" title="Désactiver">Désactiver</a>
+                                    {% endif %}
+
+                                    {% if dossier.enabled == 2 %}
+                                        | <a href="{{ path('agp_activate_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}" title="Valider">Valider</a>
+                                    {% endif %}
+
+                                    {% if dossier.enabled == 3 %}
+                                        <a href="{{ path('agp_activate_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}" title="Valider">Activer</a>
+                                    {% endif %}
+                                </td>
                             {% endif %}
                         </tr>
                     {% endfor %}
