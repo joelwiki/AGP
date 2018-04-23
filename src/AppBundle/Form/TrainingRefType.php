@@ -8,10 +8,11 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Group;
 use AppBundle\Entity\TrainingRef;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
-use Symfony\Component\Form\Extension\Core\Type\IntegerType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -21,25 +22,13 @@ class TrainingRefType extends AbstractType {
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
-            ->add('categoryStart', IntegerType::class, array(
-                'required' => true,
+            ->add('category', EntityType::class, array(
+                'class' => Group::class,
                 'label' => 'Catégorie',
                 'attr' => [
-                    'class' => 'form-control form-control-inline extra-small-input',
-                    'min' => 0,
-                    'max' => 100
+                    'class' => 'form-control select2 medium-input'
                 ],
-                'error_bubbling' => true
-            ))
-            ->add('categoryEnd', IntegerType::class, array(
                 'required' => true,
-                'label' => 'Catégorie',
-                'attr' => [
-                    'class' => 'form-control form-control-inline extra-small-input',
-                    'min' => 0,
-                    'max' => 100
-                ],
-                'error_bubbling' => true
             ))
             ->add('type', ChoiceType::class, array(
                 'required' => true,

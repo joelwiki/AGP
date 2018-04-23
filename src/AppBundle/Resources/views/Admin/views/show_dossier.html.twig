@@ -15,7 +15,7 @@
             <div class="row">
                 <div class="col-md-12">
                     {% if is_granted('ROLE_MEMBRE_CA') %}
-                        {% if user.dossier.enabled == 0 %}
+                        {% if user.dossier.enabled == 0 or user.dossier.enabled == 2 or user.dossier.enabled == 3 %}
                             <div>
                                 <a href="{{ path('agp_activate_dossier', {'id' : user.id, 'dossierId' : user.dossier.id}) }}" class="btn btn-success pull-right bold">Valider le dossier</a>
                             </div>

@@ -25,16 +25,10 @@ class TrainingRef {
     private $id;
 
     /**
-     * @ORM\Column(type="integer")
+     * @ORM\Column(type="string")
      * @Assert\NotBlank()
      */
-    private $categoryStart;
-
-    /**
-     * @ORM\Column(type="integer")
-     * @Assert\NotBlank()
-     */
-    private $categoryEnd;
+    private $category;
 
     /**
      * @ORM\Column(type="string")
@@ -156,29 +150,15 @@ class TrainingRef {
     /**
      * @return mixed
      */
-    public function getCategoryStart() {
-        return $this->categoryStart;
+    public function getCategory() {
+        return $this->category;
     }
 
     /**
-     * @param mixed $categoryStart
+     * @param mixed $category
      */
-    public function setCategoryStart($categoryStart) {
-        $this->categoryStart = $categoryStart;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getCategoryEnd() {
-        return $this->categoryEnd;
-    }
-
-    /**
-     * @param mixed $categoryEnd
-     */
-    public function setCategoryEnd($categoryEnd) {
-        $this->categoryEnd = $categoryEnd;
+    public function setCategory($category) {
+        $this->category = $category;
     }
 
     /**

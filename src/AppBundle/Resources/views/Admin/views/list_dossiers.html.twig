@@ -66,8 +66,10 @@
 
                                 {% if dossier.enabled == 2 %}
                                     <span class="btn btn-danger">Refusé</span>
-                                    {% if dossier.medicalCertificate is not empty and dossier.civilLiabilityCertificate is not empty %}
+                                    {% if dossier.medicalCertificate is not null and dossier.civilLiabilityCertificate is not null %}
                                         <span class="btn btn-warning">En attente</span>
+                                    {% else %}
+                                        <span class="btn btn-danger">Incomplet</span>
                                     {% endif %}
                                 {% endif %}
 
@@ -92,11 +94,13 @@
                                     {% endif %}
 
                                     {% if dossier.enabled == 2 %}
-                                        | <a href="{{ path('agp_activate_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}" title="Valider">Valider</a>
+                                        {% if dossier.medicalCertificate is not null and dossier.civilLiabilityCertificate is not null %}
+                                            | <a href="{{ path('agp_activate_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}" title="Valider">Valider</a>
+                                        {% endif %}
                                     {% endif %}
 
                                     {% if dossier.enabled == 3 %}
-                                        <a href="{{ path('agp_activate_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}" title="Valider">Activer</a>
+                                        | <a href="{{ path('agp_activate_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}" title="Valider">Activer</a>
                                     {% endif %}
                                 </td>
                             {% endif %}

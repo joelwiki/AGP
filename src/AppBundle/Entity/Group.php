@@ -34,6 +34,10 @@ class Group extends BaseGroup {
      */
     private $maxAge;
 
+    public function __toString () {
+        return $this->getMinAge() . '-' . $this->getMaxAge() . ' ans';
+    }
+
     /**
      * @return mixed
      */

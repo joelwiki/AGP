@@ -44,13 +44,13 @@ class LoadFixtures extends Fixture {
         $group->setMaxAge(13);
         $manager->persist($group);
 
-        $group = new Group('14-16', ['ROLE_USER']);
+        $group = new Group('14-17', ['ROLE_USER']);
         $group->setMinAge(14);
-        $group->setMaxAge(16);
+        $group->setMaxAge(17);
         $manager->persist($group);
 
-        $group = new Group('17-100', ['ROLE_USER']);
-        $group->setMinAge(17);
+        $group = new Group('18-100', ['ROLE_USER']);
+        $group->setMinAge(18);
         $group->setMaxAge(100);
 
         $manager->persist($group);

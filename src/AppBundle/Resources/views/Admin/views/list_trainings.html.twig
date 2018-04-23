@@ -48,7 +48,7 @@
                             <td>{{ training.id }}</td>
                             <td>{{ training.trainingType.weekDay }}</td>
                             <td>{{ training.date }} - {{ training.trainingType.hourStart|date('G') }}h à {{ training.trainingType.hourEnd|date('G') }}h</td>
-                            <td>{{ training.trainingType.categoryStart }}-{{ training.trainingType.categoryEnd }} ans</td>
+                            <td>{{ training.trainingType.category }}</td>
                             <td>
                                 {% if training.location is not empty %}
                                     {{ training.location }}
