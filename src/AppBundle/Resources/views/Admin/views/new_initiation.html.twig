@@ -15,12 +15,4 @@
 {% block javascripts %}
     {{ parent() }}
 
-    <!-- CKEditor -->
-    <script src="{{ asset('js/ckeditor/ckeditor.js') }}"></script>
-    <script>
-        CKEDITOR.replace( 'initiation_content', {
-            language: 'fr',
-            height: 450
-        });
-    </script>
 {% endblock %}

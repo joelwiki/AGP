@@ -24,7 +24,7 @@
         <div class="col-md-9">
             <div class="box box-primary box-padding">
                 <div>
-                    <h2 class="page-header"><i class="fa fa-pencil margin-r-15" aria-hidden="true"></i>Nouvel article</h2>
+                    <h2 class="page-header"><i class="fa fa-pencil margin-r-15" aria-hidden="true"></i>Nouvelle page</h2>
                 </div>
                 {{ form_start(form) }}
 
@@ -34,16 +34,16 @@
         </div>
         <div class="col-md-3">
             <div class="box box-primary box-padding">
-                {% if article.id is defined %}
+                {% if page.id is defined %}
                     <div>
                         <h4 class="small-page-header">Modifier</h4>
                     </div>
-                    {{ form_widget(form.submit, {'label' : 'Modifier l\'article'}) }}
+                    {{ form_widget(form.submit, {'label' : 'Modifier la page'}) }}
                 {% else %}
                     <div>
                         <h4 class="small-page-header">Publier</h4>
                     </div>
-                    {{ form_widget(form.submit, {'label' : 'Publier l\'article'}) }}
+                    {{ form_widget(form.submit, {'label' : 'Ajouter la page'}) }}
                 {% endif %}
             </div>
             <div class="box box-primary box-padding">
@@ -52,8 +52,8 @@
                         <h4 class="small-page-header">Image d'en-tête</h4>
                     </div>
                     <div class="current-image">
-                    {% if article.image is defined %}
-                        <img src="{{ asset('/uploads/article/') }}article-{{ article.uniqueId }}.{{ article.image.extension }}" class="img-responsive mar-auto"/>
+                    {% if page.image is defined %}
+                        <img src="{{ asset('/uploads/page/') }}page-{{ page.uniqueId }}.{{ page.image.extension }}" class="img-responsive mar-auto"/>
                     {% endif %}
                     </div>
                     <div class="add-article-image-preview-container">

@@ -437,39 +437,51 @@ span.beta {
     font-size: 13pt;
 }
 
-.index-header {
-    background: center;
-    background-size: cover;
-    background-attachment: fixed, fixed, fixed;
+/** Index Header **/
+
+.index.header {
+    background-size: cover !important;
+    background-attachment: fixed, fixed, fixed !important;
     min-height: 100vh;
     padding: 30em 0 0 0;
     position: relative;
     z-index: 1;
 }
 
-.index-header-title, .index-header-subtitle, .index-header-action {
-    text-align: center;
-    position: relative;
-    z-index: 3;
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background: rgba(0, 0, 0, 0.3);
+    width: 100%;
+    height: 100%;
+    z-index: 2;
 }
 
-.index-header-title {
+section.index .header-title {
     font-size: 3.5em;
     color: #FFFFFF;
     font-weight: 500;
 }
 
-.index-header-subtitle {
+section.index .header-subtitle {
     font-size: 1.5em;
     color: #e4e4e4;
     padding: 10px 0;
 }
 
-ul.header-action {
+section.index .header-title, section.index .header-subtitle, section.index .container-header-action {
+    text-align: center;
+    position: relative;
+    z-index: 3;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+section.index ul.header-action {
     list-style-type: none;
 }
 
-ul.header-action:after {
+section.index ul.header-action:after {
     background: #ffffff;
     content: '';
     height: 500px;
@@ -479,7 +491,7 @@ ul.header-action:after {
     z-index: 1;
 }
 
-.header-action li {
+section.index .header-action li {
     max-width: 210px;
     margin: 0 auto;
     border: 2px solid #FFFFFF;
@@ -496,22 +508,50 @@ ul.header-action:after {
     transition: ease-in-out 0.3s;
 }
 
-.header-action li:hover {
+section.index .header-action li:hover {
     background: rgba(255, 255, 255, 0.17);
 }
 
-.index-header-action {
+section.index .container-header-action {
     margin: 80px 0 0 0;
 }
 
-.overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    background: rgba(0, 0, 0, 0.3);
-    width: 100%;
-    height: 100%;
-    z-index: 2;
+/**/
+
+/** Page Header **/
+
+.page.header {
+    background-size: cover !important;
+    background-attachment: fixed, fixed, fixed !important;
+    min-height: 20vh;
+    position: relative;
+    padding: 8em;
+    z-index: 1;
+}
+
+section.page .header-title {
+    font-size: 3.5em;
+    color: #FFFFFF;
+    font-weight: 500;
+    text-shadow: 2px 2px 2px rgba(0, 0, 0, 0.3);
+}
+
+section.page .header-subtitle {
+    font-size: 1.5em;
+    color: #e4e4e4;
+    padding: 10px 0;
+}
+
+section.page .header-title, section.page .header-subtitle {
+    text-align: center;
+    position: relative;
+    z-index: 3;
+}
+
+/**/
+
+.page, .article {
+    padding: 40px 100px;
 }
 
 section.index-one {
@@ -876,6 +916,10 @@ section.custom-settings span.select2-selection {
     max-height: 250px;
     opacity: 1;
     visibility: visible;
+}
+
+.mar-auto {
+    margin: 0 auto;
 }
 
 /** FIREFOX **/

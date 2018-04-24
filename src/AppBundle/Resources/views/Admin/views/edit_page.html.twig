@@ -4,27 +4,28 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Article
-            <small>Ajouter un article</small>
+            Page
+            <small>Modifier une page</small>
         </h1>
     </section>
 
-    {{ include('@App/Admin/views/template_article.html.twig') }}
+    {{ include('@App/Admin/views/template_page.html.twig') }}
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
 
+    <!-- Croppie -->
     <script type="text/javascript">
         // Initialize image cropper
         var $uploadCrop = $('#article-image-preview').croppie({
             viewport: {
-                width: 900,
+                width: 1000,
                 height: 300,
                 type: 'square'
             },
             boundary: {
-                width: 900,
+                width: 1000,
                 height: 400
             },
             enableOrientation: true,
@@ -46,11 +47,17 @@
                 type: 'canvas',
                 size: 'viewport'
             }).then(function (resp) {
-                $("#add-article-image-preview").attr('src', resp);
-                var temp = resp;
 
-                document.getElementById('base64File_image').value = temp;
+                $.ajax({
+                    url: "{{ path('agp_edit_page_image', {'id' : page.id }) }}",
+                    type: "POST",
+                    data: {"image":resp},
+                });
             });
         });
+    </script>
+
+    <script type="text/javascript">
+        $('input#article_image_file').prop('required', false);
     </script>
 {% endblock %}

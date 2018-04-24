@@ -13,13 +13,13 @@
             </section>
             <div class="container">
                 <div class="col-md-12">
-                    <div class="article">
-                        {% if article.image is not null %}
-                            <img src="{{ asset('/uploads/article/') }}article-{{ article.uniqueId }}.{{ article.image.extension }}" class="img-responsive mar-auto"/>
+                    <div class="page">
+                        {% if page.image is not null %}
+                            <img src="{{ asset('/uploads/page/') }}page-{{ page.uniqueId }}.{{ page.image.extension }}" class="img-responsive mar-auto"/>
                         {% endif %}
-                        <div class="article-content">
-                            <h2>{{ article.title }}</h2>
-                            <p>{{ article.content|raw }}</p>
+                        <div class="page-content">
+                            <h2>{{ page.title }}</h2>
+                            <p>{{ page.content|raw }}</p>
                         </div>
                     </div>
                 </div>

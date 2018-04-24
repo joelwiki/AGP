@@ -111,5 +111,52 @@
     <script src="{{ asset('js/bootstrap/bootstrap-datepicker.fr.min.js') }}"></script>
     <!-- bootstrap-timepicker -->
     <script src="{{ asset('js/bootstrap/bootstrap-timepicker.min.js') }}"></script>
+    <!-- TinyMCE -->
+    <script src="{{ asset('tinymce/tinymce.min.js') }}"></script>
+    <script type="text/javascript">
+    tinymce.init({
+        selector:'textarea#page_content, textarea#article_content, textarea#initiation_content',
+        toolbar: 'undo redo | styleselect code | alignleft aligncenter alignright alignjustify | bold italic underline | hr bullist numlist | link image media',
+        plugins: [
+            "advlist autolink lists link image charmap anchor",
+            "searchreplace code visualblocks",
+            "insertdatetime media paste imagetools wordcount autoresize"
+        ],
+        branding: false,
+        menubar: false,
+        theme: 'modern',
+        image_title: true,
+        paste_data_images: true,
+        automatic_uploads: true,
+        file_picker_types: 'image',
+        content_css: [
+            '//www.tinymce.com/css/codepen.min.css'
+        ],
+        image_advtab: true,
+        file_picker_callback: function(cb, value, meta) {
+            var input = document.createElement('input');
+            input.setAttribute('type', 'file');
+            input.setAttribute('accept', 'image/*');
+
+            input.onchange = function() {
+                var file = this.files[0];
+
+                var reader = new FileReader();
+                reader.onload = function () {
+                    var id = 'blobid' + (new Date()).getTime();
+                    var blobCache =  tinymce.activeEditor.editorUpload.blobCache;
+                    var base64 = reader.result.split(',')[1];
+                    var blobInfo = blobCache.create(id, file, base64);
+                    blobCache.add(blobInfo);
+
+                    cb(blobInfo.blobUri(), { title: file.name });
+                };
+                reader.readAsDataURL(file);
+            };
+
+            input.click();
+        },
+    });
+</script>
 {% endblock %}
 </html>

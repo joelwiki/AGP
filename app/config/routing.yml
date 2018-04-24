@@ -45,7 +45,7 @@ agp_global_parameters:
 
 ## Article ##
 agp_show_article:
-    path: /article/show/{slug}
+    path: /article/{slug}/show
     defaults: { _controller: AppBundle:Article:showArticle }
 
 agp_list_articles:
@@ -63,6 +63,27 @@ agp_edit_article:
 agp_edit_article_image:
     path: /{id}/editArticleImage
     defaults: { _controller: AppBundle:Article:editArticleImage }
+
+## Page ##
+agp_show_page:
+    path: /{slug}
+    defaults: { _controller: AppBundle:Page:showPage }
+
+agp_list_pages:
+    path: /page/list
+    defaults: { _controller: AppBundle:Page:listPages }
+
+agp_new_page:
+    path: /page/new
+    defaults: { _controller: AppBundle:Page:newPage }
+
+agp_edit_page:
+    path: /page/{id}/edit
+    defaults: { _controller: AppBundle:Page:editPage }
+
+agp_edit_page_image:
+    path: /{id}/editPageImage
+    defaults: { _controller: AppBundle:Page:editPageImage }
 
 ## User ##
 agp_list_users:

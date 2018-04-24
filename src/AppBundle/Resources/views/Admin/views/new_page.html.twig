@@ -4,27 +4,28 @@
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Article
-            <small>Ajouter un article</small>
+            Page
+            <small>Ajouter une page</small>
         </h1>
     </section>
 
-    {{ include('@App/Admin/views/template_article.html.twig') }}
+    {{ include('@App/Admin/views/template_page.html.twig') }}
 {% endblock %}
 
 {% block javascripts %}
     {{ parent() }}
 
+    <!-- Croppie -->
     <script type="text/javascript">
         // Initialize image cropper
         var $uploadCrop = $('#article-image-preview').croppie({
             viewport: {
-                width: 900,
+                width: 1000,
                 height: 300,
                 type: 'square'
             },
             boundary: {
-                width: 900,
+                width: 1000,
                 height: 400
             },
             enableOrientation: true,
