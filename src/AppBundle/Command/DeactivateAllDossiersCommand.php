@@ -33,7 +33,11 @@ class DeactivateAllDossiersCommand extends ContainerAwareCommand {
 
         if ($today->format('d-m-Y') == $endOfYearDate->format('d-m-Y')) {
             foreach ($this->em->getRepository('AppBundle:Dossier')->findAllActivatedDossiers() as $dossier) {
+                // Disable dossier
                 $dossier->setEnabled(0);
+
+                // Remove civil certificate
+                $this->em->remove($dossier->getCivilLiabilityCertificate());
             }
         } else {
             return true;

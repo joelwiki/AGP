@@ -25,7 +25,7 @@ class ProfileType extends AbstractType {
                 'required' => false,
                 'label' => 'Prénom',
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control medium-input',
                     'placeholder' => 'Prénom',
                 ],
                 'error_bubbling' => true
@@ -34,7 +34,7 @@ class ProfileType extends AbstractType {
                 'required' => false,
                 'label' => 'Nom',
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control medium-input',
                     'placeholder' => 'Nom',
                 ],
                 'error_bubbling' => true
@@ -43,7 +43,7 @@ class ProfileType extends AbstractType {
                 'required' => false,
                 'label' => 'Ville',
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control medium-input',
                     'placeholder' => 'Ville',
                 ],
                 'error_bubbling' => true
@@ -52,7 +52,7 @@ class ProfileType extends AbstractType {
                 'required' => false,
                 'label' => 'Téléphone',
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control medium-input',
                     'placeholder' => '0123456789',
                 ],
                 'error_bubbling' => true
@@ -67,7 +67,7 @@ class ProfileType extends AbstractType {
                 'error_bubbling' => true
             ))
             ->add('submit', SubmitType::class, array(
-                'label' => 'Créer',
+                'label' => 'Modifier le profil',
                 'attr' => [
                     'class' => 'btn btn-primary bold',
                 ]

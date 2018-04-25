@@ -7,6 +7,8 @@
             {% if user.id == app.user.id %}
                 Mon profil
                 <small>Aperçu de mon profil</small>
+
+                <a href="{{ path('agp_edit_profile', {'id' : user.id}) }}" class="btn btn-primary bold pull-right">Modifier mon profil</a>
             {% else %}
                 Profil de {{ user.firstName }} {{ user.lastName }}
                 <small>Aperçu du profil</small>
@@ -58,9 +60,9 @@
 
                         <hr>
 
-                        <strong><img src="/img/training-black.png" class="training-icon"></i> Catégorie</strong>
+                        <strong><img src="/img/training-black.png" class="training-icon"></i> Groupe</strong>
 
-                        <p class="text-muted">12-14 ans</p>
+                        <p class="text-muted">{{ user.group }}</p>
 
                         <hr>
 

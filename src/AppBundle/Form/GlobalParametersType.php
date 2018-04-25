@@ -85,7 +85,7 @@ class GlobalParametersType extends AbstractType {
                 ]
             ))
             ->add('headerImage', HeaderImageType::class, array(
-                'required' => true,
+                'required' => false,
                 'label' => 'Image d\'en-tête',
                 'error_bubbling' => true,
                 'data' => $options['data']->getHeaderImage()

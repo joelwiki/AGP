@@ -380,4 +380,18 @@ class DossierController extends Controller {
 
         return new JsonResponse("Fail", 200);
     }
+
+    /**
+     * @param $dossierId
+     * @return RedirectResponse
+     */
+    public function deleteDossierAction($dossierId) {
+        $em = $this->getDoctrine()->getManager();
+        $dossier = $em->getRepository('AppBundle:Dossier')->find($dossierId);
+
+        $em->remove($dossier);
+        $em->flush();
+
+        return $this->redirectToRoute('agp_list_initiations');
+    }
 }

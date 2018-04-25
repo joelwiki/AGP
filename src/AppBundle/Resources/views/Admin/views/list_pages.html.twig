@@ -52,7 +52,7 @@
                             {% if is_granted('ROLE_MEMBRE_CA') %}
                                 <td>
                                     <a href="{{ path('agp_edit_page', {'id' : page.id}) }}" title="Editer l'article">Editer</a> |
-                                    <a href="#" title="Supprimer l'article">Supprimer</a>
+                                    <a href="{{ path('agp_delete_page', {'id' : page.id}) }}" title="Supprimer l'article">Supprimer</a>
                                 </td>
                             {% endif %}
                         </tr>

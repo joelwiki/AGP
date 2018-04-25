@@ -73,15 +73,19 @@ class AdminController extends Controller {
             /** @var HeaderImage $headerImage */
             $headerImage = $global->getHeaderImage();
 
-            $global->setHeaderImage($headerImage);
-            $headerImage->setGlobal($global);
+            if ($headerImage) {
+                $global->setHeaderImage($headerImage);
+                $headerImage->setGlobal($global);
+            }
 
             $em->flush();
 
-            if ($headerImage->getFile()) {
-                $headerImage->upload();
-                $fileName = 'header-' . $global->getId() . '.' . 'png';
-                $headerImage->getFile()->move($headerImage->getUploadDir(), $fileName);
+            if ($headerImage) {
+                if ($headerImage->getFile()) {
+                    $headerImage->upload();
+                    $fileName = 'header-' . $global->getId() . '.' . 'png';
+                    $headerImage->getFile()->move($headerImage->getUploadDir(), $fileName);
+                }
             }
 
             return $this->redirectToRoute('agp_dashboard');

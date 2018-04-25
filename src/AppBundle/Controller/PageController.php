@@ -160,4 +160,18 @@ class PageController extends Controller {
         }
         return new JsonResponse("Image not changed", 500);
     }
+
+    /**
+     * @param $id
+     * @return RedirectResponse
+     */
+    public function deletePageAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $page = $em->getRepository('AppBundle:Page')->find($id);
+
+        $em->remove($page);
+        $em->flush();
+
+        return $this->redirectToRoute('agp_list_pages');
+    }
 }

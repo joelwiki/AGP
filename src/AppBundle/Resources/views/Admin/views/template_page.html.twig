@@ -52,8 +52,10 @@
                         <h4 class="small-page-header">Image d'en-tête</h4>
                     </div>
                     <div class="current-image">
-                    {% if page.image is defined %}
-                        <img src="{{ asset('/uploads/page/') }}page-{{ page.uniqueId }}.{{ page.image.extension }}" class="img-responsive mar-auto"/>
+                    {% if page.id is defined %}
+                        {% if page.image is not null %}
+                            <img src="{{ asset('/uploads/page/') }}page-{{ page.uniqueId }}.{{ page.image.extension }}" class="img-responsive mar-auto"/>
+                        {% endif %}
                     {% endif %}
                     </div>
                     <div class="add-article-image-preview-container">

@@ -162,4 +162,18 @@ class ArticleController extends Controller {
         }
         return new JsonResponse("Image not changed", 500);
     }
+
+    /**
+     * @param $id
+     * @return RedirectResponse
+     */
+    public function deleteArticleAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $article = $em->getRepository('AppBundle:Article')->find($id);
+
+        $em->remove($article);
+        $em->flush();
+
+        return $this->redirectToRoute('agp_list_articles');
+    }
 }

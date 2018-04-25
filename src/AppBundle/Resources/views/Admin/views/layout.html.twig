@@ -105,7 +105,7 @@
                             {% endif %}
                         </div>
                         <div class="pull-left info">
-                            <p>{{ app.user.firstName }}</p>
+                            <p><a href="{{ path('agp_show_profile') }}">{{ app.user.firstName }}</a></p>
                             <!-- Status -->
                             <a href="#"><i class="fa fa-circle text-success"></i> En ligne</a>
                         </div>
@@ -138,6 +138,7 @@
                                 <li><a href="{{ path('agp_list_users') }}">Tous les utilisateurs</a></li>
                                 {% endif %}
                                 <li><a href="{{ path('agp_show_profile') }}">Mon profil</a></li>
+                                <li><a href="{{ path('agp_edit_profile') }}">Modifier mon profil</a></li>
                             </ul>
                         </li>
                         {% if is_granted('ROLE_MEMBRE_CA') %}

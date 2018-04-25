@@ -61,7 +61,6 @@ class GlobalParameters {
 
     /**
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\HeaderImage", mappedBy="global", cascade={"all"})
-     * @Assert\NotBlank()
      */
     private $headerImage;
 

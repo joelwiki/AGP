@@ -85,4 +85,18 @@ class InitiationController extends Controller {
             'initiation' => $initiation
         ));
     }
+
+    /**
+     * @param $uniqueId
+     * @return RedirectResponse
+     */
+    public function deleteInitiationAction($uniqueId) {
+        $em = $this->getDoctrine()->getManager();
+        $initiation = $em->getRepository('AppBundle:Initiation')->findOneBy(['uniqueId' => $uniqueId]);
+
+        $em->remove($initiation);
+        $em->flush();
+
+        return $this->redirectToRoute('agp_list_initiations');
+    }
 }

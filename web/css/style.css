@@ -30,6 +30,11 @@ a:hover, a:focus {
     color: #555555 !important;
 }
 
+.space {
+    min-width: 10px;
+    display: inline-block;
+}
+
 .pre-block-separator {
     border-top: 1px solid #f4f4f4;
     height: 10px;

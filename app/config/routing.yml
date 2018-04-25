@@ -64,13 +64,17 @@ agp_edit_article_image:
     path: /{id}/editArticleImage
     defaults: { _controller: AppBundle:Article:editArticleImage }
 
+agp_delete_article:
+    path: /article/{id}/delete
+    defaults: { _controller: AppBundle:Article:deleteArticle }
+
 ## Page ##
 agp_show_page:
-    path: /{slug}
+    path: /page/{slug}/show
     defaults: { _controller: AppBundle:Page:showPage }
 
 agp_list_pages:
-    path: /page/list
+    path: /pages/list
     defaults: { _controller: AppBundle:Page:listPages }
 
 agp_new_page:
@@ -84,6 +88,10 @@ agp_edit_page:
 agp_edit_page_image:
     path: /{id}/editPageImage
     defaults: { _controller: AppBundle:Page:editPageImage }
+
+agp_delete_page:
+    path: /page/{id}/delete
+    defaults: { _controller: AppBundle:Page:deletePage }
 
 ## User ##
 agp_list_users:
@@ -159,9 +167,13 @@ agp_activate_dossier:
     path: /user/{id}/dossier/{dossierId}/activate
     defaults: { _controller: AppBundle:Dossier:activateDossier }
 
-agp_activate_dossier_fpk:
-    path: /user/{id}/dossier/{dossierId}/activate-fpk
-    defaults: { _controller: AppBundle:Dossier:activateDossierFPK }
+agp_delete_dossier:
+    path: /dossier/{dossierId}/delete
+    defaults: { _controller: AppBundle:Dossier:deleteDossier }
+
+agp_calculate_age:
+    path: /calculate-age
+    defaults: { _controller: AppBundle:Dossier:calculateAge }
 
 ## Training ##
 agp_new_training_ref:
@@ -184,9 +196,9 @@ agp_edit_training:
     path: /training/{id}/edit
     defaults: { _controller: AppBundle:Training:editTraining }
 
-agp_calculate_age:
-    path: /calculate-age
-    defaults: { _controller: AppBundle:Dossier:calculateAge }
+agp_delete_training:
+    path: /training/{id}/delete
+    defaults: { _controller: AppBundle:Training:deleteTraining }
 
 ## Initiation ##
 
@@ -201,3 +213,7 @@ agp_list_initiations:
 agp_edit_initiation:
     path: /initiation/{uniqueId}/edit
     defaults: { _controller: AppBundle:Initiation:editInitiation }
+
+agp_delete_initiation:
+    path: /initiation/{uniqueId}/delete
+    defaults: { _controller: AppBundle:Initiation:deleteInitiation }

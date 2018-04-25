@@ -174,4 +174,18 @@ class TrainingController extends Controller {
             'form' => $form->createView()
         ));
     }
+
+    /**
+     * @param $id
+     * @return RedirectResponse
+     */
+    public function deleteTrainingAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $training = $em->getRepository('AppBundle:Training')->find($id);
+
+        $em->remove($training);
+        $em->flush();
+
+        return $this->redirectToRoute('agp_list_trainings');
+    }
 }
