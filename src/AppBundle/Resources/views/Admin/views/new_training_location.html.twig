@@ -11,28 +11,66 @@
 
     <!-- Main content -->
     <section class="content container-fluid">
-        <div class="row">
-            <div class="col-md-12">
-                <div class="box box-primary box-padding">
+        <div class="box box-primary box-padding">
+            <div class="row">
+                <div class="col-md-12">
+                    {{ form_start(form) }}
                     <div>
                         <h2 class="page-header"><i class="fa fa-map-marker margin-r-15" aria-hidden="true"></i>Nouveau lieu</h2>
                     </div>
-                    <div>
-                        {{ form_start(form) }}
-                        <div>
-                            {{ form_row(form.image) }}
+
+                    <div class="row">
+                        <div class="col-md-7">
+                            <div id="map"></div>
+                            <div id="infowindow-content">
+                                <span id="place-name"  class="title"></span><br>
+                                <span id="place-address"></span>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    {{ form_label(form.location) }}
+                                    <div>{{ form_widget(form.location) }}</div>
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_label(form.lat) }}
+                                    <div>{{ form_widget(form.lat) }}</div>
+                                </div>
+                                <div class="col-md-6">
+                                    {{ form_label(form.lat) }}
+                                    <div>{{ form_widget(form.lng) }}</div>
+                                </div>
+                            </div>
                         </div>
-                        <div>
-                            {{ form_row(form.location) }}
+
+                        <div class="col-md-5">
+                            <div>
+                                <div>
+                                    {{ form_row(form.image) }}
+                                </div>
+                                <div>
+                                    {{ form_row(form.customLocation) }}
+                                </div>
+                            </div>
                         </div>
+                    </div>
+                    <div class="col-md-12"><hr></div>
+                    <div class="col-md-12 text-center">
                         <div class="training-location-submit">
                             {{ form_row(form.submit) }}
                         </div>
-                        {{ form_end(form) }}
                     </div>
+                    {{ form_end(form) }}
                 </div>
             </div>
         </div>
     </section>
     <!-- /.content -->
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <!-- Google Maps -->
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBK84QHE-QGhrHs6dWDyf6Ip4K-Q3D0ij0&callback=initMap&libraries=places"></script>
+    <script type="text/javascript" src="{{ asset('js/dist/training-map.js') }}"></script>
 {% endblock %}

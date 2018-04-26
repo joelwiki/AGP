@@ -15,29 +15,7 @@
                 </div>
                 {{ form_start(form) }}
                 <div class="row">
-                    <div class="col-md-7">
-                        <h3>Localisation</h3>
-                        <div id="map"></div>
-                        <div id="infowindow-content">
-                            <span id="place-name"  class="title"></span><br>
-                            <span id="place-address"></span>
-                        </div>
-                        <div class="row">
-                            <div class="col-md-12">
-                                {{ form_label(form.location) }}
-                                <div>{{ form_widget(form.location) }}</div>
-                            </div>
-                            <div class="col-md-6">
-                                {{ form_label(form.lat) }}
-                                <div>{{ form_widget(form.lat) }}</div>
-                            </div>
-                            <div class="col-md-6">
-                                {{ form_label(form.lat) }}
-                                <div>{{ form_widget(form.lng) }}</div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-5">
+                    <div class="col-md-12">
                         <h3>Informations</h3>
                         {{ form_label(form.trainingLocation) }}
                         <div>{{ form_widget(form.trainingLocation) }}</div>
@@ -54,16 +32,9 @@
                             </div>
                             <!-- /.input group -->
                         </div>
+
                         {{ form_label(form.info) }}
                         <div>{{ form_widget(form.info) }}</div>
-
-                        {{ form_widget(form.limitedPlaces) }}
-                        {{ form_label(form.limitedPlaces) }}
-
-                        <div>
-                            <div>{{ form_label(form.places) }}</div>
-                            {{ form_widget(form.places) }}
-                        </div>
                     </div>
                 </div>
                 <hr>

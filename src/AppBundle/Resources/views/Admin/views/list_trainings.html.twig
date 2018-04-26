@@ -50,10 +50,10 @@
                             <td>{{ training.date }} - {{ training.trainingType.hourStart|date('G') }}h à {{ training.trainingType.hourEnd|date('G') }}h</td>
                             <td>{{ training.trainingType.category }}</td>
                             <td>
-                                {% if training.location is not empty %}
-                                    {{ training.location }}
-                                {% else %}
+                                {% if training.trainingLocation.location is not empty %}
                                     {{ training.trainingLocation.location }}
+                                {% else %}
+                                    {{ training.trainingLocation.customLocation }}
                                 {% endif %}
                             </td>
                             <td><a href="{{ path('agp_show_user', {'id' : training.encadrant.id}) }}">{{ training.encadrant }}</a></td>

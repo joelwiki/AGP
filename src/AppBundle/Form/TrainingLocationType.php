@@ -24,7 +24,7 @@ class TrainingLocationType extends AbstractType {
         $trainingLocation = $options['data'];
 
         $builder
-            ->add('location', TextType::class, array(
+            ->add('customLocation', TextType::class, array(
                 'label' => 'Description du lieu',
                 'required' => true,
                 'attr' => [
@@ -34,6 +34,30 @@ class TrainingLocationType extends AbstractType {
             ->add('image', TrainingLocationImageType::class, array(
                 'label' => 'Image du lieu',
                 'data' => $trainingLocation->getImage()
+            ))
+            ->add('location', TextType::class, array(
+                'required' => false,
+                'label' => 'Lieu',
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Entrer un lieu'
+                ]
+            ))
+            ->add('lat', TextType::class, array(
+                'required' => false,
+                'label' => 'Latitude',
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Latitude'
+                ]
+            ))
+            ->add('lng', TextType::class, array(
+                'required' => false,
+                'label' => 'Longitude',
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Longitude'
+                ]
             ))
             ->add('submit', SubmitType::class, array(
                 'label' => 'Ajouter le lieu',

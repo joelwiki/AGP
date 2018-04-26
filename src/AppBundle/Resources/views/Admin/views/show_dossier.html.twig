@@ -37,7 +37,7 @@
                                             <label><b>Photo</b></label>
                                         </div>
                                         <div>
-                                            {% if dossier.image is defined %}
+                                            {% if user.dossier.image is defined %}
                                                 <img src="{{ asset('uploads/dossier/image/image-' ~ user.dossier.uniqueId ~ '.' ~ user.dossier.image.extension ~ '') }}" class="img-responsive"/>
                                             {% else %}
                                                 <img src="{{ asset('img/no-user.png') }}" class="img-responsive"/>

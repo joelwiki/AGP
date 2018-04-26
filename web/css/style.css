@@ -317,6 +317,7 @@ span.category-in-between {
 
 .modele {
     padding: 5px 0;
+    margin: 0 !important;
 }
 
 .modele-attestation {
@@ -353,6 +354,11 @@ select#dossier_emergencyContactTwoRelation + span.select2, select#dossier_emerge
 .trombinoscope-name {
     font-size: 16pt;
     padding: 5px 0;
+    color: #585858;
+}
+
+.trombinoscope-emergency {
+    font-size: 11pt;
     color: #585858;
 }
 

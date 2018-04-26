@@ -28,8 +28,8 @@
             <div class="box-body table-responsive no-padding">
 
                     <table class="table list-table list-trombinoscope">
-                            {% for key, user in users %}
-                                {% if user.role('ROLE_USER') %}
+                        {% for key, user in users %}
+                            {% if user.dossier is not null and user.dossier.enabled == 1 %}
                                 <tr class="col-md-3">
                                     <td class="box box-primary">
                                         <a href="{{ path('agp_show_user', {'id' : user.id}) }}">
@@ -40,10 +40,11 @@
                                             {% endif %}
                                             <div class="text-center trombinoscope-name">{{ user.firstName }} {{ user.lastName }}</div>
                                         </a>
+                                        <div class="text-center trombinoscope-emergency">{{ user.dossier.emergencyContactRelation }} : {{ user.dossier.emergencyContactPhone }}</div>
                                     </td>
                                 </tr>
-                                {% endif %}
-                            {% endfor %}
+                            {% endif %}
+                        {% endfor %}
                     </table>
             </div>
             <!-- /.box-body -->

@@ -10,7 +10,7 @@ function initMap() {
         draggable: true
     });
 
-    var input = document.getElementById('training_location');
+    var input = document.getElementById('training_location_location');
 
     var autocomplete = new google.maps.places.Autocomplete(input);
 
@@ -24,11 +24,11 @@ function initMap() {
     infowindow.setContent(infowindowContent);
 
     google.maps.event.addListener(marker, 'dragend', function(evt){
-        var lat = document.getElementById('training_lat').value = evt.latLng.lat().toFixed(5);
-        var lng = document.getElementById('training_lng').value = evt.latLng.lng().toFixed(5);
+        var lat = document.getElementById('training_location_lat').value = evt.latLng.lat().toFixed(5);
+        var lng = document.getElementById('training_location_lng').value = evt.latLng.lng().toFixed(5);
         $(function(){
             $.getJSON('https://maps.googleapis.com/maps/api/geocode/json?latlng=' + lat + ',' + lng +'&sensor=true', function(data) {
-                document.getElementById('training_location').value = data['results'][0]['formatted_address'];
+                document.getElementById('training_location_location').value = data['results'][0]['formatted_address'];
             });
         });
     });

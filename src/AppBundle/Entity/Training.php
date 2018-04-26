@@ -51,21 +51,6 @@ class Training {
     /**
      * @ORM\Column(type="string", nullable=true)
      */
-    private $location;
-
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $lat;
-
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
-    private $lng;
-
-    /**
-     * @ORM\Column(type="string", nullable=true)
-     */
     private $info;
 
     /**
@@ -73,16 +58,6 @@ class Training {
      * @ORM\JoinColumn(name="encadrant_id", referencedColumnName="id")
      */
     private $encadrant;
-
-    /**
-     * @ORM\Column(type="boolean")
-     */
-    private $limitedPlaces;
-
-    /**
-     * @ORM\Column(type="integer", nullable=true)
-     */
-    private $places;
 
     /**
      * @return mixed
@@ -115,20 +90,6 @@ class Training {
     /**
      * @return mixed
      */
-    public function getLocation() {
-        return $this->location;
-    }
-
-    /**
-     * @param mixed $location
-     */
-    public function setLocation($location) {
-        $this->location = $location;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getInfo() {
         return $this->info;
     }
@@ -143,20 +104,6 @@ class Training {
     /**
      * @return mixed
      */
-    public function getLimitedPlaces() {
-        return $this->limitedPlaces;
-    }
-
-    /**
-     * @param mixed $limitedPlaces
-     */
-    public function setLimitedPlaces($limitedPlaces) {
-        $this->limitedPlaces = $limitedPlaces;
-    }
-
-    /**
-     * @return mixed
-     */
     public function getDate() {
         return $this->date;
     }
@@ -166,34 +113,6 @@ class Training {
      */
     public function setDate($date) {
         $this->date = $date;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLat() {
-        return $this->lat;
-    }
-
-    /**
-     * @param mixed $lat
-     */
-    public function setLat($lat) {
-        $this->lat = $lat;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLng() {
-        return $this->lng;
-    }
-
-    /**
-     * @param mixed $lng
-     */
-    public function setLng($lng) {
-        $this->lng = $lng;
     }
 
     /**
@@ -222,20 +141,6 @@ class Training {
      */
     public function setEncadrant($encadrant) {
         $this->encadrant = $encadrant;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getPlaces() {
-        return $this->places;
-    }
-
-    /**
-     * @param mixed $places
-     */
-    public function setPlaces($places) {
-        $this->places = $places;
     }
 
     /**

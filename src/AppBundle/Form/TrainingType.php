@@ -48,7 +48,7 @@ class TrainingType extends AbstractType {
                     'class' => 'form-control select2 medium-input'
                 ],
                 'choice_label' => function ($trainingLocation) {
-                    return $trainingLocation->getLocation();
+                    return $trainingLocation->getCustomLocation();
                 },
                 'required' => true,
             ))
@@ -60,48 +60,11 @@ class TrainingType extends AbstractType {
                     'placeholder' => 'jj/mm/aaaa'
                 ]
             ))
-            ->add('location', TextType::class, array(
-                'required' => false,
-                'label' => 'Lieu',
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Entrer un lieu'
-                ]
-            ))
-            ->add('lat', TextType::class, array(
-                'required' => false,
-                'label' => 'Latitude',
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Latitude'
-                ]
-            ))
-            ->add('lng', TextType::class, array(
-                'required' => false,
-                'label' => 'Longitude',
-                'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Longitude'
-                ]
-            ))
             ->add('info', TextareaType::class, array(
                 'required' => false,
                 'label' => 'Informations supplémentaires',
                 'attr' => [
                     'class' => 'form-control medium-input'
-                ]
-            ))
-            ->add('limitedPlaces', CheckboxType::class, array(
-                'required' => false,
-                'label' => 'Places limitées'
-            ))
-            ->add('places', IntegerType::class, array(
-                'required' => false,
-                'label' => 'Places',
-                'attr' => [
-                    'class' => 'form-control medium-input',
-                    'min' => 2,
-                    'max' => 100
                 ]
             ))
             ->add('submit', SubmitType::class, array(

@@ -86,7 +86,6 @@ class DossierType extends AbstractType {
                     'class' => 'form-control medium-input'
                 ],
                 'choices' => array(
-                    'Espèces' => 'Especes',
                     'Chèque' => 'Cheque',
                     'Carte bancaire' => 'Carte'
                 ),
@@ -179,11 +178,11 @@ class DossierType extends AbstractType {
                     'class' => 'form-control',
                 ],
                 'choices' => [
-                    'Père' => 'Pere',
-                    'Mère' => 'Mere',
-                    'Grand-père' => 'Grand-pere',
+                    'Père' => 'Père',
+                    'Mère' => 'Mère',
+                    'Grand-père' => 'Grand-père',
                     'Grand-mère' => 'Grand-mère',
-                    'Frère' => 'Frere',
+                    'Frère' => 'Frère',
                     'Soeur' => 'Soeur',
                     'Conjoint' => 'Conjoint',
                     'Conjointe' => 'Conjointe',

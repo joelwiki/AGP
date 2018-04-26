@@ -26,7 +26,7 @@ class TrainingLocation {
     /**
      * @ORM\Column(type="string")
      */
-    private $location;
+    private $customLocation;
 
     /**
      * @ORM\OneToOne(targetEntity="AppBundle\Entity\TrainingLocationImage", mappedBy="training", cascade={"all"})
@@ -40,6 +40,21 @@ class TrainingLocation {
     private $trainings;
 
     /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $location;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $lat;
+
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $lng;
+
+    /**
      * @return mixed
      */
     public function getId() {
@@ -51,20 +66,6 @@ class TrainingLocation {
      */
     public function setId($id) {
         $this->id = $id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getLocation() {
-        return $this->location;
-    }
-
-    /**
-     * @param mixed $location
-     */
-    public function setLocation($location) {
-        $this->location = $location;
     }
 
     /**
@@ -93,5 +94,61 @@ class TrainingLocation {
      */
     public function setTrainings($trainings) {
         $this->trainings = $trainings;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getCustomLocation() {
+        return $this->customLocation;
+    }
+
+    /**
+     * @param mixed $customLocation
+     */
+    public function setCustomLocation($customLocation) {
+        $this->customLocation = $customLocation;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLocation() {
+        return $this->location;
+    }
+
+    /**
+     * @param mixed $location
+     */
+    public function setLocation($location) {
+        $this->location = $location;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLat() {
+        return $this->lat;
+    }
+
+    /**
+     * @param mixed $lat
+     */
+    public function setLat($lat) {
+        $this->lat = $lat;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLng() {
+        return $this->lng;
+    }
+
+    /**
+     * @param mixed $lng
+     */
+    public function setLng($lng) {
+        $this->lng = $lng;
     }
 }
