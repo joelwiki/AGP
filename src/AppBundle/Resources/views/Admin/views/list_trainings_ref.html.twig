@@ -1,9 +1,11 @@
-<div class="fos_user_group_list">
+{% extends "@App/Admin/views/layout.html.twig" %}
+
+{% block content %}
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <h1>
-            Groupes
-            <small>Liste des groupes</small>
+            Créneaux d'entraînement
+            <small>Liste des créneaux</small>
         </h1>
     </section>
 
@@ -11,12 +13,12 @@
     <section class="content container-fluid">
         <div class="box box-primary">
             <div class="box-header list-header">
-                <h3 class="box-title">Groupes</h3>
+                <h3 class="box-title">Créneaux</h3>
 
                 <div class="box-tools">
                     <div class="input-group input-group-sm" style="width: 250px;">
                         <input type="text" id="system-search" name="table_search" class="form-control pull-right"
-                               placeholder="Rechercher dans les groupes">
+                               placeholder="Rechercher dans les créneaux">
                         <div class="input-group-btn">
                             <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
                         </div>
@@ -30,23 +32,26 @@
                     <thead>
                     <tr>
                         <th>ID</th>
-                        <th>Nom</th>
                         <th>Catégorie</th>
+                        <th>Type</th>
+                        <th>Jour</th>
+                        <th>Heure</th>
                         {% if is_granted('ROLE_MEMBRE_CA') %}
                             <th>Actions</th>
                         {% endif %}
                     </tr>
                     </thead>
                     <tbody>
-                    {% for key, group in groups %}
+                    {% for key, trainingRef in trainingsRef %}
                         <tr>
-                            <td>{{ group.id }}</td>
-                            <td>{{ group.name }}</td>
-                            <td>{{ group.minAge }} - {{ group.maxAge }} ans</td>
+                            <td>{{ trainingRef.id }}</td>
+                            <td>{{ trainingRef.category }}</td>
+                            <td>{{ trainingRef.type }}</td>
+                            <td>{{ trainingRef.weekDay }}</td>
+                            <td>{{ trainingRef.hourStart }} - {{ trainingRef.hourEnd }}</td>
                             {% if is_granted('ROLE_MEMBRE_CA') %}
                                 <td>
-                                    <a href="{{ path('agp_edit_group', {'id' : group.id}) }}" title="Editer l'article">Editer</a> |
-                                    <a href="{{ path('agp_delete_group', {'id' : group.id}) }}" title="Supprimer le ">Supprimer</a>
+                                    <a href="{{ path('agp_edit_training_ref', {'id' : trainingRef.id}) }}">Modifier</a>
                                 </td>
                             {% endif %}
                         </tr>
@@ -58,4 +63,4 @@
         </div>
     </section>
     <!-- /.content -->
-</div>
+{% endblock %}

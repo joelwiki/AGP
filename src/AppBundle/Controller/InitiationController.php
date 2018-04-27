@@ -15,12 +15,14 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 class InitiationController extends Controller {
 
     /**
      * @param Request $request
      * @return RedirectResponse|Response
+     * @Security("has_role('ROLE_MEMBRE_CA')")
      */
     public function newInitiationAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -49,6 +51,7 @@ class InitiationController extends Controller {
 
     /**
      * @return Response
+     * @Security("has_role('ROLE_USER')")
      */
     public function listInitiationsAction() {
         $em = $this->getDoctrine()->getManager();
@@ -63,6 +66,7 @@ class InitiationController extends Controller {
      * @param Request $request
      * @param $uniqueId
      * @return RedirectResponse|Response
+     * @Security("has_role('ROLE_MEMBRE_CA')")
      */
     public function editInitiationAction(Request $request, $uniqueId) {
         $em = $this->getDoctrine()->getManager();
@@ -89,6 +93,7 @@ class InitiationController extends Controller {
     /**
      * @param $uniqueId
      * @return RedirectResponse
+     * @Security("has_role('ROLE_MEMBRE_CA')")
      */
     public function deleteInitiationAction($uniqueId) {
         $em = $this->getDoctrine()->getManager();

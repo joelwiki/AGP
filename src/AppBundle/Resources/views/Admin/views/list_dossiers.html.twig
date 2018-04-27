@@ -88,8 +88,7 @@
                                     <div class="space"></div>
 
                                     {% if dossier.enabled == 0 %}
-                                        {% if dossier.medicalCertificate is empty or dossier.civilLiabilityCertificate is empty %}
-                                        {% else %}
+                                        {% if dossier.medicalCertificate is not empty and dossier.civilLiabilityCertificate is not empty %}
                                             <a href="{{ path('agp_reject_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}" title="Refuser">Refuser</a>
                                             | <a href="{{ path('agp_activate_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}" title="Valider">Valider</a>
                                         {% endif %}

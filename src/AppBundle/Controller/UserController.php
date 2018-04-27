@@ -68,12 +68,18 @@ class UserController extends Controller {
     /**
      * @param $id
      * @return Response
+     * @throws \Exception
      * @Security("has_role('ROLE_USER')")
      */
     public function showUserAction($id) {
         $em = $this->getDoctrine()->getManager();
 
         $user = $em->getRepository('AppBundle:User')->find($id);
+
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_MEMBRE_CA') && $this->getUser()->getId() != $user->getId()) {
+            throw new \Exception('Vous ne pouvez pas accéder à ce profil.');
+        }
+
         $children = $em->getRepository('AppBundle:User')->getChildrenFromUser($user);
 
         $dossier = $user->getDossier();
@@ -89,12 +95,17 @@ class UserController extends Controller {
      * @param Request $request
      * @param $id
      * @return RedirectResponse|Response
+     * @throws \Exception
      * @Security("has_role('ROLE_MEMBRE_CA')")
      */
     public function editUserAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $user = $em->getRepository('AppBundle:User')->find($id);
+
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_MEMBRE_CA') && $this->getUser()->getId() != $user->getId()) {
+            throw new \Exception('Vous ne pouvez pas modifier ce profil.');
+        }
 
         $form = $this->createForm(ProfileType::class, $user);
 

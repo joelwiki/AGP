@@ -29,6 +29,7 @@ class DossierController extends Controller {
     /**
      * @param Request $request
      * @return RedirectResponse|Response
+     * @Security("has_role('ROLE_USER')")
      */
     public function newDossierAction(Request $request) {
 
@@ -110,12 +111,18 @@ class DossierController extends Controller {
      * @param $id
      * @param $dossierId
      * @return RedirectResponse|Response
+     * @throws \Exception
+     * @Security("has_role('ROLE_USER')")
      */
     public function editDossierAction(Request $request, $id, $dossierId) {
         $em = $this->getDoctrine()->getManager();
 
         $user = $em->getRepository('AppBundle:User')->find($id);
         $dossier = $em->getRepository('AppBundle:Dossier')->find($dossierId);
+
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_MEMBRE_CA') && $this->getUser()->getId() != $user->getId()) {
+            throw new \Exception('Vous ne pouvez pas modifier ce dossier.');
+        }
 
         if (NULL == $medicalCertificate = $dossier->getMedicalCertificate()) {
             $medicalCertificate = new MedicalCertificate();
@@ -169,6 +176,7 @@ class DossierController extends Controller {
      * @param Request $request
      * @return RedirectResponse
      * @throws \Exception
+     * @Security("has_role('ROLE_USER')")
      */
     public function editMedicalCertificateAction(Request $request) {
 
@@ -232,6 +240,7 @@ class DossierController extends Controller {
      * @param Request $request
      * @return RedirectResponse
      * @throws \Exception
+     * @Security("has_role('ROLE_USER')")
      */
     public function editCivilCertificateAction(Request $request) {
         if (!$dossierId = $request->get('dossierId')) {
@@ -283,11 +292,18 @@ class DossierController extends Controller {
      * @param $id
      * @param $dossierId
      * @return Response
+     * @throws \Exception
+     * @Security("has_role('ROLE_USER')")
      */
     public function showDossierAction($id, $dossierId) {
         $em = $this->getDoctrine()->getManager();
 
         $user = $em->getRepository('AppBundle:User')->find($id);
+
+        if (!$this->get('security.authorization_checker')->isGranted('ROLE_MEMBRE_CA') && $this->getUser()->getId() != $user->getId()) {
+            throw new \Exception('Vous ne pouvez pas accéder à ce dossier.');
+        }
+
         $dossier = $em->getRepository('AppBundle:User')->find($dossierId);
 
         return $this->render('@App/Admin/views/show_dossier.html.twig', array(
@@ -384,6 +400,7 @@ class DossierController extends Controller {
     /**
      * @param $dossierId
      * @return RedirectResponse
+     * @Security("has_role('ROLE_MEMBRE_CA')")
      */
     public function deleteDossierAction($dossierId) {
         $em = $this->getDoctrine()->getManager();

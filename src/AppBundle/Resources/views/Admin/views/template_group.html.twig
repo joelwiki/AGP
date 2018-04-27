@@ -1,0 +1,51 @@
+<!-- Main content -->
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary box-padding">
+                <div>
+                    <h2 class="page-header"><i class="fa fa-user-plus margin-r-15" aria-hidden="true"></i>
+                        {% if group.id is defined %}
+                            Modifier le groupe
+                        {% else %}
+                            Nouveau groupe
+                        {% endif %}
+                    </h2>
+                </div>
+
+                {{ form_start(form) }}
+                    <div>
+                        {{ form_label(form.name) }}
+                        <div>
+                            {{ form_widget(form.name) }}
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="inline-block">
+                            {{ form_label(form.minAge) }}
+                            <div>
+                                {{ form_widget(form.minAge) }}
+                            </div>
+                        </div>
+
+                        <div class="inline-block pad-l-35">
+                            {{ form_label(form.maxAge) }}
+                            <div>
+                                {{ form_widget(form.maxAge) }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        {% if group.id is defined %}
+                            {{ form_widget(form.submit, {'label' : 'Modifier le groupe'}) }}
+                        {% else %}
+                            {{ form_widget(form.submit, {'label' : 'Créer le groupe'}) }}
+                        {% endif %}
+                    </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</section>

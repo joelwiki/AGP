@@ -166,6 +166,7 @@ class ArticleController extends Controller {
     /**
      * @param $id
      * @return RedirectResponse
+     * @Security("has_role('ROLE_MEMBRE_CA')")
      */
     public function deleteArticleAction($id) {
         $em = $this->getDoctrine()->getManager();

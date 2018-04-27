@@ -82,7 +82,9 @@ fos_user:
         form:
             type: AppBundle\Form\ProfileType
      group:
-            group_class: AppBundle\Entity\Group
+        group_class: AppBundle\Entity\Group
+        form:
+            type: AppBundle\Form\GroupType
      registration:
         form:
             type: AppBundle\Form\RegistrationType

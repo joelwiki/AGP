@@ -1,0 +1,66 @@
+<!-- Main content -->
+<section class="content container-fluid">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="box box-primary box-padding">
+                <div>
+                    <h2 class="page-header"><i class="fa fa-calendar margin-r-15" aria-hidden="true"></i>
+                        {% if trainingRef.id is defined %}
+                            Modifier le créneau
+                        {% else %}
+                            Nouveau créneau
+                        {% endif %}
+                    </h2>
+                </div>
+                {{ form_start(form) }}
+                <div>
+                    <label>Catégorie d'âge</label>
+                    <div>
+                        {{ form_widget(form.category) }}
+                    </div>
+                    <label>Type d'entraînement</label>
+                    <div>{{ form_widget(form.type) }}</div>
+                    <label>Jour de la semaine</label>
+                    <div>{{ form_widget(form.weekDay) }}</div>
+                    <div>
+                        <label>Créneau horaire</label>
+                    </div>
+                    <div class="bootstrap-timepicker">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                                {{ form_widget(form.hourStart) }}
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                        <!-- /.form group -->
+                    </div>
+                    <span class="timepicker-in-between">à</span>
+                    <div class="bootstrap-timepicker">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                                {{ form_widget(form.hourEnd) }}
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                        <!-- /.form group -->
+                    </div>
+                    <div>
+                        {% if trainingRef.id is defined %}
+                        {{ form_widget(form.submit, {'label' : 'Modifier le créneau'}) }}
+                        {% else %}
+                            {{ form_widget(form.submit, {'label' : 'Créer le créneau'}) }}
+                        {% endif %}
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /.content -->

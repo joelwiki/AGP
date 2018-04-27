@@ -128,14 +128,19 @@
                         <li class="header">ASSOCIATION</li>
                         <li class="active"><a href="{{ path('agp_dashboard') }}"><i class="fa fa-tachometer"></i> <span>Tableau de bord</span></a></li>
                         <li class="treeview">
-                            <a href="#"><i class="fa fa-users"></i> <span>Utilisateurs</span>
+                            <a href="#"><i class="fa fa-users"></i>
+                                {% if is_granted('ROLE_MEMBRE_CA') %}
+                                    <span>Utilisateurs</span>
+                                {% else %}
+                                    <span>Profil</span>
+                                {% endif %}
                                 <span class="pull-right-container">
                                     <i class="fa fa-angle-left pull-right"></i>
                                 </span>
                             </a>
                             <ul class="treeview-menu">
                                 {% if is_granted('ROLE_MEMBRE_CA') %}
-                                <li><a href="{{ path('agp_list_users') }}">Tous les utilisateurs</a></li>
+                                    <li><a href="{{ path('agp_list_users') }}">Tous les utilisateurs</a></li>
                                 {% endif %}
                                 <li><a href="{{ path('agp_show_profile') }}">Mon profil</a></li>
                                 <li><a href="{{ path('agp_edit_profile') }}">Modifier mon profil</a></li>
@@ -152,39 +157,79 @@
                                     </span>
                                 </a>
                                 <ul class="treeview-menu">
-                                    <li><a href="{{ path('agp_list_trainings') }}">Tous les entraînements</a></li>
+                                    <li class="treeview">
+                                        <a href="#"> Entraînements
+                                            <span class="pull-right-container">
+                                                <i class="fa fa-angle-left pull-right"></i>
+                                            </span>
+                                        </a>
+                                        <ul class="treeview-menu">
+                                            <li><a href="{{ path('agp_list_trainings') }}">Tous les entraînements</a></li>
+                                            {% if is_granted('ROLE_ENCADRANT') %}
+                                                <li><a href="{{ path('agp_new_training') }}">Ajouter un entraînement</a></li>
+                                            {% endif %}
+                                        </ul>
+                                    </li>
                                     {% if is_granted('ROLE_ENCADRANT') %}
-                                        <li><a href="{{ path('agp_new_training') }}">Ajouter un entraînement</a></li>
-                                    {% endif %}
-                                    {% if is_granted('ROLE_MEMBRE_CA') %}
-                                        <li><a href="{{ path('agp_new_training_ref') }}">Ajouter un créneau</a></li>
-                                    {% endif %}
-                                    {% if is_granted('ROLE_MEMBRE_CA') %}
-                                        <li><a href="{{ path('agp_new_training_location') }}">Ajouter un lieu</a></li>
+                                        <li class="treeview">
+                                            <a href="#"> Créneaux
+                                                <span class="pull-right-container">
+                                                    <i class="fa fa-angle-left pull-right"></i>
+                                                </span>
+                                            </a>
+                                            <ul class="treeview-menu">
+                                                <li><a href="{{ path('agp_list_trainings_ref') }}">Liste des créneaux</a></li>
+                                                <li><a href="{{ path('agp_new_training_ref') }}">Ajouter un créneau</a></li>
+                                            </ul>
+                                        </li>
+                                        <li class="treeview">
+                                            <a href="#"> Lieux
+                                                <span class="pull-right-container">
+                                                    <i class="fa fa-angle-left pull-right"></i>
+                                                </span>
+                                            </a>
+                                            <ul class="treeview-menu">
+                                                <li><a href="{{ path('agp_list_trainings_loc') }}">Liste des lieux</a></li>
+                                                <li><a href="{{ path('agp_new_training_location') }}">Ajouter un lieu</a></li>
+                                            </ul>
+                                        </li>
                                     {% endif %}
                                 </ul>
                             </li>
                         {% endif %}
-                        {% if is_granted('ROLE_MEMBRE_CA') %}
-                            <li class="treeview">
-                                <a href="#"><i class="fa fa-calendar margin-r-5" aria-hidden="true"></i><span>Initiations</span>
-                                    <span class="pull-right-container">
-                                        <i class="fa fa-angle-left pull-right"></i>
-                                    </span>
-                                </a>
-                                <ul class="treeview-menu">
-                                    <li><a href="{{ path('agp_list_initiations') }}">Toutes les initiations</a></li>
+                        <li class="treeview">
+                            <a href="#"><i class="fa fa-calendar margin-r-5" aria-hidden="true"></i><span>Initiations</span>
+                                <span class="pull-right-container">
+                                    <i class="fa fa-angle-left pull-right"></i>
+                                </span>
+                            </a>
+                            <ul class="treeview-menu">
+                                <li><a href="{{ path('agp_list_initiations') }}">Toutes les initiations</a></li>
+                                {% if is_granted('ROLE_MEMBRE_CA') %}
                                     <li><a href="{{ path('agp_new_initiation') }}">Ajouter une initiation</a></li>
-                                </ul>
-                            </li>
-                        {% endif %}
+                                {% endif %}
+                            </ul>
+                        </li>
                         {% if is_granted('ROLE_AIDE_ENCADRANT') %}
                             <li><a href="{{ path('agp_trombinoscope') }}"><i class="fa fa-user-circle-o"></i> <span>Trombinoscope</span></a></li>
                         {% endif %}
                         {% if is_granted('ROLE_MEMBRE_CA') %}
                             <li class="header">APPLICATION</li>
                         {% endif %}
-                        {% if is_granted('ROLE_ADMIN') %}
+                        {% if is_granted('ROLE_PRESIDENT') %}
+                            <li class="treeview">
+                                <a href="#"><i class="fa fa-user-plus"></i> <span>Groupes</span>
+                                    <span class="pull-right-container">
+                                        <i class="fa fa-angle-left pull-right"></i>
+                                    </span>
+                                </a>
+                                <ul class="treeview-menu">
+                                    <li><a href="{{ path('agp_list_groups') }}">Tous les groupes</a></li>
+                                    <li><a href="{{ path('agp_new_group') }}">Ajouter un groupe</a></li>
+                                </ul>
+                            </li>
+                        {% endif %}
+                        {% if is_granted('ROLE_MEMBRE_CA') %}
                             <li class="treeview">
                                 <a href="#"><i class="fa fa-file"></i> <span>Pages</span>
                                     <span class="pull-right-container">
@@ -196,8 +241,6 @@
                                     <li><a href="{{ path('agp_new_page') }}">Ajouter une page</a></li>
                                 </ul>
                             </li>
-                        {% endif %}
-                        {% if is_granted('ROLE_MEMBRE_CA') %}
                             <li class="treeview">
                                 <a href="#"><i class="fa fa-pencil"></i> <span>Articles</span>
                                     <span class="pull-right-container">
@@ -210,7 +253,7 @@
                                 </ul>
                             </li>
                         {% endif %}
-                        {% if is_granted('ROLE_ADMIN') %}
+                        {% if is_granted('ROLE_PRESIDENT') %}
                             <li><a href="{{ path('agp_global_parameters') }}"><i class="fa fa-cogs"></i> <span>Paramètres</span></a></li>
                         {% endif %}
                     </ul>

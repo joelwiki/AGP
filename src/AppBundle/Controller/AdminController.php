@@ -32,6 +32,7 @@ class AdminController extends Controller {
     /**
      * @param Request $request
      * @return RedirectResponse|Response
+     * @Security("has_role('ROLE_PRESIDENT')")
      */
     public function globalParametersAction(Request $request) {
         $em = $this->getDoctrine()->getManager();
@@ -99,6 +100,7 @@ class AdminController extends Controller {
 
     /**
      * @return Response
+     * @Security("has_role('ROLE_AIDE_ENCADRANT')")
      */
     public function trombinoscopeAction() {
         $em = $this->getDoctrine()->getManager();

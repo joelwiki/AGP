@@ -19,11 +19,4 @@ class AppController extends Controller {
     public function indexAction() {
         return $this->render('@App/App/views/index.html.twig');
     }
-
-    /**
-     * @return Response
-     */
-    public function chartreAction() {
-        return $this->render('@App/App/views/chartre.html.twig');
-    }
 }

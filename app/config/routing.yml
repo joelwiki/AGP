@@ -18,10 +18,6 @@ agp_change_password:
     resource: "@FOSUserBundle/Resources/config/routing/change_password.xml"
     prefix: /profil
 
-agp_group:
-    resource: "@FOSUserBundle/Resources/config/routing/group.xml"
-    prefix: /group
-
 #### CUSTOM ROUTES ####
 agp_index:
     path: /
@@ -34,10 +30,6 @@ agp_dashboard:
 agp_trombinoscope:
     path: /trombinoscope
     defaults: { _controller: AppBundle:Admin:trombinoscope }
-
-agp_chartre:
-    path: /chartre
-    defaults: { _controller: AppBundle:App:chartre }
 
 agp_global_parameters:
     path: /params
@@ -192,16 +184,31 @@ agp_list_trainings:
     path: /trainings/list
     defaults: { _controller: AppBundle:Training:listTrainings }
 
+agp_list_trainings_ref:
+    path: /trainingsRef/list
+    defaults: { _controller: AppBundle:Training:listTrainingRef }
+
+agp_list_trainings_loc:
+    path: /trainingsLoc/list
+    defaults: { _controller: AppBundle:Training:listTrainingLoc }
+
 agp_edit_training:
     path: /training/{id}/edit
     defaults: { _controller: AppBundle:Training:editTraining }
+
+agp_edit_training_loc:
+    path: /trainingLoc/{id}/edit
+    defaults: { _controller: AppBundle:Training:editTrainingLoc }
+
+agp_edit_training_ref:
+    path: /trainingRef/{id}/edit
+    defaults: { _controller: AppBundle:Training:editTrainingRef }
 
 agp_delete_training:
     path: /training/{id}/delete
     defaults: { _controller: AppBundle:Training:deleteTraining }
 
 ## Initiation ##
-
 agp_new_initiation:
     path: /initiation/new
     defaults: { _controller: AppBundle:Initiation:newInitiation }
@@ -217,3 +224,20 @@ agp_edit_initiation:
 agp_delete_initiation:
     path: /initiation/{uniqueId}/delete
     defaults: { _controller: AppBundle:Initiation:deleteInitiation }
+
+## Groups ##
+agp_new_group:
+    path: /group/new
+    defaults: { _controller: AppBundle:Group:addGroup }
+
+agp_edit_group:
+    path: /group/{id}/edit
+    defaults: { _controller: AppBundle:Group:editGroup }
+
+agp_list_groups:
+    path: /group/list
+    defaults: { _controller: AppBundle:Group:listGroups }
+
+agp_delete_group:
+    path: /group/{id}/delete
+    defaults: { _controller: AppBundle:Group:deleteGroup }

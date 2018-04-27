@@ -24,7 +24,13 @@
         <div class="col-md-9">
             <div class="box box-primary box-padding">
                 <div>
-                    <h2 class="page-header"><i class="fa fa-pencil margin-r-15" aria-hidden="true"></i>Nouvelle page</h2>
+                    <h2 class="page-header"><i class="fa fa-pencil margin-r-15" aria-hidden="true"></i>
+                        {% if page.id is defined %}
+                            Modifier la page
+                        {% else %}
+                            Nouvelle page
+                        {% endif %}
+                    </h2>
                 </div>
                 {{ form_start(form) }}
 

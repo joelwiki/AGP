@@ -164,6 +164,7 @@ class PageController extends Controller {
     /**
      * @param $id
      * @return RedirectResponse
+     * @Security("has_role('ROLE_MEMBRE_CA')")
      */
     public function deletePageAction($id) {
         $em = $this->getDoctrine()->getManager();

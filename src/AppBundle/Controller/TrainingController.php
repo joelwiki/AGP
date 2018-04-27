@@ -27,7 +27,7 @@ class TrainingController extends Controller {
     /**
      * @param Request $request
      * @return Response
-     * @Security("has_role('ROLE_MEMBRE_CA')")
+     * @Security("has_role('ROLE_ENCADRANT')")
      */
     public function newTrainingTypeAction(Request $request) {
 
@@ -43,7 +43,7 @@ class TrainingController extends Controller {
             $em->persist($training);
             $em->flush();
 
-            return $this->redirectToRoute('agp_list_trainings');
+            return $this->redirectToRoute('agp_list_trainings_ref');
         }
 
         return $this->render('@App/Admin/views/new_training_ref.html.twig', array(
@@ -178,6 +178,7 @@ class TrainingController extends Controller {
     /**
      * @param $id
      * @return RedirectResponse
+     * @Security("has_role('ROLE_ENCADRANT')")
      */
     public function deleteTrainingAction($id) {
         $em = $this->getDoctrine()->getManager();
@@ -187,5 +188,85 @@ class TrainingController extends Controller {
         $em->flush();
 
         return $this->redirectToRoute('agp_list_trainings');
+    }
+
+    /**
+     * @return Response
+     * @Security("has_role('ROLE_ENCADRANT')")
+     */
+    public function listTrainingRefAction() {
+        $em = $this->getDoctrine()->getManager();
+        $trainingsRef = $em->getRepository('AppBundle:TrainingRef')->findAll();
+
+        return $this->render('@App/Admin/views/list_trainings_ref.html.twig', array(
+            'trainingsRef' => $trainingsRef
+        ));
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse|Response
+     * @Security("has_role('ROLE_ENCADRANT')")
+     */
+    public function editTrainingRefAction(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $trainingRef = $em->getRepository('AppBundle:TrainingRef')->find($id);
+
+        $form = $this->createForm(TrainingRefType::class, $trainingRef);
+
+        $form = $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            return $this->redirectToRoute('agp_list_trainings_ref');
+        }
+
+        return $this->render('@App/Admin/views/edit_training_ref.html.twig', array(
+            'trainingRef' => $trainingRef,
+            'form' => $form->createView()
+        ));
+    }
+
+    /**
+     * @return Response
+     * @Security("has_role('ROLE_ENCADRANT')")
+     */
+    public function listTrainingLocAction() {
+        $em = $this->getDoctrine()->getManager();
+        $trainingsLoc = $em->getRepository('AppBundle:TrainingLocation')->findAll();
+
+        return $this->render('@App/Admin/views/list_trainings_loc.html.twig', array(
+            'trainingsLoc' => $trainingsLoc
+        ));
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return RedirectResponse|Response
+     * @Security("has_role('ROLE_ENCADRANT')")
+     */
+    public function editTrainingLocAction(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+
+        $trainingLoc = $em->getRepository('AppBundle:TrainingLocation')->find($id);
+
+        $form = $this->createForm(TrainingLocationType::class, $trainingLoc);
+
+        $form = $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $em->flush();
+
+            return $this->redirectToRoute('agp_list_trainings_loc');
+        }
+
+        return $this->render('@App/Admin/views/edit_training_location.html.twig', array(
+            'trainingLoc' => $trainingLoc,
+            'form' => $form->createView()
+        ));
     }
 }

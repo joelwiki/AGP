@@ -45,7 +45,7 @@ class TrainingType extends AbstractType {
                 'class' => TrainingLocation::class,
                 'label' => 'Lieu d\'entraînement',
                 'attr' => [
-                    'class' => 'form-control select2 medium-input'
+                    'class' => 'form-control select2'
                 ],
                 'choice_label' => function ($trainingLocation) {
                     return $trainingLocation->getCustomLocation();

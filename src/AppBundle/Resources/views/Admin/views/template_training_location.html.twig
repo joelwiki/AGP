@@ -1,0 +1,66 @@
+<!-- Main content -->
+<section class="content container-fluid">
+    <div class="box box-primary box-padding">
+        <div class="row">
+            <div class="col-md-12">
+                {{ form_start(form) }}
+                <div>
+                    <h2 class="page-header"><i class="fa fa-map-marker margin-r-15" aria-hidden="true"></i>
+                        {% if trainingLoc.id is defined %}
+                            Modifier le lieu
+                        {% else %}
+                            Nouveau lieu
+                        {% endif %}
+                    </h2>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-7">
+                        <div id="map"></div>
+                        <div id="infowindow-content">
+                            <span id="place-name"  class="title"></span><br>
+                            <span id="place-address"></span>
+                        </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                {{ form_label(form.location) }}
+                                <div>{{ form_widget(form.location) }}</div>
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_label(form.lat) }}
+                                <div>{{ form_widget(form.lat) }}</div>
+                            </div>
+                            <div class="col-md-6">
+                                {{ form_label(form.lng) }}
+                                <div>{{ form_widget(form.lng) }}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-5">
+                        <div>
+                            <div>
+                                {{ form_row(form.image) }}
+                            </div>
+                            <div>
+                                {{ form_row(form.customLocation) }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-12"><hr></div>
+                <div class="col-md-12 text-center">
+                    <div class="training-location-submit">
+                        {% if trainingLoc.id is defined %}
+                            {{ form_row(form.submit, {'label' : 'Modifier le lieu'}) }}
+                        {% else %}
+                            {{ form_row(form.submit) }}
+                        {% endif %}
+                    </div>
+                </div>
+                {{ form_end(form) }}
+            </div>
+        </div>
+    </div>
+</section>
+<!-- /.content -->

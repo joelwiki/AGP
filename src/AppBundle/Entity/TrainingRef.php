@@ -25,7 +25,8 @@ class TrainingRef {
     private $id;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\ManyToOne(targetEntity="AppBundle\Entity\Group")
+     * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      * @Assert\NotBlank()
      */
     private $category;
