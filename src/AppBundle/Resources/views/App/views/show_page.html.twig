@@ -1,5 +1,7 @@
 {% extends "@App/App/views/layout.html.twig" %}
 
+{% block title %}{{ parent() }} - {{ page.title }}{% endblock %}
+
 {% block content %}
     <div class="container-fluid main-content">
         <div class="row">
