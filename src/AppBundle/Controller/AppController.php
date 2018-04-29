@@ -31,4 +31,17 @@ class AppController extends Controller {
     public function loginAction() {
         return $this->render('@FOSUser/Security/login.html.twig');
     }
+
+    public function newsAction() {
+        $em = $this->getDoctrine()->getManager();
+        $articles = $em->getRepository('AppBundle:Article')->findAllArticlesByDateDesc();
+        $mostViewedArticles = $em->getRepository('AppBundle:Article')->findMostViewedArticles();
+        $lastFourArticles = $em->getRepository('AppBundle:Article')->findLastFourArticles();
+
+        return $this->render('@App/App/views/news.html.twig', array(
+            'articles' => $articles,
+            'mostViewedArticles' => $mostViewedArticles,
+            'lastFourArticles' => $lastFourArticles
+        ));
+    }
 }

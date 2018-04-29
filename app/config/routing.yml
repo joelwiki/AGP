@@ -39,6 +39,10 @@ agp_login:
     path: /login
     defaults: { _controller: AppBundle:App:login }
 
+agp_news:
+    path: /news
+    defaults: { _controller: AppBundle:App:news }
+
 ## Article ##
 agp_show_article:
     path: /article/{slug}/show

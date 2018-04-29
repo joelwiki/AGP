@@ -78,10 +78,20 @@ class ArticleController extends Controller {
     }
 
     /**
-     * @param Article $article
+     * @param $slug
      * @return Response
      */
-    public function showArticleAction(Article $article) {
+    public function showArticleAction($slug) {
+
+        $em = $this->getDoctrine()->getManager();
+
+        $article = $em->getRepository('AppBundle:Article')->findOneBy(['slug' => $slug]);
+
+        $views = $article->getViews();
+        $article->setViews($views + 1);
+
+        $em->flush();
+
         return $this->render('@App/App/views/show_article.html.twig', array(
             'article' => $article,
         ));

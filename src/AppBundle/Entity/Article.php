@@ -67,6 +67,11 @@ class Article {
      */
     private $slug;
 
+    /**
+     * @ORM\Column(type="integer")
+     */
+    private $views;
+
     public function __construct() {
         $this->datePublished = new \DateTime();
     }
@@ -181,5 +186,19 @@ class Article {
      */
     public function setSlug($slug) {
         $this->slug = $slug;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getViews() {
+        return $this->views;
+    }
+
+    /**
+     * @param mixed $views
+     */
+    public function setViews($views) {
+        $this->views = $views;
     }
 }

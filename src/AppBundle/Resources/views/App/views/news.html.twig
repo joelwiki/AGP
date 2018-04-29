@@ -1,0 +1,125 @@
+{% extends "@App/App/views/layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Actualités{% endblock %}
+
+{% block content %}
+    {{ include('@App/App/views/page_header.html.twig') }}
+    <div class="container-fluid main-content news">
+        <div class="row">
+            <div class="container">
+                <div class="col-md-12">
+                    <h2 class="page-header">
+                        Actualités
+                    </h2>
+                </div>
+                <div class="col-md-8">
+                    {% for keys, article in articles %}
+                        <div class="single-article">
+                            <div class="row">
+                                <div class="col-md-3">
+                                    <div class="single-article-image">
+                                        {% if article.image is not null %}
+                                            <a href="{{ path('agp_index') }}article/{{ article.slug }}/show">
+                                                <img src="{{ asset('/uploads/article/') }}article-{{ article.uniqueId }}.{{ article.image.extension }}" class="img-responsive mar-auto article-header-img"/>
+                                            </a>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="single-article-title">
+                                        <a href="{{ path('agp_index') }}article/{{ article.slug }}/show">{{ article.title|slice(0, 70) }}</a>
+                                    </div>
+                                    <div class="single-article-meta">
+                                        {{ article.datePublished|date('d') }} {{ article.datePublished|date('F')|trans }}, {{ article.datePublished|date('Y') }}
+                                    </div>
+                                    <div class="single-article-content">
+                                        {{ article.content|striptags|slice(0, 300) }}...
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="col-md-4">
+                    <div class="sidebar-search">
+                        <input class="sidebar-search-input" type="search" placeholder="Rechercher..."/>
+                    </div>
+                    <div class="news-sidebar">
+                        <div class="nav-tabs-custom most-viewed-body">
+                            <ul class="nav nav-tabs row">
+                                <li class="active col-md-6 text-center" style="padding: 0 0 0 15px"><a href="#tab_1" data-toggle="tab">Populaires</a></li>
+                                <li class="col-md-6 text-center" style="padding: 0 13px 0 0"><a href="#tab_2" data-toggle="tab">Récents</a></li>
+                            </ul>
+                            <div class="tab-content">
+                                <div class="tab-pane active" id="tab_1">
+                                    {% for keys, mostViewedArticle in mostViewedArticles %}
+                                        <div class="most-viewed-article-single">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    {% if mostViewedArticle.image is not null %}
+                                                        <a href="{{ path('agp_index') }}article/{{ mostViewedArticle.slug }}/show">
+                                                            <img src="{{ asset('/uploads/article/') }}article-{{ mostViewedArticle.uniqueId }}.{{ mostViewedArticle.image.extension }}" class="img-responsive mar-auto"/>
+                                                        </a>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-md-8 most-viewed-col">
+                                                    <div class="most-viewed-title">
+                                                        {{ mostViewedArticle.title|slice(0, 70) }}
+                                                    </div>
+
+                                                    <div class="most-viewed-date">
+                                                        <i class="fa fa-clock-o"></i> {{ mostViewedArticle.datePublished|date('d') }} {{ mostViewedArticle.datePublished|date('F')|trans }}, {{ mostViewedArticle.datePublished|date('Y') }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <!-- /.tab-pane -->
+                                <div class="tab-pane" id="tab_2">
+                                    {% for keys, lastFourArticle in lastFourArticles %}
+                                        <div class="most-viewed-article-single">
+                                            <div class="row">
+                                                <div class="col-md-4">
+                                                    {% if lastFourArticle.image is not null %}
+                                                        <a href="{{ path('agp_index') }}article/{{ lastFourArticle.slug }}/show">
+                                                            <img src="{{ asset('/uploads/article/') }}article-{{ lastFourArticle.uniqueId }}.{{ lastFourArticle.image.extension }}" class="img-responsive mar-auto"/>
+                                                        </a>
+                                                    {% endif %}
+                                                </div>
+                                                <div class="col-md-8 most-viewed-col">
+                                                    <div class="most-viewed-title">
+                                                        {{ lastFourArticle.title|slice(0, 70) }}
+                                                    </div>
+
+                                                    <div class="most-viewed-date">
+                                                        <i class="fa fa-clock-o"></i> {{ lastFourArticle.datePublished|date('d') }} {{ lastFourArticle.datePublished|date('F')|trans }}, {{ lastFourArticle.datePublished|date('Y') }}
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    {% endfor %}
+                                </div>
+                                <!-- /.tab-pane -->
+                            </div>
+                            <!-- /.tab-content -->
+                        </div>
+                        <div class="fb">
+                            <div class="fb-page" data-href="https://www.facebook.com/parkourAGP/" data-tabs="timeline" data-width="500" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true"><blockquote cite="https://www.facebook.com/parkourAGP/" class="fb-xfbml-parse-ignore"><a href="https://www.facebook.com/parkourAGP/">AGP - Parkour Grenoble</a></blockquote></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+            var js, fjs = d.getElementsByTagName(s)[0];
+            if (d.getElementById(id)) return;
+            js = d.createElement(s); js.id = id;
+            js.src = 'https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.12';
+            fjs.parentNode.insertBefore(js, fjs);
+        }(document, 'script', 'facebook-jssdk'));
+    </script>
+{% endblock %}

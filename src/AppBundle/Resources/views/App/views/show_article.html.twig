@@ -5,14 +5,7 @@
 {% block content %}
     <div class="container-fluid main-content">
         <div class="row">
-            <section class="page header" style="background: url('{{ asset('uploads/global/header-' ~ global.id ~ '.png') }}') center">
-                <div class="overlay"></div>
-                <div class="header-title">Association Grenobloise de Parkour</div>
-                <div class="header-subtitle">
-                    Accumsan feugiat mi commodo erat lorem ipsum, sed magna<br>
-                    lobortis feugiat sapien sed etiam volutpat accumsan.
-                </div>
-            </section>
+            {{ include('@App/App/views/page_header.html.twig') }}
             <div class="container">
                 <div class="article">
                     <div class="row">
@@ -20,6 +13,10 @@
                             {% if article.image is not null %}
                                 <img src="{{ asset('/uploads/article/') }}article-{{ article.uniqueId }}.{{ article.image.extension }}" class="img-responsive mar-auto article-header-img"/>
                             {% endif %}
+                            <div class="article-meta">
+                                <div><i class="fa fa-user"></i> {{ article.author }} <span class="vertical-sep">|</span> <i class="fa fa-calendar"></i> {{ article.datePublished|date('d/m/Y') }}</div>
+                                <div class="article-start"></div>
+                            </div>
                             <div class="article-content">
                                 <h2>{{ article.title }}</h2>
                                 <p>{{ article.content|raw }}</p>

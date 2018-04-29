@@ -29,4 +29,36 @@ class ArticleRepository extends EntityRepository {
 
         return $qb->getQuery()->getResult();
     }
+
+    public function findAllArticlesByDateDesc() {
+        $qb = $this->_em->createQueryBuilder();
+
+        $qb->select('a')
+            ->from('AppBundle:Article', 'a')
+            ->orderBy('a.datePublished', 'DESC');
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findMostViewedArticles() {
+        $qb = $this->_em->createQueryBuilder();
+
+        $qb->select('a')
+            ->from('AppBundle:Article', 'a')
+            ->orderBy('a.views', 'DESC')
+            ->setMaxResults(4);
+
+        return $qb->getQuery()->getResult();
+    }
+
+    public function findLastFourArticles() {
+        $qb = $this->_em->createQueryBuilder();
+
+        $qb->select('a')
+            ->from('AppBundle:Article', 'a')
+            ->orderBy('a.datePublished', 'DESC')
+            ->setMaxResults(4);
+
+        return $qb->getQuery()->getResult();
+    }
 }
