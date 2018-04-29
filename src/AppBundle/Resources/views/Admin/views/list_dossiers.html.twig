@@ -37,6 +37,7 @@
                             <th>Propriétaire</th>
                             <th>Dossier</th>
                             <th>Statut</th>
+                            <th>Inscrit FPK</th>
                             {% if is_granted('ROLE_MEMBRE_CA') %}
                                 <th>Actions</th>
                             {% endif %}
@@ -79,6 +80,13 @@
                                     <span class="btn btn-disabled">Désactivé</span>
                                 {% endif %}
                             </td>
+                            <td>
+                                {% if dossier.fpkRegistered == 1 %}
+                                    <input id="fpkRegistered" type="checkbox" name="Inscrit FPK" title="Inscrit FPK" checked/>
+                                {% else %}
+                                    <input id="fpkRegistered" type="checkbox" name="Inscrit FPK" title="Inscrit FPK"/>
+                                {% endif %}
+                            </td>
                             {% if is_granted('ROLE_MEMBRE_CA') %}
                                 <td>
                                     <a href="{{ path('agp_edit_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}" title="Editer">Editer</a>
@@ -108,6 +116,27 @@
                                 </td>
                             {% endif %}
                         </tr>
+                        <script src="{{ asset('js/jquery/jquery.min.js') }}"></script>
+                        <script type="text/javascript">
+
+                            var checkbox = $('#fpkRegistered');
+
+                            checkbox.on('change',function() {
+                                var params = {
+                                    type: "POST",
+                                };
+
+                                if (checkbox.is(":checked")) {
+                                    params.url = "{{ path('agp_add_fpk_registered', {'id' : dossier.id}) }}",
+                                        params.data = { checkboxValue : checkbox.is(":checked") };
+                                } else {
+                                    params.url = "{{ path('agp_remove_fpk_registered', {'id' : dossier.id}) }}",
+                                        params.data = { checkboxValue : checkbox.is(":checked") };
+                                }
+
+                                $.ajax(params);
+                            });
+                        </script>
                     {% endfor %}
                     </tbody>
                 </table>

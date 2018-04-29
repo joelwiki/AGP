@@ -195,6 +195,11 @@ class Dossier {
     private $fpkNumber;
 
     /**
+     * @ORM\Column(type="boolean", nullable=true)
+     */
+    private $fpkRegistered;
+
+    /**
      * @return mixed
      */
     public function getId() {
@@ -626,5 +631,19 @@ class Dossier {
      */
     public function setFpkNumber($fpkNumber) {
         $this->fpkNumber = $fpkNumber;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getFpkRegistered() {
+        return $this->fpkRegistered;
+    }
+
+    /**
+     * @param mixed $fpkRegistered
+     */
+    public function setFpkRegistered($fpkRegistered) {
+        $this->fpkRegistered = $fpkRegistered;
     }
 }

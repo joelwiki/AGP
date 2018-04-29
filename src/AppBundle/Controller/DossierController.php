@@ -394,7 +394,7 @@ class DossierController extends Controller {
             return new JsonResponse($interval->y, 200);
         }
 
-        return new JsonResponse("Fail", 200);
+        return new JsonResponse("Error", 500);
     }
 
     /**
@@ -409,6 +409,50 @@ class DossierController extends Controller {
         $em->remove($dossier);
         $em->flush();
 
-        return $this->redirectToRoute('agp_list_initiations');
+        return $this->redirectToRoute('agp_list_dossiers');
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
+     */
+    public function fpkAddRegisteredAction(Request $request, $id) {
+
+        $em = $this->getDoctrine()->getManager();
+        $dossier = $em->getRepository('AppBundle:Dossier')->find($id);
+
+        if ($data = $request->request->get('checkboxValue') == true) {
+
+            $dossier->setFpkRegistered(1);
+
+            $em->flush();
+
+            return new JsonResponse(200);
+        }
+
+        return new JsonResponse("Error", 500);
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
+     */
+    public function fpkRemoveRegisteredAction(Request $request, $id) {
+
+        $em = $this->getDoctrine()->getManager();
+        $dossier = $em->getRepository('AppBundle:Dossier')->find($id);
+
+        if ($data = $request->request->get('checkboxValue')) {
+
+            $dossier->setFpkRegistered(0);
+
+            $em->flush();
+
+            return new JsonResponse(200);
+        }
+
+        return new JsonResponse("Error", 500);
     }
 }

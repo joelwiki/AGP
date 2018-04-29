@@ -35,6 +35,10 @@ a:hover, a:focus {
     display: inline-block;
 }
 
+.float-right {
+    float: right;
+}
+
 .pre-block-separator {
     border-top: 1px solid #f4f4f4;
     height: 10px;

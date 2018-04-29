@@ -35,6 +35,10 @@ agp_global_parameters:
     path: /params
     defaults: { _controller: AppBundle:Admin:globalParameters }
 
+agp_login:
+    path: /login
+    defaults: { _controller: AppBundle:App:login }
+
 ## Article ##
 agp_show_article:
     path: /article/{slug}/show
@@ -166,6 +170,14 @@ agp_delete_dossier:
 agp_calculate_age:
     path: /calculate-age
     defaults: { _controller: AppBundle:Dossier:calculateAge }
+
+agp_add_fpk_registered:
+    path: /fpk-add-registered/{id}
+    defaults: { _controller: AppBundle:Dossier:fpkAddRegistered }
+
+agp_remove_fpk_registered:
+    path: /fpk-remove-registered/{id}
+    defaults: { _controller: AppBundle:Dossier:fpkRemoveRegistered }
 
 ## Training ##
 agp_new_training_ref:

@@ -33,12 +33,12 @@
                         {% for key, user in users %}
                             {% if user.dossier is not null and user.dossier.enabled == 1 %}
                                 <tr class="col-md-3">
-                                    <td class="box box-primary">
+                                    <td class="box box-primary float-right">
                                         <a href="{{ path('agp_show_user', {'id' : user.id}) }}">
                                             {% if user.dossier.image is defined %}
-                                                <img src="{{ asset('uploads/dossier/image/image-' ~ user.dossier.uniqueId ~ '.' ~ user.dossier.image.extension ~ '') }}" class="img-responsive img-circle img-trombinoscope"/>
+                                                <img src="{{ asset('uploads/dossier/image/image-' ~ user.dossier.uniqueId ~ '.' ~ user.dossier.image.extension ~ '') }}" class="img-responsive img-trombinoscope mar-auto"/>
                                             {% else %}
-                                                <img src="{{ asset('img/no-user.png') }}" class="img-responsive img-circle img-trombinoscope"/>
+                                                <img src="{{ asset('img/no-user.png') }}" class="img-responsive img-trombinoscope mar-auto"/>
                                             {% endif %}
                                             <div class="text-center trombinoscope-name">{{ user.firstName }} {{ user.lastName }}</div>
                                         </a>

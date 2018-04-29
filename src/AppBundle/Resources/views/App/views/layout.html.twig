@@ -42,6 +42,19 @@
                                 <li><a href="#">Contact</a></li>
                             </ul>
                         </li>
+                        {% if app.user.id is defined %}
+                            <li class="dropdown">
+                                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ app.user.username }} <span class="caret"></span></a>
+                                <ul class="dropdown-menu">
+                                    <li><a href="{{ path('agp_dashboard') }}">Tableau de bord</a></li>
+                                    <li><a href="{{ path('agp_show_profile') }}">Profil</a></li>
+                                    <li role="separator" class="divider"></li>
+                                    <li><a href="{{ path('agp_index') }}logout">Déconnexion</a></li>
+                                </ul>
+                            </li>
+                        {% else %}
+                            <li><a href="{{ path('agp_login') }}">Connexion</a></li>
+                        {% endif %}
                     </ul>
                 </div><!-- /.navbar-collapse -->
             </div><!-- /.container-fluid -->
