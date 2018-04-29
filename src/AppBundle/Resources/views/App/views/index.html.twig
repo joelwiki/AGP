@@ -64,36 +64,20 @@
                 <div class="container">
                     <h2 class="grey h2 text-center">Actualités</h2>
                     <div class="sep sep-actu"></div>
-                    <div class="col-md-4">
-                        <img src="{{ asset('img/img2.jpg') }}" class="img-responsive"/>
-                        <h3 class="grey">Lorem ipsum sin dolor amet</h3>
-                        <p class="text-muted">
-                            Adipiscing a commodo ante nunc magna lorem et interdum mi ante nunc lobortis non amet vis sed volutpat et nascetur...
-                        </p>
-                        <a href="#">
-                            <div class="actu-more">Voir</div>
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                        <img src="{{ asset('img/img3.jpg') }}" class="img-responsive"/>
-                        <h3 class="grey">Lorem ipsum sin dolor amet</h3>
-                        <p class="text-muted">
-                            Adipiscing a commodo ante nunc magna lorem et interdum mi ante nunc lobortis non amet vis sed volutpat et nascetur...
-                        </p>
-                        <a href="#">
-                            <div class="actu-more">Voir</div>
-                        </a>
-                    </div>
-                    <div class="col-md-4">
-                        <img src="{{ asset('img/img4.jpg') }}" class="img-responsive"/>
-                        <h3 class="grey">Lorem ipsum sin dolor amet</h3>
-                        <p class="text-muted">
-                            Adipiscing a commodo ante nunc magna lorem et interdum mi ante nunc lobortis non amet vis sed volutpat et nascetur...
-                        </p>
-                        <a href="#">
-                            <div class="actu-more">Voir</div>
-                        </a>
-                    </div>
+                    {% for key, article in articles %}
+                        <div class="col-md-4">
+                            {% if article.image is not null %}
+                                <img src="{{ asset('/uploads/article/') }}article-{{ article.uniqueId }}.{{ article.image.extension }}" class="img-responsive"/>
+                            {% endif %}
+                            <h3 class="grey">{{ article.title }}</h3>
+                            <p class="text-muted">
+                                {{ article.content|slice(0, 120)|striptags }}...
+                            </p>
+                            <a href="article/{{ article.slug }}/show">
+                                <div class="actu-more">Voir</div>
+                            </a>
+                        </div>
+                    {% endfor %}
                 </div>
             </section>
             <section class="index-four">

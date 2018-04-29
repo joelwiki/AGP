@@ -1,4 +1,82 @@
 {% trans_default_domain 'FOSUserBundle' %}
 
 {{ form_start(form, {'method': 'post', 'action': path('fos_user_registration_register'), 'attr': {'class': 'fos_user_registration_register'}}) }}
+<body class="hold-transition register-page">
+    <div class="register-box register-page">
+        <div class="register-logo">
+            <a href="{{ path('agp_index') }}"><b>AGP</b><span class="arkour">arkour</span></a>
+        </div>
+        <!-- /.register-logo -->
+        <div class="register-box-body">
+            <p class="register-box-msg">Créer un nouveau compte pour accéder à l'espace utilisateur</p>
+
+            <div class="register-inputs">
+                <div class="row">
+                    <div class="col-md-12">
+                        <div>{{ form_label(form.username) }}</div>
+                        <div class="input-group medium-input">
+                            {{ form_widget(form.username) }}
+                            <span class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                        </div>
+
+                        <div>{{ form_label(form.email) }}</div>
+                        <div class="input-group medium-input">
+                            {{ form_widget(form.email) }}
+                            <span class="input-group-addon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                        </div>
+
+                        <div>{{ form_label(form.plainPassword) }}</div>
+                        <div class="input-group medium-input">
+                            {{ form_widget(form.plainPassword.first) }}
+                            <span class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></span>
+                        </div>
+
+                        <div class="input-group medium-input plainPassword-second">
+                            {{ form_widget(form.plainPassword.second) }}
+                            <span class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></span>
+                        </div>
+
+                        <div class="sep-register"></div>
+
+                        <div class="input-group medium-input">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div>{{ form_label(form.firstName) }}</div>
+                                    {{ form_widget(form.firstName) }}
+                                </div>
+                                <div class="col-md-6">
+                                    <div>{{ form_label(form.lastName) }}</div>
+                                    {{ form_widget(form.lastName) }}
+                                </div>
+                            </div>
+                        </div>
+
+                        <div>{{ form_label(form.birthDate) }}</div>
+                        <div class="input-group medium-input">
+                            {{ form_widget(form.birthDate) }}
+                            <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                        </div>
+
+                        {{ form_widget(form.submit) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /.register-box-body -->
+    </div>
+    <!-- /.register-box -->
+</body>
 {{ form_end(form) }}
+
+<!-- jQuery 3 -->
+<script src="{{ asset('js/jquery/jquery.min.js') }}"></script>
+<!-- Input masks -->
+<script src="{{ asset('js/input-mask/jquery.inputmask.js') }}"></script>
+<script src="{{ asset('js/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
+<script src="{{ asset('js/input-mask/jquery.inputmask.extensions.js') }}"></script>
+<!-- Input masks -->
+<script type="text/javascript">
+    $(function () {
+        $('[data-mask]').inputmask();
+    });
+</script>

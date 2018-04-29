@@ -17,7 +17,12 @@ class AppController extends Controller {
      * @return Response
      */
     public function indexAction() {
-        return $this->render('@App/App/views/index.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        $articles = $em->getRepository('AppBundle:Article')->findLastThreeArticles();
+
+        return $this->render('@App/App/views/index.html.twig', array(
+            'articles' => $articles
+        ));
     }
 
     /**

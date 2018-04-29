@@ -1,10 +1,22 @@
-{% extends "@FOSUser/layout.html.twig" %}
+{% extends "@App/Admin/base-admin.html.twig" %}
 
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block fos_user_content %}
-    <p>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</p>
-    {% if targetUrl %}
-    <p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
-    {% endif %}
+    <body class="hold-transition register-page">
+        <div class="register-box register-page">
+            <div class="register-logo">
+                <a href="{{ path('agp_index') }}"><b>AGP</b><span class="arkour">arkour</span></a>
+            </div>
+
+            <div class="register-box-body">
+                <p>{{ 'registration.confirmed'|trans({'%username%': user.username}) }}</p>
+                {% if targetUrl %}
+                    <p><a href="{{ targetUrl }}">{{ 'registration.back'|trans }}</a></p>
+                {% endif %}
+                <p>Vous pouvez désormais accéder à votre <br><a href="{{ path('agp_dashboard') }}">espace utilisateur</a>, ou retourner à <a href="{{ path('agp_index') }}">l'accueil du site</a>.</p>
+            </div>
+        </div>
+    </body>
+
 {% endblock fos_user_content %}

@@ -42,6 +42,7 @@ class RegistrationType extends AbstractType {
                 'error_bubbling' => true
             ))
             ->add('plainPassword', RepeatedType::class, array(
+                'label' => 'Mot de passe',
                 'type' => PasswordType::class,
                 'options' => array(
                     'translation_domain' => 'FOSUserBundle',
@@ -49,38 +50,57 @@ class RegistrationType extends AbstractType {
                         'autocomplete' => 'new-password',
                     ),
                 ),
-                'first_options' => array('label' => 'form.password'),
-                'second_options' => array('label' => 'form.password_confirmation'),
+                'first_options' => array(
+                    'label' => 'form.password',
+                    'attr' => [
+                        'class' => 'form-control medium-input',
+                        'placeholder' => 'Mot de passe'
+                    ],
+                ),
+                'second_options' => array(
+                    'label' => 'form.password_confirmation',
+                    'attr' => [
+                        'class' => 'form-control medium-input',
+                        'placeholder' => 'Confirmer le mot de passe'
+                    ],
+                ),
                 'invalid_message' => 'fos_user.password.mismatch',
             ))
             ->add('firstName', TextType::class, array(
                 'required' => true,
                 'label' => 'Prénom',
                 'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Prénom',
+                    'class' => 'form-control medium-input',
+                    'placeholder' => 'Prénom'
                 ],
                 'error_bubbling' => true
             ))
             ->add('lastName', TextType::class, array(
                 'required' => true,
-                'label' => 'Nom de famille',
+                'label' => 'Nom',
                 'attr' => [
-                    'class' => 'form-control',
-                    'placeholder' => 'Nom de famille',
+                    'class' => 'form-control medium-input',
+                    'placeholder' => 'Nom'
                 ],
                 'error_bubbling' => true
             ))
-            ->add('birthDate', BirthdayType::class, array(
+            ->add('birthDate', TextType::class, array(
                 'required' => true,
                 'label' => 'Date de naissance',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Date de naissance',
+                    'placeholder' => 'Ex. 03/05/1980',
+                    'data-inputmask' => "'alias': 'dd/mm/yyyy'",
+                    'data-mask' => ""
                 ],
                 'error_bubbling' => true
             ))
-            ->add('submit', SubmitType::class)
+            ->add('submit', SubmitType::class, array(
+                'label' => 'Créer le compte',
+                'attr' => [
+                    'class' => 'btn btn-primary btn-register-submit bold'
+                ]
+            ))
         ;
     }
 

@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity
  * @ORM\Table(name="agp_article")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\ArticleRepository")
  */
 class Article {
     /**

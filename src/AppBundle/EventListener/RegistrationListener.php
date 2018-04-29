@@ -47,7 +47,12 @@ class RegistrationListener implements EventSubscriberInterface {
     public function getAgeFromBirthDate(FormEvent $event) {
         $user = $event->getForm()->getData();
 
-        $birthDate = $user->getBirthDate();
+        /** Format birthDate */
+        $birthDate = explode('/', $user->getBirthDate());
+        $birthDate = new \DateTime($birthDate[2] . '-' . $birthDate[1] . '-' . $birthDate[0]);
+
+        $user->setBirthDate($birthDate);
+
         $today = new \DateTime('now');
         $interval = $birthDate->diff($today);
 

@@ -129,16 +129,32 @@ form label, .show-dossier label {
     padding-top: 15px;
 }
 
-form#login-form label {
+form#login-form label, form#register-form label {
     padding-top: 0;
 }
 
-form#login-form .fa-lock {
+form#login-form .fa-lock, form#register-form .fa-lock {
     padding: 0 2.5px;
 }
 
 form#login-form .input-group {
     margin: 15px 0;
+}
+
+form#register-form .input-group {
+    margin: 0 0 15px 0;
+}
+
+.plainPassword-second {
+    padding-top: 5px;
+}
+
+button#fos_user_registration_form_submit {
+    margin-top: 20px;
+}
+
+.login-logo a:hover, .register-logo a:hover {
+    color: #444444;
 }
 
 .box-grey {
@@ -411,7 +427,7 @@ div.parentalAuthorization.no-display {
 .forgotten-password {
     font-size: 10pt;
     float: right;
-    padding: 8px 0 0 0;
+    padding: 5px 0 0 0;
 }
 
 .remember-me {
@@ -420,7 +436,7 @@ div.parentalAuthorization.no-display {
     display: inline-block;
 }
 
-.btn-login-submit {
+.btn-login-submit, .btn-register-submit {
     width: 100%;
 }
 
@@ -566,7 +582,13 @@ section.page .header-title, section.page .header-subtitle {
 /**/
 
 .page, .article {
-    padding: 40px 100px;
+    padding: 40px 100px 20px 100px;
+}
+
+.page-end, .article-end {
+    height: 1px;
+    background: #eee;
+    margin: 20px 0 0 0;
 }
 
 section.index-one {
@@ -756,6 +778,12 @@ section.index-three p {
     background: rgba(144, 144, 144, 0.5);
 }
 
+.sep-register {
+    margin: 20px 0 0 0;
+    height: 1px;
+    background: rgba(144, 144, 144, 0.5);
+}
+
 .sep-actu {
     margin: 20px auto 50px auto;
 }
@@ -767,6 +795,10 @@ section.index-three p {
 .main-navbar-container {
     max-width: 1250px;
     margin: 0 auto;
+}
+
+.main-navbar .dropdown-menu .divider {
+    background-color: #454545 !important;
 }
 
 .main-navbar {
@@ -912,6 +944,27 @@ section.custom-settings span.select2-selection {
     margin-bottom: 5px !important;
 }
 
+.article-content p, .page-content p {
+    font-size: 13pt;
+    text-align: justify;
+}
+
+.mce-notification-warning {
+    display: none;
+}
+
+.img-mar-right {
+    margin: 5px 0 5px 20px;
+}
+
+.img-mar-left {
+    margin: 5px 20px 5px 0;
+}
+
+.article-header-img, .page-header-img {
+    width: 100%;
+    max-height: 300px;
+}
 
 .main-navbar-container .dropdown .dropdown-menu {
     -webkit-transition: max-height 0.3s, opacity 0.2s 0.1s, visibility 0s 0.3s;
@@ -954,6 +1007,18 @@ section.custom-settings span.select2-selection {
     section.index-two p {
         font-size: 14pt;
     }
+}
+
+input#remember_me {
+    vertical-align: text-bottom;
+}
+
+.remember-me {
+    font-size: 12px;
+}
+
+.forgotten-password {
+    padding: 7px 0 0 0;
 }
 
 /** MEDIA QUERIES **/

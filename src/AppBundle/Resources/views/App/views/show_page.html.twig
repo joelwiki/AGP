@@ -14,18 +14,37 @@
                 </div>
             </section>
             <div class="container">
-                <div class="col-md-12">
-                    <div class="page">
-                        {% if page.image is not null %}
-                            <img src="{{ asset('/uploads/page/') }}page-{{ page.uniqueId }}.{{ page.image.extension }}" class="img-responsive mar-auto"/>
-                        {% endif %}
-                        <div class="page-content">
-                            <h2>{{ page.title }}</h2>
-                            <p>{{ page.content|raw }}</p>
+                <div class="page">
+                    <div class="row">
+                        <div class="col-md-12">
+                            {% if page.image is not null %}
+                                <img src="{{ asset('/uploads/page/') }}page-{{ page.uniqueId }}.{{ page.image.extension }}" class="img-responsive mar-auto page-header-img"/>
+                            {% endif %}
+                            <div class="page-content">
+                                <h2>{{ page.title }}</h2>
+                                <p>{{ page.content|raw }}</p>
+                            </div>
                         </div>
                     </div>
+                    <div class="article-end"></div>
                 </div>
             </div>
         </div>
     </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(".page-content img").each(function () {
+            if ($(this).css("float") === "right") {
+                $(this).addClass("img-mar-right");
+            }
+
+            if ($(this).css("float") === "left") {
+                $(this).addClass("img-mar-left");
+            }
+        })
+    </script>
 {% endblock %}
