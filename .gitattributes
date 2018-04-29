@@ -1,1 +1,2 @@
 web/tinymce/* linguist-vendored
+src/AppBundle/Resources/views/Admin/views/* linguist-vendored
