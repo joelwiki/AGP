@@ -92,8 +92,10 @@
                             </div>
 
                             <div>
-                                {{ form_label(form.group) }}
-                                <div>{{ form_widget(form.group) }}</div>
+                                {% if app.user.id != user.id %}
+                                    {{ form_label(form.group) }}
+                                    <div>{{ form_widget(form.group) }}</div>
+                                {% endif %}
                             </div>
                         </div>
 
