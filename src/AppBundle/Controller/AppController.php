@@ -59,4 +59,16 @@ class AppController extends Controller {
             'initiations' => $initiations
         ));
     }
+
+    /**
+     * @return Response
+     */
+    public function trainingsAction() {
+        $em = $this->getDoctrine()->getManager();
+        $trainings = $em->getRepository('AppBundle:Training')->findLastTenArticles();
+
+        return $this->render('@App/App/views/trainings.html.twig', array(
+            'trainings' => $trainings
+        ));
+    }
 }

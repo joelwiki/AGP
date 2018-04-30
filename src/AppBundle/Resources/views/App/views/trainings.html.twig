@@ -1,0 +1,69 @@
+{% extends "@App/App/views/layout.html.twig" %}
+
+{% block title %}{{ parent() }} - Entraînements{% endblock %}
+
+{% block content %}
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBK84QHE-QGhrHs6dWDyf6Ip4K-Q3D0ij0&callback=initMap"></script>
+    {{ include('@App/App/views/page_header.html.twig') }}
+    <div class="container-fluid main-content news">
+        <div class="row">
+            <div class="container">
+                <div class="col-md-12">
+                    <h2 class="page-header">
+                        Entraînements
+                    </h2>
+                </div>
+
+                {% for keys, training in trainings %}
+                    <div class="col-md-12">
+                        {% if training.trainingType.category.name == app.user.group.name %}
+                            <div class="single-training">
+                                <div class="row">
+                                    <div class="col-md-3">
+                                        <img src="{{ asset('/uploads/training/') }}training-{{ training.trainingLocation.id }}.{{ training.trainingLocation.image.extension }}" class="img-responsive mar-auto single-training-image"/>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <div class="col-md-12">
+                                            <h3 class="page-header no-mar-top">Entraînement du {{ training.date|date('d') }} {{ training.date|date('F')|trans }} {{ training.date|date('Y') }}</h3>
+                                        </div>
+
+                                        <div class="col-md-5">
+                                            <div class="single-training-line"><strong>Catégorie :</strong> {{ training.trainingType.category.name }} ans</div>
+                                            <div class="single-training-line"><strong>Date :</strong> {{ training.trainingType.weekDay }} {{ training.date|date('d') }} {{ training.date|date('F')|trans }} {{ training.date|date('Y') }}</div>
+                                            <div class="single-training-line"><strong>Horaire :</strong>  {{ training.trainingType.hourStart }} - {{ training.trainingType.hourEnd }}</div>
+                                            <div class="single-training-line"><strong>Lieu :</strong> {{ training.trainingLocation.location }}</div>
+                                            <div class="single-training-line"><strong>Précision du lieu :</strong> {{ training.trainingLocation.customLocation }}</div>
+                                            <div class="single-training-line">
+                                                {% if training.info is not null %}
+                                                    <strong>Informations :</strong> {{ training.info }}
+                                                {% endif %}
+                                            </div>
+                                            <div class="single-training-line"><strong>Encadrant :</strong> {{ training.encadrant.firstName }} {{ training.encadrant.lastName }}</div>
+                                        </div>
+
+                                        <div class="col-md-7">
+                                            <div id="map-training"></div>
+                                            <script>
+                                                function initMap() {
+                                                    var uluru = {lat: {{ training.trainingLocation.lat }}, lng: {{ training.trainingLocation.lng }} };
+                                                    var map = new google.maps.Map(document.getElementById('map-training'), {
+                                                        zoom: 15,
+                                                        center: uluru
+                                                    });
+                                                    var marker = new google.maps.Marker({
+                                                        position: uluru,
+                                                        map: map
+                                                    });
+                                                }
+                                            </script>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

@@ -76,6 +76,12 @@ class TrainingController extends Controller {
             $uniqueId = substr(md5(mt_rand()), 0, 7);
             $training->setUniqueId($uniqueId);
 
+            /** Format date */
+            $date = explode('/', $training->getDate());
+            $date = new \DateTime($date[2] . '-' . $date[1] . '-' . $date[0]);
+
+            $training->setDate($date);
+
             $em->persist($training);
             $em->flush();
 
@@ -112,6 +118,12 @@ class TrainingController extends Controller {
                 $fileName = 'training-' . $training->getUniqueId() . '.' . $trainingLocationImage->getExtension();
                 $trainingLocationImage->getFile()->move($trainingLocationImage->getUploadDir(), $fileName);
             }
+
+            /** Format date */
+            $date = explode('/', $training->getDate());
+            $date = new \DateTime($date[2] . '-' . $date[1] . '-' . $date[0]);
+
+            $training->setDate($date);
 
             $em->flush();
 

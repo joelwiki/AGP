@@ -249,7 +249,10 @@ div#dossier-summary-buttons a {
 #map {
     height: 250px;
     width: 100%;
-    margin: 30px 0 0 0;
+}
+
+#map-training {
+    height: 200px !important;
 }
 
 .no-dossier, .pending-dossier {
@@ -614,7 +617,12 @@ span.vertical-sep {
     padding: 0 3px;
 }
 
-.single-article{
+.single-training-image {
+    height: 250px !important;
+    width: 100%;
+}
+
+.single-article, .article-row, .page-row, .single-training {
     padding: 20px;
     border: 1px solid #eee;
     margin: 15px 0;
@@ -698,6 +706,10 @@ span.vertical-sep {
 .single-article-content {
     color: #868383;
     padding: 5px 0;
+}
+
+.article-page {
+    background: #fbfbfb;
 }
 
 .most-viewed-body {
@@ -1095,6 +1107,14 @@ footer.footer {
 
 .training-location-submit {
     padding-top: 15px;
+}
+
+.single-training-line {
+    margin: 0 0 9px 0;
+}
+
+.no-mar-top {
+    margin-top: 0 !important;
 }
 
 .pad-t-20 {

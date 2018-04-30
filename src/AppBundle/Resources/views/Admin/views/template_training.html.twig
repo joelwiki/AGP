@@ -28,7 +28,11 @@
                                 <div class="input-group-addon">
                                     <i class="fa fa-calendar"></i>
                                 </div>
-                                {{ form_widget(form.date) }}
+                                {% if training.id is defined %}
+                                    {{ form_widget(form.date, {'value' : training.date|date('d/m/Y')}) }}
+                                {% else %}
+                                    {{ form_widget(form.date) }}
+                                {% endif %}
                             </div>
                             <!-- /.input group -->
                         </div>

@@ -47,6 +47,10 @@ agp_initiations:
     path: /initiations
     defaults: { _controller: AppBundle:App:initiations }
 
+agp_trainings:
+    path: /trainings
+    defaults: { _controller: AppBundle:App:trainings }
+
 ## Article ##
 agp_show_article:
     path: /article/{slug}/show

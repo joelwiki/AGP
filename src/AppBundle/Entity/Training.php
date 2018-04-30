@@ -14,6 +14,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * @ORM\Entity
  * @ORM\Table(name="agp_training")
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\TrainingRepository")
  */
 class Training {
     /**
@@ -43,7 +44,9 @@ class Training {
     private $trainingType;
 
     /**
-     * @ORM\Column(type="string")
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime")
      * @Assert\NotBlank()
      */
     private $date;
@@ -102,14 +105,14 @@ class Training {
     }
 
     /**
-     * @return mixed
+     * @return \DateTime
      */
     public function getDate() {
         return $this->date;
     }
 
     /**
-     * @param mixed $date
+     * @param \DateTime $date
      */
     public function setDate($date) {
         $this->date = $date;
