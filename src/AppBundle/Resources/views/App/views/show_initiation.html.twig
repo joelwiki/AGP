@@ -1,0 +1,41 @@
+{% extends "@App/App/views/layout.html.twig" %}
+
+{% block title %}{{ parent() }} - {{ initiation.title }}{% endblock %}
+
+{% block content %}
+    <div class="container-fluid main-content">
+        <div class="row">
+            {{ include('@App/App/views/page_header.html.twig') }}
+            <div class="container">
+                <div class="article">
+                    <div class="article-start"></div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="article-content">
+                                <h2>{{ initiation.title }}</h2>
+                                <p>{{ initiation.content|raw }}</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="article-end"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(".initiation-content img").each(function () {
+            if ($(this).css("float") === "right") {
+                $(this).addClass("img-mar-right");
+            }
+
+            if ($(this).css("float") === "left") {
+                $(this).addClass("img-mar-left");
+            }
+        })
+    </script>
+{% endblock %}

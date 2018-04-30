@@ -17,4 +17,23 @@
 {% block javascripts %}
     {{ parent() }}
 
+    <!-- Datepicker -->
+    <script>
+        $('.datepicker').datepicker({
+            format: "dd/mm/yyyy",
+            language: "fr",
+            changeMonth: true,
+            changeYear: true
+        })
+    </script>
+
+    <!-- TimePicker -->
+    <script>
+        $(function () {
+            $('.timepicker').timepicker({
+                showInputs: false,
+                showMeridian: false
+            })
+        })
+    </script>
 {% endblock %}

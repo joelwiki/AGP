@@ -1,7 +1,7 @@
 <!-- Main content -->
 <section class="content container-fluid">
     <div class="row">
-        <div class="col-md-12">
+        <div class="col-md-9">
             <div class="box box-primary box-padding">
                 <div>
                     <h2 class="page-header">
@@ -21,11 +21,71 @@
                 <hr>
 
                 <div class="text-center">
-                    {% if initiation.id is defined %}
-                        {{ form_widget(form.submit, {'label' : 'Modifier l\'initiation'}) }}
-                    {% else %}
-                        {{ form_widget(form.submit, {'label' : 'Ajouter l\'initiation'}) }}
-                    {% endif %}
+
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="box box-primary box-padding">
+                {% if initiation.id is defined %}
+                    <div>
+                        <h4 class="small-page-header">Modifier</h4>
+                    </div>
+                    {{ form_widget(form.submit, {'label' : 'Modifier l\'initiation'}) }}
+                {% else %}
+                    <div>
+                        <h4 class="small-page-header">Ajouter</h4>
+                    </div>
+                    {{ form_widget(form.submit, {'label' : 'Ajouter l\'initiation'}) }}
+                {% endif %}
+            </div>
+            <div class="box box-primary box-padding initiations-infos">
+                <div>
+                    <h4 class="small-page-header">Informations</h4>
+                </div>
+                <div>
+                    {{ form_label(form.location) }}
+                    <div>{{ form_widget(form.location) }}</div>
+                </div>
+                <div>
+                    {{ form_label(form.date) }}
+                    <div>
+                        {% if initiation.id is defined %}
+                            {{ form_widget(form.date, {'value' : initiation.date|date('d/m/Y')}) }}
+                        {% else %}
+                            {{ form_widget(form.date) }}
+                        {% endif %}
+                    </div>
+                </div>
+                <div>
+                    <label>Horaires</label>
+                </div>
+                <div>
+                    <div class="bootstrap-timepicker" style="max-width: 150px">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                                {{ form_widget(form.hourStart) }}
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                        <!-- /.form group -->
+                    </div>
+                    <span class="timepicker-in-between">à</span>
+                    <div class="bootstrap-timepicker" style="max-width: 150px">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <div class="input-group-addon">
+                                    <i class="fa fa-clock-o"></i>
+                                </div>
+                                {{ form_widget(form.hourEnd) }}
+                            </div>
+                            <!-- /.input group -->
+                        </div>
+                        <!-- /.form group -->
+                    </div>
                 </div>
             </div>
         </div>

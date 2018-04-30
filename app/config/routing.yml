@@ -43,6 +43,10 @@ agp_news:
     path: /news
     defaults: { _controller: AppBundle:App:news }
 
+agp_initiations:
+    path: /initiations
+    defaults: { _controller: AppBundle:App:initiations }
+
 ## Article ##
 agp_show_article:
     path: /article/{slug}/show
@@ -240,6 +244,10 @@ agp_edit_initiation:
 agp_delete_initiation:
     path: /initiation/{uniqueId}/delete
     defaults: { _controller: AppBundle:Initiation:deleteInitiation }
+
+agp_show_initiation:
+    path: /initiation/{uniqueId}/show
+    defaults: { _controller: AppBundle:Initiation:showInitiation }
 
 ## Groups ##
 agp_new_group:

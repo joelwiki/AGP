@@ -36,7 +36,7 @@
                         <th>ID</th>
                         <th>Titre</th>
                         <th>Contenu</th>
-                        <th>Date de publication</th>
+                        <th>Date</th>
                         {% if is_granted('ROLE_MEMBRE_CA') %}
                             <th>Actions</th>
                         {% endif %}
@@ -47,10 +47,10 @@
                         <tr>
                             <td>{{ initiation.uniqueId }}</td>
                             <td>
-                                <a href="#">{{ initiation.title }}</a>
+                                <a href="{{ path('agp_index') }}initiation/{{ initiation.uniqueId }}/show">{{ initiation.title }}</a>
                             </td>
                             <td>{{ initiation.content|striptags|slice(0, 95)|raw }}</a></td>
-                            <td>{{ initiation.datePublished|date('d') }} {{ initiation.datePublished|date('F') | trans }} {{ initiation.datePublished|date('Y') }}</td>
+                            <td>{{ initiation.date|date('d') }} {{ initiation.date|date('F') | trans }} {{ initiation.date|date('Y') }}</td>
                             {% if is_granted('ROLE_MEMBRE_CA') %}
                                 <td>
                                     <a href="{{ path('agp_edit_initiation', {'uniqueId' : initiation.uniqueId}) }}">Editer</a> |
