@@ -34,9 +34,14 @@ class InitiationController extends Controller {
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $uniqueId = substr(md5(mt_rand()), 0, 7);
             $initiation->setUniqueId($uniqueId);
+
+            /** Format date */
+            $date = explode('/', $initiation->getDate());
+            $date = new \DateTime($date[2] . '-' . $date[1] . '-' . $date[0]);
+
+            $initiation->setDate($date);
 
             $em->persist($initiation);
             $em->flush();
@@ -79,6 +84,12 @@ class InitiationController extends Controller {
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            /** Format date */
+            $date = explode('/', $initiation->getDate());
+            $date = new \DateTime($date[2] . '-' . $date[1] . '-' . $date[0]);
+
+            $initiation->setDate($date);
+
             $em->flush();
 
             return $this->redirectToRoute('agp_list_initiations');
@@ -103,5 +114,18 @@ class InitiationController extends Controller {
         $em->flush();
 
         return $this->redirectToRoute('agp_list_initiations');
+    }
+
+    /**
+     * @param $uniqueId
+     * @return Response
+     */
+    public function showInitiationAction($uniqueId) {
+        $em = $this->getDoctrine()->getManager();
+        $initiation = $em->getRepository('AppBundle:Initiation')->findOneBy(['uniqueId' => $uniqueId]);
+
+        return $this->render('@App/App/views/show_initiation.html.twig', array(
+            'initiation' => $initiation,
+        ));
     }
 }

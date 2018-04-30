@@ -61,6 +61,12 @@ services:
          tags:
              - { name: twig.extension }
 
+    app.profil_type_form:
+            class: AppBundle\Form\ProfileType
+            arguments: ["@security.token_storage"]
+            tags:
+                - { name: form.type, alias: profile_type }
+
     AppBundle\DataFixtures\:
         resource: '../../src/AppBundle/DataFixtures'
         tags: ['doctrine.fixture.orm']

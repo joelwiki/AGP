@@ -49,6 +49,28 @@ class Initiation {
      */
     private $datePublished;
 
+    /**
+     * @ORM\Column(type="string", nullable=true)
+     */
+    private $location;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(type="datetime")
+     */
+    private $date;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $hourStart;
+
+    /**
+     * @ORM\Column(type="string")
+     */
+    private $hourEnd;
+
     public function __construct() {
         $this->datePublished = new \DateTime();
     }
@@ -121,5 +143,61 @@ class Initiation {
      */
     public function setDatePublished($datePublished) {
         $this->datePublished = $datePublished;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getLocation() {
+        return $this->location;
+    }
+
+    /**
+     * @param mixed $location
+     */
+    public function setLocation($location) {
+        $this->location = $location;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHourStart() {
+        return $this->hourStart;
+    }
+
+    /**
+     * @param mixed $hourStart
+     */
+    public function setHourStart($hourStart) {
+        $this->hourStart = $hourStart;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHourEnd() {
+        return $this->hourEnd;
+    }
+
+    /**
+     * @param mixed $hourEnd
+     */
+    public function setHourEnd($hourEnd) {
+        $this->hourEnd = $hourEnd;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDate() {
+        return $this->date;
+    }
+
+    /**
+     * @param \DateTime $date
+     */
+    public function setDate($date) {
+        $this->date = $date;
     }
 }

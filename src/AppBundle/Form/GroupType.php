@@ -25,7 +25,8 @@ class GroupType extends AbstractType {
                 'required' => false,
                 'label' => 'Nom du groupe',
                 'attr' => [
-                    'class' => 'form-control medium-input'
+                    'class' => 'form-control medium-input',
+                    'placeholder' => 'Ex. 13-15'
                 ],
                 'error_bubbling' => true
             ))
@@ -34,6 +35,7 @@ class GroupType extends AbstractType {
                 'label' => 'Age minimum',
                 'attr' => [
                     'class' => 'form-control small-input',
+                    'placeholder' => '13'
                 ],
                 'error_bubbling' => true
             ))
@@ -42,6 +44,7 @@ class GroupType extends AbstractType {
                 'label' => 'Age maximum',
                 'attr' => [
                     'class' => 'form-control small-input',
+                    'placeholder' => '15'
                 ],
                 'error_bubbling' => true
             ))

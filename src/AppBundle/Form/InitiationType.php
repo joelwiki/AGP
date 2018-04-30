@@ -38,6 +38,39 @@ class InitiationType extends AbstractType {
                 ],
                 'error_bubbling' => true
             ))
+            ->add('location', TextType::class, array(
+                'required' => true,
+                'label' => 'Lieu',
+                'attr' => [
+                    'class' => 'form-control',
+                    'placeholder' => 'Lieu',
+                ],
+                'error_bubbling' => true
+            ))
+            ->add('date', TextType::class, array(
+                'required' => true,
+                'label' => 'Date',
+                'attr' => [
+                    'class' => 'form-control datepicker',
+                    'placeholder' => 'jj/mm/aaaa'
+                ]
+            ))
+            ->add('hourStart', TextType::class, array(
+                'required' => true,
+                'label' => 'Début',
+                'attr' => [
+                    'class' => 'form-control timepicker small-input'
+                ],
+                'error_bubbling' => true
+            ))
+            ->add('hourEnd', TextType::class, array(
+                'required' => true,
+                'label' => 'Fin',
+                'attr' => [
+                    'class' => 'form-control timepicker small-input'
+                ],
+                'error_bubbling' => true
+            ))
             ->add('submit', SubmitType::class, array(
                 'label' => 'Ajouter l\'initiation',
                 'attr' => [

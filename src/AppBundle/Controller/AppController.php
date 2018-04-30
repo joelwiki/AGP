@@ -32,6 +32,9 @@ class AppController extends Controller {
         return $this->render('@FOSUser/Security/login.html.twig');
     }
 
+    /**
+     * @return Response
+     */
     public function newsAction() {
         $em = $this->getDoctrine()->getManager();
         $articles = $em->getRepository('AppBundle:Article')->findAllArticlesByDateDesc();
@@ -42,6 +45,18 @@ class AppController extends Controller {
             'articles' => $articles,
             'mostViewedArticles' => $mostViewedArticles,
             'lastFourArticles' => $lastFourArticles
+        ));
+    }
+
+    /**
+     * @return Response
+     */
+    public function initiationsAction() {
+        $em = $this->getDoctrine()->getManager();
+        $initiations = $em->getRepository('AppBundle:Initiation')->findAll();
+
+        return $this->render('@App/App/views/initiations.html.twig', array(
+            'initiations' => $initiations
         ));
     }
 }

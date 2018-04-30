@@ -8,6 +8,9 @@
 
 namespace AppBundle\Form;
 
+use AppBundle\Entity\Group;
+use AppBundle\Entity\User;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -16,8 +19,17 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 
 use FOS\UserBundle\Form\Type\ProfileFormType as BaseProfileFormType;
+use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
 
 class ProfileType extends AbstractType {
+
+    private $currentUser;
+    private $tokenStorage;
+
+    public function __construct(TokenStorage $tokenStorage) {
+        $this->tokenStorage = $tokenStorage;
+        $this->currentUser = $this->tokenStorage->getToken()->getUser()->getId();
+    }
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
         $builder
@@ -73,6 +85,26 @@ class ProfileType extends AbstractType {
                 ]
             ))
         ;
+
+        /** @var User $user */
+        $user = $options['data'];
+
+        if ($user->getId() !== $this->currentUser) {
+            $builder
+                ->add('group', EntityType::class, array(
+                    'class' => Group::class,
+                    'choice_label' => function ($group) {
+                        return $group->getName() . ' ans';
+                    },
+                    'required' => false,
+                    'label' => 'Groupe',
+                    'attr' => [
+                        'class' => '',
+                    ],
+                    'error_bubbling' => true
+                ))
+            ;
+        }
     }
 
     public function getParent() {
