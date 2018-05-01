@@ -284,6 +284,11 @@
                             <div>
                                 <h3 class="page-header pad-t-20"><i class="fa fa-file-text-o margin-r-15" aria-hidden="true"></i>
                                     Certificat médical
+                                    {% if dossier.medicalCertificate is not null %}
+                                        <i class="fa fa-check certificate"></i>
+                                    {% else %}
+                                        <i class="fa fa-times certificate"></i>
+                                    {% endif %}
                                 </h3>
                             </div>
 
@@ -341,7 +346,14 @@
 
                         <div class="col-md-6">
                             <div>
-                                <h3 class="page-header pad-t-20"><i class="fa fa-file-text-o margin-r-15" aria-hidden="true"></i>Attestation de responsabilité civile</h3>
+                                <h3 class="page-header pad-t-20"><i class="fa fa-file-text-o margin-r-15" aria-hidden="true"></i>
+                                    Attestation de responsabilité civile
+                                    {% if dossier.medicalCertificate is not null %}
+                                        <i class="fa fa-check certificate"></i>
+                                    {% else %}
+                                        <i class="fa fa-times certificate"></i>
+                                    {% endif %}
+                                </h3>
                             </div>
 
                             {{ form_start(formCivil, {'action' : path('agp_edit_civil_certificate', {'dossierId' : dossier.id }) }) }}

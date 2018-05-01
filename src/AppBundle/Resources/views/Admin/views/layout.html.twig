@@ -136,6 +136,12 @@
                         </li>
                         {% if is_granted('ROLE_MEMBRE_CA') %}
                             <li><a href="{{ path('agp_list_dossiers') }}"><i class="fa fa-file-text" aria-hidden="true"></i> <span>Dossiers</span></a></li>
+                        {% else %}
+                            {% if app.user.dossier is not null %}
+                                <li><a href="{{ path('agp_show_dossier', {'id' : app.user.id, 'dossierId' : app.user.dossier.id}) }}"><i class="fa fa-file-text" aria-hidden="true"></i> <span>Mon dossier</span></a></li>
+                            {% else %}
+                                <li><a href="{{ path('agp_new_dossier') }}"><i class="fa fa-file-text" aria-hidden="true"></i> <span>Créer mon dossier</span></a></li>
+                            {% endif %}
                         {% endif %}
                         {% if is_granted('ROLE_AIDE_ENCADRANT') %}
                             <li class="treeview">
@@ -145,7 +151,7 @@
                                     </span>
                                 </a>
                                 <ul class="treeview-menu">
-                                    <li><a href="#">Mes entraînements</a></li>
+                                    <li><a href="{{ path('agp_trainings') }}">Mes entraînements</a></li>
                                     <li class="treeview">
                                         <a href="#"> Entraînements
                                             <span class="pull-right-container">

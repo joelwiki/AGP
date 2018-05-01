@@ -8,6 +8,9 @@
         <h1>
             Dossier de {{ user.firstName }} {{ user.lastName }}
             <small>#{{ user.dossier.uniqueId }}</small>
+            {% if app.user.id == user.id %}
+                <a href="{{ path('agp_edit_dossier', {'id' : app.user.id, 'dossierId' : app.user.dossier.id}) }}" class="btn btn-primary bold pull-right">Modifier mon dossier</a>
+            {% endif %}
         </h1>
     </section>
 
@@ -31,7 +34,7 @@
                 <div class="col-md-12">
                     <div class="col-md-6">
                         <h3>Informations personnelles</h3>
-                        <div class="box box-grey box-primary">
+                        <div class="box box-grey box-primary box-infos">
                             <div class="row">
                                 <div class="col-md-4">
                                     <div class="add-article-image">

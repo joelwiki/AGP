@@ -53,7 +53,11 @@
                                             <a href="{{ path('agp_new_dossier') }}">Créez votre dossier</a>
                                         </div>
                                         <div class="steps-link"><i class="fa fa-file-text-o" aria-hidden="true"></i>
-                                            <a href="{{ path('agp_edit_dossier', {'id' : app.user.id, 'dossierId' : app.user.dossier.id}) }}#documents">Fournissez vos documents</a>
+                                            {% if app.user.dossier is not null %}
+                                                <a href="{{ path('agp_edit_dossier', {'id' : app.user.id, 'dossierId' : app.user.dossier.id}) }}#documents">Fournissez vos documents</a>
+                                            {% else %}
+                                                <a href="{{ path('agp_new_dossier') }}">Fournissez vos documents</a>
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
@@ -93,10 +97,10 @@
                         </div>
                     </div>
                     <!-- /.box-header -->
-                    <div class="box-body box-padding box-profil">
+                    <div class="box-body box-padding box-profil box-apercu">
                         <div class="col-md-5">
                             {% if app.user.image.id is not defined %}
-                                <img src="{{ asset('/img/no-user.png') }}" class="profile-user-img img-responsive img-circle"/>
+                                <img src="{{ asset('/img/no-user.png') }}" class="img-responsive"/>
                             {% else %}
                                 <img class="img-responsive" src="{{ asset('/uploads/user/') }}user-{{ app.user.id }}.{{ app.user.image.extension }}" alt="User profile picture">
                             {% endif %}

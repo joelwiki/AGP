@@ -317,8 +317,9 @@ img.training-icon.training-icon-welcome {
 }
 
 .box-steps button {
-    min-width: 300px;
+    width: 100%;
     margin-top: 10px;
+    max-width: 300px;
 }
 
 .box-steps label {
@@ -332,6 +333,22 @@ img.training-icon.training-icon-welcome {
 
 ul.sidebar-menu.tree {
     margin-top: 20px;
+}
+
+.fa-check.certificate {
+    color: green;
+}
+
+.fa-times.certificate {
+    color: #c50000;
+}
+
+i.fa.certificate {
+    margin-left: 5px;
+}
+
+.box-infos {
+    padding: 10px 10px 40px 10px;
 }
 
 .small-page-header {
@@ -1277,18 +1294,22 @@ section.custom-settings span.select2-selection {
     section.index-two p {
         font-size: 14pt;
     }
-}
 
-input#remember_me {
-    vertical-align: text-bottom;
-}
+    .box-apercu {
+        padding-bottom: 30px !important;
+    }
 
-.remember-me {
-    font-size: 12px;
-}
+    input#remember_me {
+        vertical-align: text-bottom;
+    }
 
-.forgotten-password {
-    padding: 7px 0 0 0;
+    .remember-me {
+        font-size: 12px;
+    }
+
+    .forgotten-password {
+        padding: 7px 0 0 0;
+    }
 }
 
 /** MEDIA QUERIES **/
