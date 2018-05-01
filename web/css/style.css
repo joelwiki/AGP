@@ -278,6 +278,62 @@ div#dossier-summary-buttons a {
     color: #f39c12;
 }
 
+.box-steps {
+    margin-top: 20px;
+}
+
+.steps-link {
+    padding: 5px 0;
+    font-size: 11pt;
+    font-weight: 600;
+}
+
+.steps-link i {
+    margin-right: 10px;
+}
+
+img.training-icon.training-icon-welcome {
+    margin-right: 8px;
+}
+
+.steps-link i.fa.fa-file-text-o {
+    margin-right: 13px;
+}
+
+.box-profil>.col-md-8>div {
+    margin-bottom: 10px;
+}
+
+.box-profil>.col-md-7>div {
+    margin-bottom: 10px;
+}
+
+.box-profil img {
+    max-height: 185px;
+}
+
+.steps-link i.fa.fa-question {
+    margin-right: 17px;
+}
+
+.box-steps button {
+    min-width: 300px;
+    margin-top: 10px;
+}
+
+.box-steps label {
+    font-size: 14pt;
+    margin: 10px 0 10px 0;
+}
+
+.box-welcome {
+    padding: 30px 10px 40px 10px !important;
+}
+
+ul.sidebar-menu.tree {
+    margin-top: 20px;
+}
+
 .small-page-header {
     margin: 5px 0 20px 0;
     font-size: 17px;

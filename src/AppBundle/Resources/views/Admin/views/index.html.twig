@@ -7,15 +7,199 @@
     <section class="content-header">
         <h1>
             Tableau de bord
-            <small>Optional description</small>
         </h1>
     </section>
 
     <!-- Main content -->
     <section class="content container-fluid">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-primary">
+                    <div class="box-header">
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body box-padding box-welcome">
+                        <div class="col-md-12">
+                            <h3 class="no-mar-top">
+                                Bienvenue {{ app.user.firstName }} {{ app.user.lastName }}
+                            </h3>
+                            <h4 class="text-muted">Voici les étapes à suivre pour réaliser votre inscription :</h4>
+                        </div>
+                        <div class="steps">
+                            <div class="col-md-4">
+                                <div class="box-steps">
+                                    <label>Gérez votre profil</label>
+                                    <div>
+                                        <a href="{{ path('agp_edit_profile') }}">
+                                            <button class="btn btn-lg btn-primary bold">Modifier le profil</button>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="box-steps">
+                                    <label>Débutez l'inscription</label>
+                                    <div>
+                                        <div class="steps-link"><i class="fa fa-eye" aria-hidden="true"></i>
+                                            <a href="#">Prenez conscience de la chartre</a>
+                                        </div>
+                                        <div class="steps-link"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
+                                            <a href="{{ path('agp_new_dossier') }}">Créez votre dossier</a>
+                                        </div>
+                                        <div class="steps-link"><i class="fa fa-file-text-o" aria-hidden="true"></i>
+                                            <a href="{{ path('agp_edit_dossier', {'id' : app.user.id, 'dossierId' : app.user.dossier.id}) }}#documents">Fournissez vos documents</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="box-steps">
+                                    <label>Finalisation de l'inscription</label>
+                                    <div>
+                                        <div class="steps-link"><i class="fa fa-check" aria-hidden="true"></i>
+                                            <a href="#">Attendez la validation du dossier</a>
+                                        </div>
+                                        <div class="steps-link"><img src="/img/training-black.png" class="training-icon training-icon-welcome">
+                                            <a href="{{ path('agp_trainings') }}">Accédez à vos entraînements</a>
+                                        </div>
+                                        <div class="steps-link"><i class="fa fa-question" aria-hidden="true"></i>
+                                            <a href="#">Contactez l'association</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-5">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Aperçu du profil</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body box-padding box-profil">
+                        <div class="col-md-5">
+                            {% if app.user.image.id is not defined %}
+                                <img src="{{ asset('/img/no-user.png') }}" class="profile-user-img img-responsive img-circle"/>
+                            {% else %}
+                                <img class="img-responsive" src="{{ asset('/uploads/user/') }}user-{{ app.user.id }}.{{ app.user.image.extension }}" alt="User profile picture">
+                            {% endif %}
+                        </div>
+                        <div class="col-md-7">
+                            <label>Nom :</label>
+                            <div>{{ app.user.firstName }} {{ app.user.lastName }}</div>
 
-        Hey !
+                            <label>Email :</label>
+                            <div>{{ app.user.email }}</div>
 
+                            <label>Groupe :</label>
+                            <div>{{ app.user.group.name }} ans</div>
+                        </div>
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+            <div class="col-md-7">
+                <div class="box box-primary">
+                    <div class="box-header with-border">
+                        <h3 class="box-title">Progression du dossier</h3>
+                        <div class="box-tools pull-right">
+                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i>
+                            </button>
+                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i class="fa fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <!-- /.box-header -->
+                    <div class="box-body box-padding box-profil">
+                        {% if app.user.dossier is not null %}
+                            <div class="col-md-4">
+                                <div>
+                                    <ul class="mailbox-attachments clearfix">
+                                        <li>
+                                            <a target="_blank" href="{{ path('agp_show_dossier', {'id' : app.user.id, 'dossierId' : app.user.dossier.id}) }}">
+                                                <span class="mailbox-attachment-icon"><i class="fa fa-file-text-o"></i></span>
+                                            </a>
+                                            <div class="mailbox-attachment-info">
+                                                <a target="_blank" href="{{ path('agp_show_dossier', {'id' : app.user.id, 'dossierId' : app.user.dossier.id}) }}" class="mailbox-attachment-name">Accéder à mon dossier</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div class="col-md-8">
+                                <label>Statut du dossier :</label>
+                                <div>
+                                    {% if app.user.dossier.enabled == 0 %}
+                                        {% if app.user.dossier.medicalCertificate is null or app.user.dossier.civilLiabilityCertificate is null %}
+                                            Incomplet
+                                        {% else %}
+                                            En attente
+                                        {% endif %}
+                                    {% endif %}
+
+                                    {% if app.user.dossier.enabled == 1 %}
+                                        {% if app.user.dossier.fpkNumber is not empty %}
+                                            Validé FPK
+                                        {% else %}
+                                            Validé
+                                        {% endif %}
+                                    {% endif %}
+
+                                    {% if app.user.dossier.enabled == 2 %}
+                                            Refusé
+                                        {% if app.user.dossie.medicalCertificate is not null and app.user.dossier.civilLiabilityCertificate is not null %}
+                                            En attente
+                                        {% else %}
+                                            Incomplet
+                                        {% endif %}
+                                    {% endif %}
+
+                                    {% if app.user.dossier.enabled == 3 %}
+                                        Désactivé
+                                    {% endif %}
+                                </div>
+                                <label>Certificat médical :</label>
+                                <div>
+                                    {% if app.user.dossier.medicalCertificate is not null %}
+                                        Validé
+                                    {% else %}
+                                        Manquant
+                                    {% endif %}
+                                </div>
+                                <label>Attestation de responsabilité civile :</label>
+                                <div>
+                                    {% if app.user.dossier.civilLiabilityCertificate is not null %}
+                                        Validé
+                                    {% else %}
+                                        Manquant
+                                    {% endif %}
+                                </div>
+                            </div>
+                        {% else %}
+                            Vous n'avez pas encore créé de dossier
+                        {% endif %}
+                    </div>
+                    <!-- /.box-body -->
+                </div>
+            </div>
+        </div>
     </section>
     <!-- /.content -->
 {% endblock %}
