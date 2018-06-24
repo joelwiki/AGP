@@ -152,37 +152,52 @@
                                 </div>
                             </div>
                             <div class="col-md-8">
-                                <label>Statut du dossier :</label>
-                                <div>
-                                    {% if app.user.dossier.enabled == 0 %}
-                                        {% if app.user.dossier.medicalCertificate is null or app.user.dossier.civilLiabilityCertificate is null %}
-                                            Incomplet
-                                        {% else %}
-                                            En attente
-                                        {% endif %}
-                                    {% endif %}
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <label>Statut du dossier :</label>
+                                        <div>
+                                            {% if app.user.dossier.enabled == 0 %}
+                                                {% if app.user.dossier.medicalCertificate is null or app.user.dossier.civilLiabilityCertificate is null %}
+                                                    Incomplet
+                                                {% else %}
+                                                    En attente
+                                                {% endif %}
+                                            {% endif %}
 
-                                    {% if app.user.dossier.enabled == 1 %}
-                                        {% if app.user.dossier.fpkNumber is not empty %}
-                                            Validé FPK
-                                        {% else %}
-                                            Validé
-                                        {% endif %}
-                                    {% endif %}
+                                            {% if app.user.dossier.enabled == 1 %}
+                                                {% if app.user.dossier.fpkNumber is not empty %}
+                                                    Validé FPK
+                                                {% else %}
+                                                    Validé
+                                                {% endif %}
+                                            {% endif %}
 
-                                    {% if app.user.dossier.enabled == 2 %}
-                                            Refusé
-                                        {% if app.user.dossie.medicalCertificate is not null and app.user.dossier.civilLiabilityCertificate is not null %}
-                                            En attente
-                                        {% else %}
-                                            Incomplet
-                                        {% endif %}
-                                    {% endif %}
+                                            {% if app.user.dossier.enabled == 2 %}
+                                                Refusé
+                                                {% if app.user.dossie.medicalCertificate is not null and app.user.dossier.civilLiabilityCertificate is not null %}
+                                                    En attente
+                                                {% else %}
+                                                    Incomplet
+                                                {% endif %}
+                                            {% endif %}
 
-                                    {% if app.user.dossier.enabled == 3 %}
-                                        Désactivé
-                                    {% endif %}
+                                            {% if app.user.dossier.enabled == 3 %}
+                                                Désactivé
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <label>Cotisation</label>
+                                        <div>
+                                            {% if app.user.dossier.hasPaidMembership == 0 %}
+                                            Non
+                                            {% elseif app.user.dossier.hasPaidMembership == 1 %}
+                                            Oui
+                                            {% endif %}
+                                        </div>
+                                    </div>
                                 </div>
+
                                 <label>Certificat médical :</label>
                                 <div>
                                     {% if app.user.dossier.medicalCertificate is not null %}

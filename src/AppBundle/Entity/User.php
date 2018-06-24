@@ -95,8 +95,7 @@ class User extends BaseUser {
      */
     protected $group;
 
-    public function __construct()
-    {
+    public function __construct() {
         parent::__construct();
 
         $this->dateRegister = new \DateTime();

@@ -200,6 +200,15 @@ class Dossier {
     private $fpkRegistered;
 
     /**
+     * @ORM\Column(type="boolean")
+     */
+    private $hasPaidMembership;
+
+    public function __construct() {
+        $this->hasPaidMembership = 0;
+    }
+
+    /**
      * @return mixed
      */
     public function getId() {
@@ -645,5 +654,21 @@ class Dossier {
      */
     public function setFpkRegistered($fpkRegistered) {
         $this->fpkRegistered = $fpkRegistered;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHasPaidMembership()
+    {
+        return $this->hasPaidMembership;
+    }
+
+    /**
+     * @param mixed $hasPaidMembership
+     */
+    public function setHasPaidMembership($hasPaidMembership)
+    {
+        $this->hasPaidMembership = $hasPaidMembership;
     }
 }
