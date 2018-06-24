@@ -87,7 +87,7 @@ class DossierType extends AbstractType {
                 ],
                 'choices' => array(
                     'Chèque' => 'Cheque',
-                    'Carte bancaire' => 'Carte'
+                    'Virement' => 'Virement'
                 ),
                 'error_bubbling' => true
             ))
