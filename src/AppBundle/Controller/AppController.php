@@ -131,4 +131,16 @@ class AppController extends Controller {
             'partners' => $partners
         ));
     }
+
+    /**
+     * @return Response
+     */
+    public function registerAction() {
+        $em = $this->getDoctrine()->getManager();
+        $register = $em->getRepository('AppBundle:Page')->findOneBy(['slug' => 'inscription']);
+
+        return $this->render('@App/App/views/show_page.html.twig', array(
+            'register' => $register
+        ));
+    }
 }

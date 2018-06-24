@@ -122,6 +122,10 @@ agp_partners_page:
     path: /page/partenaires/show
     defaults: { _controller: AppBundle:App:partners }
 
+agp_register_page:
+    path: /page/inscription/show
+    defaults: { _controller: AppBundle:App:register }
+
 ## User ##
 agp_list_users:
     path: /users/list

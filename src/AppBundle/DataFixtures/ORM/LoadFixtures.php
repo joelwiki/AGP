@@ -112,6 +112,13 @@ class LoadFixtures extends Fixture {
         $page->setSlug('partenaires');
         $manager->persist($page);
 
+        $page = new Page();
+        $page->setTitle('Inscription');
+        $page->setContent('Modifier le contenu de la page Inscription');
+        $page->setUniqueId($uniqueId);
+        $page->setSlug('inscription');
+        $manager->persist($page);
+
         $manager->flush();
     }
 }
