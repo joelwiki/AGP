@@ -101,6 +101,27 @@ agp_delete_page:
     path: /page/{id}/delete
     defaults: { _controller: AppBundle:Page:deletePage }
 
+# Custom default pages #
+agp_charte_page:
+    path: /page/charte/show
+    defaults: { _controller: AppBundle:App:charte }
+
+agp_infos_page:
+    path: /page/infos/show
+    defaults: { _controller: AppBundle:App:infos }
+
+agp_contact_page:
+    path: /page/contact/show
+    defaults: { _controller: AppBundle:App:contact }
+
+agp_about_page:
+    path: /page/a-propos/show
+    defaults: { _controller: AppBundle:App:about }
+
+agp_partners_page:
+    path: /page/partenaires/show
+    defaults: { _controller: AppBundle:App:partners }
+
 ## User ##
 agp_list_users:
     path: /users/list

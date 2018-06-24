@@ -71,4 +71,64 @@ class AppController extends Controller {
             'trainings' => $trainings
         ));
     }
+
+    /**
+     * @return Response
+     */
+    public function charteAction() {
+        $em = $this->getDoctrine()->getManager();
+        $charte = $em->getRepository('AppBundle:Page')->findOneBy(['slug' => 'charte']);
+
+        return $this->render('@App/App/views/show_page.html.twig', array(
+            'charte' => $charte
+        ));
+    }
+
+    /**
+     * @return Response
+     */
+    public function infosAction() {
+        $em = $this->getDoctrine()->getManager();
+        $infos = $em->getRepository('AppBundle:Page')->findOneBy(['slug' => 'infos']);
+
+        return $this->render('@App/App/views/show_page.html.twig', array(
+            'infos' => $infos
+        ));
+    }
+
+    /**
+     * @return Response
+     */
+    public function contactAction() {
+        $em = $this->getDoctrine()->getManager();
+        $contact = $em->getRepository('AppBundle:Page')->findOneBy(['slug' => 'contact']);
+
+        return $this->render('@App/App/views/show_page.html.twig', array(
+            'contact' => $contact
+        ));
+    }
+
+    /**
+     * @return Response
+     */
+    public function aboutAction() {
+        $em = $this->getDoctrine()->getManager();
+        $about = $em->getRepository('AppBundle:Page')->findOneBy(['slug' => 'a-propos']);
+
+        return $this->render('@App/App/views/show_page.html.twig', array(
+            'about' => $about
+        ));
+    }
+
+    /**
+     * @return Response
+     */
+    public function partnersAction() {
+        $em = $this->getDoctrine()->getManager();
+        $partners = $em->getRepository('AppBundle:Page')->findOneBy(['slug' => 'partenaires']);
+
+        return $this->render('@App/App/views/show_page.html.twig', array(
+            'partners' => $partners
+        ));
+    }
 }

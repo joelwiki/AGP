@@ -47,7 +47,7 @@
                                     <label>Débutez l'inscription</label>
                                     <div>
                                         <div class="steps-link"><i class="fa fa-eye" aria-hidden="true"></i>
-                                            <a href="#">Prenez connaissance de la charte FPK</a>
+                                            <a href="{{ path('agp_charte_page') }}">Prenez connaissance de la charte FPK</a>
                                         </div>
                                         <div class="steps-link"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
                                             <a href="{{ path('agp_new_dossier') }}">Créez votre dossier</a>
@@ -113,7 +113,11 @@
                             <div>{{ app.user.email }}</div>
 
                             <label>Groupe :</label>
-                            <div>{{ app.user.group.name }} ans</div>
+                            <div>
+                                {% if app.user.group.name is defined %}
+                                    {{ app.user.group.name }} ans
+                                {% endif %}
+                            </div>
                         </div>
                     </div>
                     <!-- /.box-body -->

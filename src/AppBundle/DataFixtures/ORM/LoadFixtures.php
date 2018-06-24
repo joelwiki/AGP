@@ -10,6 +10,7 @@ namespace AppBundle\DataFixtures\ORM;
 
 use AppBundle\Entity\GlobalParameters;
 use AppBundle\Entity\Group;
+use AppBundle\Entity\Page;
 use AppBundle\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -20,6 +21,7 @@ class LoadFixtures extends Fixture {
         $this->loadUsers($manager);
         $this->loadGroups($manager);
         $this->loadGlobalParameters($manager);
+        $this->loadDefaultPages($manager);
     }
 
     private function loadUsers(ObjectManager $manager) {
@@ -68,6 +70,47 @@ class LoadFixtures extends Fixture {
         $global->setThemeColor('purple');
 
         $manager->persist($global);
+
+        $manager->flush();
+    }
+
+    public function loadDefaultPages(ObjectManager $manager) {
+        $uniqueId = substr(md5(mt_rand()), 0, 7);
+
+        $page = new Page();
+        $page->setTitle('Charte');
+        $page->setContent('Modifier le contenu de la charte');
+        $page->setUniqueId($uniqueId);
+        $page->setSlug('charte');
+        $manager->persist($page);
+
+        $page = new Page();
+        $page->setTitle('Page d\'informations');
+        $page->setContent('Modifier le contenu de la page d\'informations');
+        $page->setUniqueId($uniqueId);
+        $page->setSlug('infos');
+        $manager->persist($page);
+
+        $page = new Page();
+        $page->setTitle('Contact');
+        $page->setContent('Modifier le contenu de la page de contact');
+        $page->setUniqueId($uniqueId);
+        $page->setSlug('contact');
+        $manager->persist($page);
+
+        $page = new Page();
+        $page->setTitle('A propos');
+        $page->setContent('Modifier le contenu de la page A propos');
+        $page->setUniqueId($uniqueId);
+        $page->setSlug('a-propos');
+        $manager->persist($page);
+
+        $page = new Page();
+        $page->setTitle('Partenaires');
+        $page->setContent('Modifier le contenu de la page Partenaires');
+        $page->setUniqueId($uniqueId);
+        $page->setSlug('partenaires');
+        $manager->persist($page);
 
         $manager->flush();
     }

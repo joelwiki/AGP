@@ -35,9 +35,9 @@
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">A propos <span class="caret"></span></a>
                             <ul class="dropdown-menu">
-                                <li><a href="#">Informations</a></li>
-                                <li><a href="#">Partenaires</a></li>
-                                <li><a href="#">Contact</a></li>
+                                <li><a href="{{ path('agp_infos_page') }}">Informations</a></li>
+                                <li><a href="{{ path('agp_partners_page') }}">Partenaires</a></li>
+                                <li><a href="{{ path('agp_contact_page') }}">Contact</a></li>
                             </ul>
                         </li>
                         {% if app.user.id is defined %}
