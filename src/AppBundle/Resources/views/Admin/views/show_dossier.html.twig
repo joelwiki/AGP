@@ -196,8 +196,9 @@
                                 <div class="row">
                                     <div class="col-md-4">
                                         <label>Certificat médical</label>
+
                                         <div>
-                                            <a target="_blank" href="{{ asset('uploads/dossier/medical_certificate/certificat-' ~ user.dossier.uniqueId ~ '.' ~ user.dossier.medicalCertificate.image.extension ~ '') }}">
+                                            <a target="_blank" href="{{ asset('uploads/dossier/medical_certificate/certificat-' ~ user.dossier.uniqueId ~ '.' ~ user.dossier.medicalCertificate.image.alt|split('.')[1] ~ '') }}">
                                                 <ul class="mailbox-attachments clearfix">
                                                     <li>
                                                         <span class="mailbox-attachment-icon"><i class="fa fa-file-image-o"></i></span>
@@ -243,7 +244,7 @@
                             <div class="box box-grey box-primary">
                             <label>Attestation</label>
                             <div>
-                                <a target="_blank" href="{{ asset('uploads/dossier/civil_certificate/attestation-' ~ user.dossier.uniqueId ~ '.' ~ user.dossier.civilLiabilityCertificate.extension ~ '') }}">
+                                <a target="_blank" href="{{ asset('uploads/dossier/civil_certificate/attestation-' ~ user.dossier.uniqueId ~ '.' ~ user.dossier.civilLiabilityCertificate.alt|split('.')[1] ~ '') }}">
                                     <ul class="mailbox-attachments clearfix">
                                         <li>
                                             <span class="mailbox-attachment-icon"><i class="fa fa-file-image-o"></i></span>
