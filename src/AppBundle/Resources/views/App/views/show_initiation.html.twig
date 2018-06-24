@@ -13,6 +13,16 @@
                         <div class="col-md-12">
                             <div class="article-content">
                                 <h2>{{ initiation.title }}</h2>
+                                <div class="article-meta">
+                                    <div>
+                                        <i class="fa fa-map-marker"></i> {{ initiation.location }}
+                                        <span class="vertical-sep">|</span>
+                                        <i class="fa fa-calendar"></i> {{ initiation.date|date('d/m/Y') }}
+                                        <span class="vertical-sep">|</span>
+                                        <i class="fa fa-clock-o"></i> {{ initiation.hourStart }} - {{ initiation.hourEnd }}
+                                    </div>
+                                    <div class="article-start"></div>
+                                </div>
                                 <p>{{ initiation.content|raw }}</p>
                             </div>
                         </div>
