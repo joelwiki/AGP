@@ -12,6 +12,7 @@ use AppBundle\Entity\Group;
 use AppBundle\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
@@ -20,6 +21,7 @@ use Symfony\Component\Form\Extension\Core\Type\TelType;
 
 use FOS\UserBundle\Form\Type\ProfileFormType as BaseProfileFormType;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
+use Symfony\Component\Security\Core\Role\Role;
 
 class ProfileType extends AbstractType {
 
@@ -89,7 +91,7 @@ class ProfileType extends AbstractType {
         /** @var User $user */
         $user = $options['data'];
 
-        if ($user->getId() !== $this->currentUser) {
+        if ($user->getId() !== $this->currentUser && $user->hasRole('ROLE_PRESIDENT')) {
             $builder
                 ->add('group', EntityType::class, array(
                     'class' => Group::class,
@@ -102,6 +104,23 @@ class ProfileType extends AbstractType {
                         'class' => '',
                     ],
                     'error_bubbling' => true
+                ))
+                ->add('roles', ChoiceType::class, array(
+                    'required' => true,
+                    'attr' => [
+                        'class' => 'form-control'
+                    ],
+                    'label' => 'Rôles',
+                    'choices' => [
+                        'ROLE_ADMIN' => 'ROLE_ADMIN',
+                        'ROLE_PRESIDENT' => 'ROLE_PRESIDENT',
+                        'ROLE_MEMBRE_CA' => 'ROLE_MEMBRE_CA',
+                        'ROLE_ENCADRANT' => 'ROLE_ENCADRANT',
+                        'ROLE_AIDE_ENCADRANT' => 'ROLE_AIDE_ENCADRANT',
+                        'ROLE_MEMBRE' => 'ROLE_MEMBRE',
+                        'ROLE_USER' => 'ROLE_USER'
+                    ],
+                    'multiple' => true,
                 ))
             ;
         }
