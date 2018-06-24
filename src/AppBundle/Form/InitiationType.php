@@ -9,6 +9,8 @@
 namespace AppBundle\Form;
 
 use AppBundle\Entity\Initiation;
+use AppBundle\Entity\TrainingLocation;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextareaType;
@@ -38,13 +40,17 @@ class InitiationType extends AbstractType {
                 ],
                 'error_bubbling' => true
             ))
-            ->add('location', TextType::class, array(
+            ->add('location', EntityType::class, array(
+                'class' => TrainingLocation::class,
                 'required' => true,
                 'label' => 'Lieu',
                 'attr' => [
-                    'class' => 'form-control',
+                    'class' => 'form-control select2',
                     'placeholder' => 'Lieu',
                 ],
+                'choice_label' => function ($trainingLocation) {
+                    return $trainingLocation->getCustomLocation();
+                },
                 'error_bubbling' => true
             ))
             ->add('date', TextType::class, array(

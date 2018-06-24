@@ -54,6 +54,10 @@ class TrainingLocation {
      */
     private $lng;
 
+    public function __toString () {
+        return $this->getLocation();
+    }
+
     /**
      * @return mixed
      */
