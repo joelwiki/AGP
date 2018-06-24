@@ -337,6 +337,10 @@ class DossierController extends Controller {
         $dossier = $em->getRepository('AppBundle:Dossier')->find($dossierId);
 
         $dossier->setEnabled(3);
+
+        $user = $dossier->getUser();
+        $user->removeRole('ROLE_MEMBRE');
+
         $em->flush();
 
         return $this->redirectToRoute('agp_list_dossiers');
@@ -371,6 +375,10 @@ class DossierController extends Controller {
         $dossier = $em->getRepository('AppBundle:Dossier')->find($dossierId);
 
         $dossier->setEnabled(1);
+
+        $user = $dossier->getUser();
+        $user->setRoles(['ROLE_MEMBRE']);
+
         $em->flush();
 
         return $this->redirectToRoute('agp_list_dossiers');

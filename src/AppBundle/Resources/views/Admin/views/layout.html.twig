@@ -143,7 +143,7 @@
                                 <li><a href="{{ path('agp_new_dossier') }}"><i class="fa fa-file-text" aria-hidden="true"></i> <span>Créer mon dossier</span></a></li>
                             {% endif %}
                         {% endif %}
-                        {% if is_granted('ROLE_AIDE_ENCADRANT') %}
+                        {% if is_granted('ROLE_MEMBRE') %}
                             <li class="treeview">
                                 <a href="#"><img src="{{ asset('img/training.png') }}" class="menu-icon"/><span>Entraînements</span>
                                     <span class="pull-right-container">
@@ -152,6 +152,7 @@
                                 </a>
                                 <ul class="treeview-menu">
                                     <li><a href="{{ path('agp_trainings') }}">Mes entraînements</a></li>
+                                    {% if is_granted('ROLE_AIDE_ENCADRANT') %}
                                     <li class="treeview">
                                         <a href="#"> Entraînements
                                             <span class="pull-right-container">
@@ -165,6 +166,7 @@
                                             {% endif %}
                                         </ul>
                                     </li>
+                                    {% endif %}
                                     {% if is_granted('ROLE_ENCADRANT') %}
                                         <li class="treeview">
                                             <a href="#"> Créneaux
