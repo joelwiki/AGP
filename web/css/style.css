@@ -1348,6 +1348,10 @@ section.custom-settings span.select2-selection {
     width: 100%;
 }
 
+.navbar-fixed-bottom .navbar-collapse, .navbar-fixed-top .navbar-collapse {
+    max-height: none !important;
+}
+
 /** MEDIA QUERIES **/
 
 @media (min-width: 768px) {

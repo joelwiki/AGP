@@ -19,6 +19,7 @@ use AppBundle\Form\DossierType;
 use AppBundle\Form\MedicalCertificateType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -100,10 +101,17 @@ class DossierController extends Controller {
             ));
         }
 
-        return $this->render('@App/Admin/views/new_dossier.html.twig', array(
-            'form' => $form->createView(),
-            'user' => $user
-        ));
+        $global = $em->getRepository('AppBundle:GlobalParameters')->find(1);
+        $today = new \DateTime('now');
+
+        if (($today > $global->getRegistrationDateStart()) && ($today < $global->getRegistrationDateEnd())) {
+            return $this->render('@App/Admin/views/new_dossier.html.twig', array(
+                'form' => $form->createView(),
+                'user' => $user
+            ));
+        } else {
+            throw new Exception('Inscriptions bloquées');
+        }
     }
 
     /**
