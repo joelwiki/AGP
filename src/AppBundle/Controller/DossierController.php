@@ -438,7 +438,7 @@ class DossierController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $dossier = $em->getRepository('AppBundle:Dossier')->find($id);
 
-        if ($data = $request->request->get('checkboxValue') == true) {
+        if ($data = $request->request->get('checkboxValue') == "true") {
 
             $dossier->setFpkRegistered(1);
 
@@ -460,7 +460,7 @@ class DossierController extends Controller {
         $em = $this->getDoctrine()->getManager();
         $dossier = $em->getRepository('AppBundle:Dossier')->find($id);
 
-        if ($data = $request->request->get('checkboxValue')) {
+        if ($data = $request->request->get('checkboxValue') == "false") {
 
             $dossier->setFpkRegistered(0);
 
