@@ -75,20 +75,21 @@ class UserController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $user = $em->getRepository('AppBundle:User')->find($id);
+        $currentUser = $this->getUser();
 
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_MEMBRE_CA') && $this->getUser()->getId() != $user->getId()) {
+        if ($currentUser->getId() == $user->getId() || $this->get('security.authorization_checker')->isGranted('ROLE_MEMBRE_CA') || $currentUser->getId() == $user->getParent()->getId()) {
+            $children = $em->getRepository('AppBundle:User')->getChildrenFromUser($user);
+
+            $dossier = $user->getDossier();
+
+            return $this->render('@App/Admin/views/show_user.html.twig', array(
+                'user' => $user,
+                'dossier' => $dossier,
+                'children' => $children
+            ));
+        } else {
             throw new \Exception('Vous ne pouvez pas accéder à ce profil.');
         }
-
-        $children = $em->getRepository('AppBundle:User')->getChildrenFromUser($user);
-
-        $dossier = $user->getDossier();
-
-        return $this->render('@App/Admin/views/show_user.html.twig', array(
-            'user' => $user,
-            'dossier' => $dossier,
-            'children' => $children
-        ));
     }
 
     /**
@@ -96,37 +97,38 @@ class UserController extends Controller {
      * @param $id
      * @return RedirectResponse|Response
      * @throws \Exception
-     * @Security("has_role('ROLE_MEMBRE_CA')")
+     * @Security("has_role('ROLE_USER')")
      */
     public function editUserAction(Request $request, $id) {
         $em = $this->getDoctrine()->getManager();
 
         $user = $em->getRepository('AppBundle:User')->find($id);
+        $currentUser = $this->getUser();
 
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_MEMBRE_CA') && $this->getUser()->getId() != $user->getId()) {
-            throw new \Exception('Vous ne pouvez pas modifier ce profil.');
+        if ($currentUser->getId() == $user->getId() || $this->get('security.authorization_checker')->isGranted('ROLE_MEMBRE_CA') || $currentUser->getId() == $user->getParent()->getId()) {
+            $form = $this->createForm(ProfileType::class, $user);
+
+            $form = $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+                $birthDate = $user->getBirthDate();
+                $today = new \DateTime('now');
+                $interval = $birthDate->diff($today);
+
+                $user->setAge($interval->y);
+
+                $em->flush();
+
+                return $this->redirectToRoute('agp_dashboard');
+            }
+
+            return $this->render('@App/Admin/views/edit_user.html.twig', array(
+                'user' => $user,
+                'form' => $form->createView()
+            ));
+        } else {
+            throw new \Exception('Vous ne pouvez pas accéder à ce profil.');
         }
-
-        $form = $this->createForm(ProfileType::class, $user);
-
-        $form = $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-            $birthDate = $user->getBirthDate();
-            $today = new \DateTime('now');
-            $interval = $birthDate->diff($today);
-
-            $user->setAge($interval->y);
-
-            $em->flush();
-
-            return $this->redirectToRoute('agp_dashboard');
-        }
-
-        return $this->render('@App/Admin/views/edit_user.html.twig', array(
-            'user' => $user,
-            'form' => $form->createView()
-        ));
     }
 
     /**
