@@ -243,6 +243,11 @@ class UserController extends Controller {
 
             $children->setBirthDate($birthDate);
 
+            $today = new \DateTime('now');
+            $interval = $birthDate->diff($today);
+
+            $children->setAge($interval->y);
+
             $em->persist($children);
             $em->flush();
 
