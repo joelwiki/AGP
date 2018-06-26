@@ -7,7 +7,7 @@
     <section class="content-header">
         <h1>
             Dossier
-            {% if user.parent.id == app.user.id %}
+            {% if user.parent.id is defined and user.parent.id == app.user.id %}
                 de {{ user.firstName }} {{ user.lastName }}
             {% endif %}
             <small>Ajouter un dossier</small>

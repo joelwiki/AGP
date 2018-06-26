@@ -39,4 +39,25 @@ class UserManager {
 
         return true;
     }
+
+    public function assignGroupToAChildByAge(User $children = null) {
+        $childrens = [];
+
+        if ($children == null) {
+            $childrens[] = $this->em->getRepository('AppBundle:User')->findAll();
+        } else {
+            $childrens[] = $children;
+        }
+
+        foreach ($childrens as $children) {
+            $group = $this->em->getRepository('AppBundle:Group')->findGroupByAge($children);
+            $children->setGroup($group);
+
+            if ($children->getId()) {
+                $this->em->flush();
+            }
+        }
+
+        return true;
+    }
 }

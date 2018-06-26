@@ -248,6 +248,8 @@ class UserController extends Controller {
 
             $children->setAge($interval->y);
 
+            $this->container->get('app.user_manager')->assignGroupToAChildByAge($children);
+
             $em->persist($children);
             $em->flush();
 
