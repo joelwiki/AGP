@@ -30,9 +30,14 @@
             {% if user.id == app.user.id %}
                 Profil
                 <small>Modifier mon profil</small>
+                {% elseif user.parent.id is defined %}
+                    {% if app.user.id == user.parent.id %}
+                        Profil de {{ user.firstName }} {{ user.lastName }}
+                        <small>Modifier le profil</small>
+                    {% endif %}
                 {% else %}
-                Profil de {{ user.username }}
-                <small>Modifier le profil</small>
+                    Profil de {{ user.firstName }} {{ user.lastName }}
+                    <small>Modifier le profil</small>
             {% endif %}
         </h1>
     </section>

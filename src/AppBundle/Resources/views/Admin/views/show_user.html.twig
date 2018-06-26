@@ -15,6 +15,12 @@
                 Profil de {{ user.firstName }} {{ user.lastName }}
                 <small>Aperçu du profil</small>
             {% endif %}
+
+            {% if user.parent.id is defined %}
+                {% if app.user.id == user.parent.id %}
+                    <a href="{{ path('agp_edit_user', {'id' : user.id}) }}" class="btn btn-primary bold pull-right">Modifier le profil de l'enfant</a>
+                {% endif %}
+            {% endif %}
         </h1>
     </section>
 

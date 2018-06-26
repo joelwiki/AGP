@@ -126,58 +126,59 @@ class DossierController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $user = $em->getRepository('AppBundle:User')->find($id);
+        $currentUser = $this->getUser();
         $dossier = $em->getRepository('AppBundle:Dossier')->find($dossierId);
 
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_MEMBRE_CA') && $this->getUser()->getId() != $user->getId()) {
+        if ($currentUser->getId() == $user->getId() || $this->get('security.authorization_checker')->isGranted('ROLE_MEMBRE_CA') || $currentUser->getId() == $user->getParent()->getId()) {
+            if (NULL == $medicalCertificate = $dossier->getMedicalCertificate()) {
+                $medicalCertificate = new MedicalCertificate();
+            }
+            if (NULL == $civilCertificate = $dossier->getCivilLiabilityCertificate()) {
+                $civilCertificate = new CivilCertificate();
+            }
+
+            $form = $this->createForm(DossierType::class, $dossier);
+            $formMedical = $this->createForm(MedicalCertificateType::class, $medicalCertificate);
+            $formCivil = $this->createForm(CivilCertificateType::class, $civilCertificate);
+
+            $form = $form->handleRequest($request);
+
+            if ($form->isSubmitted() && $form->isValid()) {
+
+                /** Format birthDate */
+                $birthDate = explode('/', $dossier->getBirthDate());
+                $birthDate = new \DateTime($birthDate[2] . '-' . $birthDate[1] . '-' . $birthDate[0]);
+
+                $dossier->setBirthDate($birthDate);
+
+                /** Format phone numbers */
+                $phone = str_replace(' ', '', $dossier->getPhone());
+                $contactPhone = str_replace(' ', '', $dossier->getEmergencyContactPhone());
+                $contactTwoPhone = str_replace(' ', '', $dossier->getEmergencyContactTwoPhone());
+
+                $dossier->setPhone($phone);
+                $dossier->setEmergencyContactPhone($contactPhone);
+                $dossier->setEmergencyContactTwoPhone($contactTwoPhone);
+
+                $em->flush();
+
+                return $this->redirectToRoute('agp_edit_dossier', array(
+                    'id' => $dossier->getUser()->getId(),
+                    'dossierId' => $dossier->getId(),
+                    '_fragment' => 'infos'
+                ));
+            }
+
+            return $this->render('@App/Admin/views/edit_dossier.html.twig', array(
+                'user' => $user,
+                'dossier' => $dossier,
+                'form' => $form->createView(),
+                'formMedical' => $formMedical->createView(),
+                'formCivil' => $formCivil->createView()
+            ));
+        } else {
             throw new \Exception('Vous ne pouvez pas modifier ce dossier.');
         }
-
-        if (NULL == $medicalCertificate = $dossier->getMedicalCertificate()) {
-            $medicalCertificate = new MedicalCertificate();
-        }
-        if (NULL == $civilCertificate = $dossier->getCivilLiabilityCertificate()) {
-            $civilCertificate = new CivilCertificate();
-        }
-
-        $form = $this->createForm(DossierType::class, $dossier);
-        $formMedical = $this->createForm(MedicalCertificateType::class, $medicalCertificate);
-        $formCivil = $this->createForm(CivilCertificateType::class, $civilCertificate);
-
-        $form = $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            /** Format birthDate */
-            $birthDate = explode('/', $dossier->getBirthDate());
-            $birthDate = new \DateTime($birthDate[2] . '-' . $birthDate[1] . '-' . $birthDate[0]);
-
-            $dossier->setBirthDate($birthDate);
-
-            /** Format phone numbers */
-            $phone = str_replace(' ', '', $dossier->getPhone());
-            $contactPhone = str_replace(' ', '', $dossier->getEmergencyContactPhone());
-            $contactTwoPhone = str_replace(' ', '', $dossier->getEmergencyContactTwoPhone());
-
-            $dossier->setPhone($phone);
-            $dossier->setEmergencyContactPhone($contactPhone);
-            $dossier->setEmergencyContactTwoPhone($contactTwoPhone);
-
-            $em->flush();
-
-            return $this->redirectToRoute('agp_edit_dossier', array(
-                'id' => $dossier->getUser()->getId(),
-                'dossierId' => $dossier->getId(),
-                '_fragment' => 'infos'
-            ));
-        }
-
-        return $this->render('@App/Admin/views/edit_dossier.html.twig', array(
-            'user' => $user,
-            'dossier' => $dossier,
-            'form' => $form->createView(),
-            'formMedical' => $formMedical->createView(),
-            'formCivil' => $formCivil->createView()
-        ));
     }
 
     /**
@@ -307,17 +308,18 @@ class DossierController extends Controller {
         $em = $this->getDoctrine()->getManager();
 
         $user = $em->getRepository('AppBundle:User')->find($id);
+        $currentUser = $this->getUser();
 
-        if (!$this->get('security.authorization_checker')->isGranted('ROLE_MEMBRE_CA') && $this->getUser()->getId() != $user->getId()) {
-            throw new \Exception('Vous ne pouvez pas accéder à ce dossier.');
+        if ($currentUser->getId() == $user->getId() || $this->get('security.authorization_checker')->isGranted('ROLE_MEMBRE_CA') || $currentUser->getId() == $user->getParent()->getId()) {
+            $dossier = $em->getRepository('AppBundle:User')->find($dossierId);
+
+            return $this->render('@App/Admin/views/show_dossier.html.twig', array(
+                'user' => $user,
+                'dossier' => $dossier
+            ));
+        } else {
+            throw new \Exception('Vous ne pouvez pas modifier ce dossier.');
         }
-
-        $dossier = $em->getRepository('AppBundle:User')->find($dossierId);
-
-        return $this->render('@App/Admin/views/show_dossier.html.twig', array(
-            'user' => $user,
-            'dossier' => $dossier
-        ));
     }
 
     /**
