@@ -66,11 +66,16 @@ class ProfileType extends AbstractType {
             ))
             ->add('phone', TelType::class, array(
                 'required' => false,
-                'label' => 'Téléphone',
+                'label' => 'Numéro de téléphone',
                 'attr' => [
                     'class' => 'form-control medium-input',
-                    'placeholder' => '0123456789',
+                    'placeholder' => 'Ex. 01 23 45 67 89',
+                    'data-inputmask' => "'mask': ['99 99 99 99 99', '99 99 99 99 99']",
+                    'data-mask' => "",
+                    'minlength' => 14,
+                    'maxlength' => 14
                 ],
+                'trim' => true,
                 'error_bubbling' => true
             ))
             ->add('submit', SubmitType::class, array(
