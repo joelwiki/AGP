@@ -11,6 +11,7 @@ namespace AppBundle\Form;
 use AppBundle\Entity\Group;
 use AppBundle\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
+use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -21,16 +22,17 @@ use Symfony\Component\Form\Extension\Core\Type\TelType;
 
 use FOS\UserBundle\Form\Type\ProfileFormType as BaseProfileFormType;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorage;
-use Symfony\Component\Security\Core\Role\Role;
 
 class ProfileType extends AbstractType {
 
     private $currentUser;
     private $tokenStorage;
+    private $container;
 
-    public function __construct(TokenStorage $tokenStorage) {
+    public function __construct(TokenStorage $tokenStorage, ContainerInterface $container) {
         $this->tokenStorage = $tokenStorage;
-        $this->currentUser = $this->tokenStorage->getToken()->getUser()->getId();
+        $this->currentUser = $this->tokenStorage->getToken()->getUser();
+        $this->container = $container;
     }
 
     public function buildForm(FormBuilderInterface $builder, array $options) {
@@ -91,7 +93,7 @@ class ProfileType extends AbstractType {
         /** @var User $user */
         $user = $options['data'];
 
-        if ($user->getId() !== $this->currentUser && $user->hasRole('ROLE_PRESIDENT')) {
+        if ($user->getId() !== $this->currentUser->getId() && $this->container->get('security.authorization_checker')->isGranted('ROLE_PRESIDENT')) {
             $builder
                 ->add('group', EntityType::class, array(
                     'class' => Group::class,

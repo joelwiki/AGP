@@ -63,7 +63,7 @@ services:
 
     app.profil_type_form:
             class: AppBundle\Form\ProfileType
-            arguments: ["@security.token_storage"]
+            arguments: ["@security.token_storage", "@service_container"]
             tags:
                 - { name: form.type, alias: profile_type }
 

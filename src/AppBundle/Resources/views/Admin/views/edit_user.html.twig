@@ -94,15 +94,19 @@
                             <div class="row">
                                 <div class="col-md-3 groupes">
                                     {% if app.user.id != user.id %}
-                                        {{ form_label(form.group) }}
-                                        <div>{{ form_widget(form.group) }}</div>
+                                        {% if is_granted('ROLE_PRESIDENT') %}
+                                            {{ form_label(form.group) }}
+                                            <div>{{ form_widget(form.group) }}</div>
+                                        {% endif %}
                                     {% endif %}
                                 </div>
 
                                 <div class=" col-md-8 roles">
                                     {% if app.user.id != user.id %}
-                                        {{ form_label(form.roles) }}
-                                        <div>{{ form_widget(form.roles) }}</div>
+                                        {% if is_granted('ROLE_PRESIDENT') %}
+                                            {{ form_label(form.roles) }}
+                                            <div>{{ form_widget(form.roles) }}</div>
+                                        {% endif %}
                                     {% endif %}
                                 </div>
                             </div>
