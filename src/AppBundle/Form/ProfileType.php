@@ -73,15 +73,6 @@ class ProfileType extends AbstractType {
                 ],
                 'error_bubbling' => true
             ))
-            ->add('birthdate', BirthdayType::class, array(
-                'required' => false,
-                'label' => 'Date de naissance',
-                'attr' => [
-                    'class' => '',
-                    'placeholder' => 'Date de naissance',
-                ],
-                'error_bubbling' => true
-            ))
             ->add('submit', SubmitType::class, array(
                 'label' => 'Modifier le profil',
                 'attr' => [
@@ -123,6 +114,20 @@ class ProfileType extends AbstractType {
                         'ROLE_USER' => 'ROLE_USER'
                     ],
                     'multiple' => true,
+                ))
+            ;
+        }
+
+        if (!$user->getId() || $this->container->get('security.authorization_checker')->isGranted('ROLE_MEMBRE_CA')) {
+            $builder
+                ->add('birthdate', BirthdayType::class, array(
+                    'required' => false,
+                    'label' => 'Date de naissance',
+                    'attr' => [
+                        'class' => '',
+                        'placeholder' => 'Date de naissance',
+                    ],
+                    'error_bubbling' => true
                 ))
             ;
         }

@@ -147,10 +147,12 @@
                                 </div>
                             </div>
 
-                            {{ form_label(form.birthdate) }}
-                            <div>
-                                {{ form_widget(form.birthdate) }}
-                            </div>
+                            {% if user.id is null or is_granted('ROLE_MEMBRE_CA') %}
+                                {{ form_label(form.birthdate) }}
+                                <div>
+                                    {{ form_widget(form.birthdate) }}
+                                </div>
+                            {% endif %}
                         </div>
 
                         <div class="col-md-12"><hr></div>
