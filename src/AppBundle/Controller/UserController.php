@@ -237,6 +237,12 @@ class UserController extends Controller {
             $parentUser->addChild($children);
             $children->setEnabled(1);
 
+            /** Format birthDate */
+            $birthDate = explode('/', $children->getBirthDate());
+            $birthDate = new \DateTime($birthDate[2] . '-' . $birthDate[1] . '-' . $birthDate[0]);
+
+            $children->setBirthDate($birthDate);
+
             $em->persist($children);
             $em->flush();
 

@@ -22,10 +22,66 @@
                 </div>
                 <div class="col-md-12">
                     {{ form_start(form) }}
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div>{{ form_label(form.username) }}</div>
+                            <div class="input-group medium-input">
+                                {{ form_widget(form.username) }}
+                            </div>
+
+                            <div>{{ form_label(form.email) }}</div>
+                            <div class="input-group medium-input">
+                                {{ form_widget(form.email) }}
+                            </div>
+
+                            <div>{{ form_label(form.plainPassword) }}</div>
+                            <div class="input-group medium-input">
+                                {{ form_widget(form.plainPassword.first) }}
+                            </div>
+
+                            <div class="input-group medium-input plainPassword-second">
+                                {{ form_widget(form.plainPassword.second) }}
+                            </div>
+
+                            <div class="input-group medium-input">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div>{{ form_label(form.firstName) }}</div>
+                                        {{ form_widget(form.firstName) }}
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div>{{ form_label(form.lastName) }}</div>
+                                        {{ form_widget(form.lastName) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div>{{ form_label(form.birthDate) }}</div>
+                            <div class="input-group medium-input">
+                                {{ form_widget(form.birthDate) }}
+                            </div>
+
+                            {{ form_widget(form.submit) }}
+                        </div>
+                    </div>
                     {{ form_end(form) }}
                 </div>
             </div>
         </div>
     </section>
     <!-- /.content -->
+{% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <script src="{{ asset('js/input-mask/jquery.inputmask.js') }}"></script>
+    <script src="{{ asset('js/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
+    <script src="{{ asset('js/input-mask/jquery.inputmask.extensions.js') }}"></script>
+    <!-- Input masks -->
+    <script type="text/javascript">
+        $(function () {
+            $('[data-mask]').inputmask();
+        });
+    </script>
 {% endblock %}
