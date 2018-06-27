@@ -112,31 +112,32 @@
                                 </td>
                             {% endif %}
                         </tr>
-                        <script src="{{ asset('js/jquery/jquery.min.js') }}"></script>
-                        <script type="text/javascript">
 
-                            $(document).off('click', '.checkboxFpkRegistered').on('click', '.checkboxFpkRegistered', function () {
-                                var params = {
-                                    type: "POST",
-                                };
-
-                                var id = $(this).attr('data-id');
-
-                                if (this.checked) {
-                                    params.url = "{{ path('agp_add_fpk_registered', {'id' : '_id' }) }}";
-                                    params.url = params.url.replace('_id', id);
-                                    params.data = { checkboxValue : this.checked };
-                                } else {
-                                    params.url = "{{ path('agp_remove_fpk_registered', {'id' : '_id' }) }}";
-                                    params.url = params.url.replace('_id', id);
-                                    params.data = { checkboxValue : this.checked };
-                                }
-
-                                $.ajax(params);
-                            });
-
-                        </script>
                     {% endfor %}
+                    <script src="{{ asset('js/jquery/jquery.min.js') }}"></script>
+                    <script type="text/javascript">
+
+                        $(document).off('click', '.checkboxFpkRegistered').on('click', '.checkboxFpkRegistered', function () {
+                            var params = {
+                                type: "POST",
+                            };
+
+                            var id = $(this).attr('data-id');
+
+                            if (this.checked) {
+                                params.url = "{{ path('agp_add_fpk_registered', {'id' : '_id' }) }}";
+                                params.url = params.url.replace('_id', id);
+                                params.data = { checkboxValue : this.checked };
+                            } else {
+                                params.url = "{{ path('agp_remove_fpk_registered', {'id' : '_id' }) }}";
+                                params.url = params.url.replace('_id', id);
+                                params.data = { checkboxValue : this.checked };
+                            }
+
+                            $.ajax(params);
+                        });
+
+                    </script>
                     </tbody>
                 </table>
             </div>
