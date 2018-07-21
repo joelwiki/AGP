@@ -42,23 +42,6 @@ class TrainingRefType extends AbstractType {
                 ),
                 'error_bubbling' => true
             ))
-            ->add('weekDay', ChoiceType::class, array(
-                'required' => true,
-                'label' => 'Jour de la semaine',
-                'attr' => [
-                    'class' => 'form-control small-input'
-                ],
-                'choices' => array(
-                    'Lundi' => 'Lundi',
-                    'Mardi' => 'Mardi',
-                    'Mercredi' => 'Mercredi',
-                    'Jeudi' => 'Jeudi',
-                    'Vendredi' => 'Vendredi',
-                    'Samedi' => 'Samedi',
-                    'Dimanche' => 'Dimanche',
-                ),
-                'error_bubbling' => true
-            ))
             ->add('hourStart', TextType::class, array(
                 'required' => true,
                 'label' => 'Début',

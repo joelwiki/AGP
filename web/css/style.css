@@ -527,13 +527,21 @@ div.parentalAuthorization.no-display {
     font-weight: 700 !important;
 }
 
-.login-page, .register-page {
+.login-page, .register-page, .error {
     background: #ececec !important;
 }
 
 .login-box-body, .register-box-body {
     border: 1px solid #dedddd;
     padding: 40px 20px !important;
+}
+
+.error-box-body {
+    padding: 10em 0;
+}
+
+ul.header-action {
+    padding-left: 0;
 }
 
 span.arkour {
@@ -1384,5 +1392,15 @@ section.custom-settings span.select2-selection {
     .most-viewed-col {
         padding-left: 0 !important;
         padding-right: 0 !important;
+    }
+}
+
+@media (max-width: 540px) {
+    section.index .container-header-action {
+        margin: 40px 0 0 0;
+    }
+
+    .index.header {
+        padding: 25em 0 0 0;
     }
 }

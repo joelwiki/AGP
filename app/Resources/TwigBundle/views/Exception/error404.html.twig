@@ -1,0 +1,21 @@
+{% extends('@App/Admin/base-admin.html.twig') %}
+
+{% block body %}
+    <body class="error">
+    <div class="error-box-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="callout callout-warning">
+                        <h4>Erreur 404 - Page non trouvée</h4>
+
+                        <p>La page que vous avez demandé n'a pas été trouvée ou n'est plus disponible.</p>
+                        <p>Si vous pensez que cette erreur n'est pas normale, vous pouvez contacter l'administateur du site.</p>
+                    </div>
+                    <a href="javascript:history.go(-1)">← Retour à la page précédente</a> | <a href="{{ path('agp_index') }}">Accueil</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+{% endblock %}

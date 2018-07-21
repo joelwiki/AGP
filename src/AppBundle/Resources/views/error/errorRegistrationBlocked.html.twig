@@ -1,0 +1,25 @@
+{% extends('@App/Admin/base-admin.html.twig') %}
+
+{% block body %}
+    <body class="error">
+    <div class="error-box-body">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <div class="callout callout-warning">
+                        <h4>Inscriptions terminées !</h4>
+
+                        <p>
+                            Les inscriptions allant du {{ global.registrationDateStart|date('d/m/Y') }} au {{ global.registrationDateEnd|date('d/m/Y') }} sont terminées pour cette année.
+                            <br>
+                            Pour plus d'informations, rendez vous sur <a href="{{ path('agp_register_page') }}">la page d'inscription</a>.
+                        </p>
+                        <p>Si vous pensez que cette erreur n'est pas normale, vous pouvez contacter l'administateur du site.</p>
+                    </div>
+                    <a href="javascript:history.go(-1)">← Retour à la page précédente</a> | <a href="{{ path('agp_index') }}">Accueil</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    </body>
+{% endblock %}

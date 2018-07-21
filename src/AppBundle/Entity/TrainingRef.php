@@ -35,12 +35,6 @@ class TrainingRef {
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
      */
-    private $weekDay;
-
-    /**
-     * @ORM\Column(type="string")
-     * @Assert\NotBlank()
-     */
     private $hourStart;
 
     /**
@@ -76,20 +70,6 @@ class TrainingRef {
      */
     public function setId($id) {
         $this->id = $id;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getWeekDay() {
-        return $this->weekDay;
-    }
-
-    /**
-     * @param mixed $weekDay
-     */
-    public function setWeekDay($weekDay) {
-        $this->weekDay = $weekDay;
     }
 
     /**

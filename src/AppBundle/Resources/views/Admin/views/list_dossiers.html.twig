@@ -19,7 +19,8 @@
 
                 <div class="box-tools">
                     <div class="input-group input-group-sm" style="width: 250px;">
-                        <input type="text" id="system-search" name="table_search" class="form-control pull-right" placeholder="Rechercher dans les dossiers">
+                        <input type="text" id="system-search" name="table_search" class="form-control pull-right"
+                               placeholder="Rechercher dans les dossiers">
 
                         <div class="input-group-btn">
                             <button type="submit" class="btn btn-default"><i class="fa fa-search"></i></button>
@@ -32,16 +33,17 @@
             <div class="box-body table-responsive no-padding">
                 <table class="table table-striped list-table list-dossiers">
                     <thead>
-                        <tr>
-                            <th>ID unique</th>
-                            <th>Propriétaire</th>
-                            <th>Dossier</th>
-                            <th>Statut</th>
-                            <th>Inscrit FPK</th>
-                            {% if is_granted('ROLE_MEMBRE_CA') %}
-                                <th>Actions</th>
-                            {% endif %}
-                        </tr>
+                    <tr>
+                        <th>ID unique</th>
+                        <th>Propriétaire</th>
+                        <th>Dossier</th>
+                        <th>Statut</th>
+                        <th>Inscrit FPK</th>
+                        <th>Montant réglé</th>
+                        {% if is_granted('ROLE_MEMBRE_CA') %}
+                            <th>Actions</th>
+                        {% endif %}
+                    </tr>
                     </thead>
 
                     <tbody>
@@ -49,7 +51,9 @@
                         <tr>
                             <td>{{ dossier.uniqueId }}</td>
                             <td>{{ dossier.user.firstName }} {{ dossier.user.lastName }}</td>
-                            <td><a target="_blank" href="{{ path('agp_show_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}">Accéder au dossier</a></td>
+                            <td><a target="_blank"
+                                   href="{{ path('agp_show_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}">Accéder
+                                    au dossier</a></td>
                             <td>
                                 {% if dossier.enabled == 0 %}
                                     {% if dossier.medicalCertificate is null or dossier.civilLiabilityCertificate is null %}
@@ -81,63 +85,61 @@
                                 {% endif %}
                             </td>
                             <td>
-                                <input type="checkbox" name="Inscrit FPK" data-id="{{ dossier.id }}" title="Inscrit FPK" class="checkboxFpkRegistered" {{ dossier.fpkRegistered ? 'checked' : '' }}/>
+                                <input type="checkbox" name="Inscrit FPK" data-id="{{ dossier.id }}" title="Inscrit FPK"
+                                       class="checkboxFpkRegistered" {{ dossier.fpkRegistered ? 'checked' : '' }}/>
+                            </td>
+                            <td>
+                                <span class="paidAmount">
+                                    <span class="paidAmountNumber">{{ dossier.paidAmount }} €</span> <a
+                                            class="editPaidAmount" data-id="{{ dossier.id }}"
+                                            data-paidamount="{{ dossier.paidAmount }}"><i class="fa fa-edit"></i></a>
+                                </span>
                             </td>
                             {% if is_granted('ROLE_MEMBRE_CA') %}
                                 <td>
-                                    <a href="{{ path('agp_edit_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}" title="Editer">Editer</a>
+                                    <a href="{{ path('agp_edit_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}"
+                                       title="Editer">Editer</a>
                                     {% if dossier.enabled == 1 %}
-                                        | <a href="{{ path('agp_deactivate_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}" title="Désactiver">Désactiver</a>
+                                        | <a
+                                            href="{{ path('agp_deactivate_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}"
+                                            title="Désactiver">Désactiver</a>
                                     {% endif %}
-                                    | <a href="{{ path('agp_delete_dossier', {'dossierId' : dossier.id}) }}" title="Supprimer">Supprimer</a>
+                                    | <a href="{{ path('agp_delete_dossier', {'dossierId' : dossier.id}) }}"
+                                         title="Supprimer">Supprimer</a>
 
                                     <div class="space"></div>
 
                                     {% if dossier.enabled == 0 %}
                                         {% if dossier.medicalCertificate is not empty and dossier.civilLiabilityCertificate is not empty %}
-                                            <a href="{{ path('agp_reject_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}" title="Refuser">Refuser</a>
-                                            | <a href="{{ path('agp_activate_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}" title="Valider">Valider</a>
+                                            <a href="{{ path('agp_reject_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}"
+                                               title="Refuser">Refuser</a>
+                                            | <a
+                                                href="{{ path('agp_activate_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}"
+                                                title="Valider">Valider</a>
                                         {% endif %}
                                     {% endif %}
 
                                     {% if dossier.enabled == 2 %}
                                         {% if dossier.medicalCertificate is not null and dossier.civilLiabilityCertificate is not null %}
-                                            | <a href="{{ path('agp_activate_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}" title="Valider">Valider</a>
+                                            | <a
+                                                href="{{ path('agp_activate_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}"
+                                                title="Valider">Valider</a>
                                         {% endif %}
                                     {% endif %}
 
                                     {% if dossier.enabled == 3 %}
-                                        | <a href="{{ path('agp_activate_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}" title="Activer">Activer</a>
+                                        | <a
+                                            href="{{ path('agp_activate_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}"
+                                            title="Activer">Activer</a>
                                     {% endif %}
+
+                                    |
+                                    <a href="{{ path('agp_reset_dossier', {'id' : dossier.user.id, 'dossierId' : dossier.id}) }}"
+                                       title="Réinitialiser">Réinitialiser</a>
                                 </td>
                             {% endif %}
                         </tr>
-
                     {% endfor %}
-                    <script src="{{ asset('js/jquery/jquery.min.js') }}"></script>
-                    <script type="text/javascript">
-
-                        $(document).off('click', '.checkboxFpkRegistered').on('click', '.checkboxFpkRegistered', function () {
-                            var params = {
-                                type: "POST",
-                            };
-
-                            var id = $(this).attr('data-id');
-
-                            if (this.checked) {
-                                params.url = "{{ path('agp_add_fpk_registered', {'id' : '_id' }) }}";
-                                params.url = params.url.replace('_id', id);
-                                params.data = { checkboxValue : this.checked };
-                            } else {
-                                params.url = "{{ path('agp_remove_fpk_registered', {'id' : '_id' }) }}";
-                                params.url = params.url.replace('_id', id);
-                                params.data = { checkboxValue : this.checked };
-                            }
-
-                            $.ajax(params);
-                        });
-
-                    </script>
                     </tbody>
                 </table>
             </div>
@@ -145,4 +147,67 @@
         </div>
     </section>
     <!-- /.content -->
+    <script src="{{ asset('js/jquery/jquery.min.js') }}"></script>
+
+    <!-- Change fpkRegistered state -->
+    <script type="text/javascript">
+
+        $(document).off('click', '.checkboxFpkRegistered').on('click', '.checkboxFpkRegistered', function () {
+            let params = {
+                type: "POST",
+            };
+
+            let id = $(this).attr('data-id');
+
+            if (this.checked) {
+                params.url = "{{ path('agp_add_fpk_registered', {'id' : '_id' }) }}";
+                params.url = params.url.replace('_id', id);
+                params.data = {checkboxValue: this.checked};
+            } else {
+                params.url = "{{ path('agp_remove_fpk_registered', {'id' : '_id' }) }}";
+                params.url = params.url.replace('_id', id);
+                params.data = {checkboxValue: this.checked};
+            }
+
+            $.ajax(params);
+        });
+    </script>
+
+    <!-- Change paidAmount number -->
+    <script type="text/javascript">
+        let editButton = $('.editPaidAmount');
+        let newAmount = null;
+
+        for (let i = 0; i < editButton.length; i++) {
+            $($( editButton )[i]).click(function() {
+                $($('.paidAmountNumber')[i]).empty().append(
+                    '<span class="paidAmountInputContainer">' +
+                    '<input class="paidAmountInput" type="text" value="' + (newAmount == null ? $(this).data('paidamount') : newAmount) + '"  />' +
+                    '<a class="validatePaidAmount" data-id="' + $(this).data('id') + '"> <i class="fa fa-check"></i>' +
+                    '</span>'
+                );
+
+                editButton.css('visibility', 'hidden');
+
+                $('.paidAmountInput').on("change", function () {
+                    newAmount = $(this).val();
+
+                    $('.validatePaidAmount').click(function () {
+                        let params = {
+                            type: "POST",
+                        };
+
+                        params.url = "{{ path('agp_edit_paid_amount', {'id' : '_id' }) }}";
+                        params.url = params.url.replace('_id', $(this).attr('data-id'));
+                        params.data = {newAmount: newAmount};
+
+                        $.ajax(params);
+
+                        $('.paidAmountInputContainer').empty().append(newAmount + ' €');
+                        editButton.css('visibility', 'visible');
+                    });
+                });
+            });
+        }
+    </script>
 {% endblock %}

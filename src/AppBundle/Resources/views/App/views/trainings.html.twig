@@ -33,7 +33,7 @@
 
                                         <div class="col-md-5">
                                             <div class="single-training-line"><strong>Catégorie :</strong> {{ training.trainingType.category.name }} ans</div>
-                                            <div class="single-training-line"><strong>Date :</strong> {{ training.trainingType.weekDay }} {{ training.date|date('d') }} {{ training.date|date('F')|trans }} {{ training.date|date('Y') }}</div>
+                                            <div class="single-training-line"><strong>Date :</strong> {{ training.date|date('l')|trans }} {{ training.date|date('d') }} {{ training.date|date('F')|trans }} {{ training.date|date('Y') }}</div>
                                             <div class="single-training-line"><strong>Horaire :</strong>  {{ training.trainingType.hourStart }} - {{ training.trainingType.hourEnd }}</div>
                                             <div class="single-training-line"><strong>Lieu :</strong> {{ training.trainingLocation.location }}</div>
                                             <div class="single-training-line"><strong>Précision du lieu :</strong> {{ training.trainingLocation.customLocation }}</div>
@@ -42,7 +42,7 @@
                                                     <strong>Informations :</strong> {{ training.info }}
                                                 {% endif %}
                                             </div>
-                                            <div class="single-training-line"><strong>Encadrant :</strong> {{ training.encadrant.firstName }} {{ training.encadrant.lastName }}</div>
+                                            <div class="single-training-line"><strong>Entraînement créé par :</strong> {{ training.encadrant.firstName }} {{ training.encadrant.lastName }}</div>
                                         </div>
 
                                         <div class="col-md-7">

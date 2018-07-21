@@ -37,7 +37,7 @@ class TrainingType extends AbstractType {
                         'class' => 'form-control select2 medium-input'
                     ],
                     'choice_label' => function ($trainingRef) {
-                        return $trainingRef->getWeekDay() . ' ' . $trainingRef->getCategory();
+                        return $trainingRef->getCategory();
                     },
                     'required' => true,
                 ))

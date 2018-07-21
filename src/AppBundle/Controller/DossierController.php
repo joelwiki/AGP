@@ -110,7 +110,10 @@ class DossierController extends Controller {
                 'user' => $user
             ));
         } else {
-            throw new Exception('Inscriptions bloquées');
+            return $this->render('@App/error/errorRegistrationBlocked.html.twig', array(
+                'globalStart' => $global->getRegistrationDateStart(),
+                'globalEnd' => $global->getRegistrationDateEnd(),
+            ));
         }
     }
 
@@ -395,6 +398,27 @@ class DossierController extends Controller {
     }
 
     /**
+     * Reset dossier
+     *
+     * @param $dossierId
+     * @return RedirectResponse
+     * @Security("has_role('ROLE_MEMBRE_CA')")
+     */
+    public function resetDossierAction($dossierId) {
+        $em = $this->getDoctrine()->getManager();
+        $dossier = $em->getRepository('AppBundle:Dossier')->find($dossierId);
+
+        $dossier->setEnabled(0);
+
+        $user = $dossier->getUser();
+        $user->setRoles(['ROLE_USER']);
+
+        $em->flush();
+
+        return $this->redirectToRoute('agp_list_dossiers');
+    }
+
+    /**
      * @param Request $request
      * @return JsonResponse
      */
@@ -465,6 +489,29 @@ class DossierController extends Controller {
         if ($data = $request->request->get('checkboxValue') == "false") {
 
             $dossier->setFpkRegistered(0);
+
+            $em->flush();
+
+            return new JsonResponse(200);
+        }
+
+        return new JsonResponse("Error", 500);
+    }
+
+    /**
+     * @param Request $request
+     * @param $id
+     * @return JsonResponse
+     */
+    public function editPaidAmountAction(Request $request, $id) {
+        $em = $this->getDoctrine()->getManager();
+        $dossier = $em->getRepository('AppBundle:Dossier')->find($id);
+
+        $amount = $request->request->get('newAmount');
+
+        if ($data = $amount) {
+
+            $dossier->setPaidAmount($amount);
 
             $em->flush();
 

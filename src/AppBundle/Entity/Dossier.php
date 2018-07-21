@@ -204,8 +204,14 @@ class Dossier {
      */
     private $hasPaidMembership;
 
+    /**
+     * @ORM\Column(type="integer", nullable=true)
+     */
+    private $paidAmount;
+
     public function __construct() {
         $this->hasPaidMembership = 0;
+        $this->paidAmount = 0;
     }
 
     /**
@@ -670,5 +676,21 @@ class Dossier {
     public function setHasPaidMembership($hasPaidMembership)
     {
         $this->hasPaidMembership = $hasPaidMembership;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPaidAmount()
+    {
+        return $this->paidAmount;
+    }
+
+    /**
+     * @param mixed $paidAmount
+     */
+    public function setPaidAmount($paidAmount)
+    {
+        $this->paidAmount = $paidAmount;
     }
 }

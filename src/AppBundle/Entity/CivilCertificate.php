@@ -37,10 +37,9 @@ class CivilCertificate {
     /**
      * @Assert\File(
      *     maxSize="3M",
-     *     mimeTypes={ "image/png", "image/jpg", "image/jpeg", },
-     *     mimeTypesMessage="Les formats d'image autorisés sont .jpg, .jpeg, .png"
+     *     mimeTypes={ "image/png", "image/jpg", "image/jpeg", "application/pdf", "application/x-pdf" },
+     *     mimeTypesMessage="Les formats d'image autorisés sont .jpg, .jpeg, .png ou .pdf"
      * )
-     * @Assert\Image()
      */
     private $file;
 
