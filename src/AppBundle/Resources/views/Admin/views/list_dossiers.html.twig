@@ -92,7 +92,7 @@
                                 <span class="paidAmount">
                                     <span class="paidAmountNumber">{{ dossier.paidAmount }} €</span> <a
                                             class="editPaidAmount" data-id="{{ dossier.id }}"
-                                            data-paidamount="{{ dossier.paidAmount }}"><i class="fa fa-edit"></i></a>
+                                            data-paidamount="{{ dossier.paidAmount }}"><i class="fa fa-edit" id="edit-paidAmount"></i></a>
                                 </span>
                             </td>
                             {% if is_granted('ROLE_MEMBRE_CA') %}
@@ -183,7 +183,7 @@
                 $($('.paidAmountNumber')[i]).empty().append(
                     '<span class="paidAmountInputContainer">' +
                     '<input class="paidAmountInput" type="text" value="' + (newAmount == null ? $(this).data('paidamount') : newAmount) + '"  />' +
-                    '<a class="validatePaidAmount" data-id="' + $(this).data('id') + '"> <i class="fa fa-check"></i>' +
+                    '<a class="validatePaidAmount" data-id="' + $(this).data('id') + '"> <i id="validate-paidAmount" class="fa fa-check"></i>' +
                     '</span>'
                 );
 

@@ -1360,6 +1360,14 @@ section.custom-settings span.select2-selection {
     max-height: none !important;
 }
 
+i#edit-paidAmount, i#validate-paidAmount {
+    padding: 0 0 0 5px;
+}
+
+i#edit-paidAmount:hover, i#validate-paidAmount:hover {
+    cursor: pointer;
+}
+
 /** MEDIA QUERIES **/
 
 @media (min-width: 768px) {
