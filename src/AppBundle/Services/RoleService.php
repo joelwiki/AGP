@@ -50,7 +50,8 @@ class RoleService {
             'ROLE_MEMBRE_CA' => 'ROLE_MEMBRE_CA',
             'ROLE_ENCADRANT' => 'ROLE_ENCADRANT',
             'ROLE_AIDE_ENCADRANT' => 'ROLE_AIDE_ENCADRANT',
-            'ROLE_MEMBRE' => 'ROLE_MEMBRE'
+            'ROLE_MEMBRE' => 'ROLE_MEMBRE',
+            'ROLE_USER' => 'ROLE_USER'
         ];
 
         $highestRole = $this->getHighestRole($user->getRoles());

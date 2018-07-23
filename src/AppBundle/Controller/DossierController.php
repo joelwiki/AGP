@@ -352,7 +352,10 @@ class DossierController extends Controller {
         $dossier->setEnabled(3);
 
         $user = $dossier->getUser();
-        $user->removeRole('ROLE_MEMBRE');
+
+        if (!$_array = array_intersect(['ROLE_ADMIN', 'ROLE_PRESIDENT', 'ROLE_MEMBRE_CA', 'ROLE_ENCADRANT', 'ROLE_AIDE_ENCADRANT'], $user->getRoles())) {
+            $user->setRoles(['ROLE_USER']);
+        }
 
         $em->flush();
 
@@ -390,7 +393,10 @@ class DossierController extends Controller {
         $dossier->setEnabled(1);
 
         $user = $dossier->getUser();
-        $user->setRoles(['ROLE_MEMBRE']);
+
+        if (!$_array = array_intersect(['ROLE_ADMIN', 'ROLE_PRESIDENT', 'ROLE_MEMBRE_CA', 'ROLE_ENCADRANT', 'ROLE_AIDE_ENCADRANT'], $user->getRoles())) {
+            $user->setRoles(['ROLE_MEMBRE']);
+        }
 
         $em->flush();
 
@@ -411,7 +417,10 @@ class DossierController extends Controller {
         $dossier->setEnabled(0);
 
         $user = $dossier->getUser();
-        $user->setRoles(['ROLE_USER']);
+
+        if (!$_array = array_intersect(['ROLE_ADMIN', 'ROLE_PRESIDENT', 'ROLE_MEMBRE_CA', 'ROLE_ENCADRANT', 'ROLE_AIDE_ENCADRANT'], $user->getRoles())) {
+            $user->setRoles(['ROLE_USER']);
+        }
 
         $em->flush();
 
