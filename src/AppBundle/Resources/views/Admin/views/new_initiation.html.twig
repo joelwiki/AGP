@@ -2,6 +2,19 @@
 
 {% block title %}{{ parent() }} - Nouvelle initiation{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+
+    <!-- TimePicker -->
+    <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap-timepicker.min.css') }}"/>
+
+    <!-- DatePicker -->
+    <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap-datepicker3.min.css') }}"/>
+
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('css/select2/select2.min.css') }}"/>
+{% endblock %}
+
 {% block content %}
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -17,7 +30,20 @@
 {% block javascripts %}
     {{ parent() }}
 
-    <!-- Datepicker -->
+    <!-- TinyMCE -->
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+
+    <!-- TinyMCE init -->
+    <script type="text/javascript" src="{{ asset('tinymce/tinymce-init.js') }}"></script>
+
+    <!-- DatePicker -->
+    <script src="{{ asset('js/bootstrap/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap/bootstrap-datepicker.fr.min.js') }}"></script>
+
+    <!-- TimePicker -->
+    <script src="{{ asset('js/bootstrap/bootstrap-timepicker.min.js') }}"></script>
+
+    <!-- Datepicker init -->
     <script>
         $('.datepicker').datepicker({
             format: "dd/mm/yyyy",
@@ -27,7 +53,7 @@
         })
     </script>
 
-    <!-- TimePicker -->
+    <!-- TimePicker init -->
     <script>
         $(function () {
             $('.timepicker').timepicker({
@@ -35,5 +61,22 @@
                 showMeridian: false
             })
         })
+    </script>
+
+    <!-- Select2 -->
+    <script src="{{ asset('js/select2/select2.min.js') }}"></script>
+
+    <!-- Select2 init -->
+    <script type="text/javascript">
+        $(document).ready(function() {
+            $('select').select2({
+                minimumResultsForSearch: Infinity,
+                width: 'none'
+            });
+
+            if (window.location.hash != "") {
+                $('a[href="' + window.location.hash + '"]').click()
+            }
+        });
     </script>
 {% endblock %}

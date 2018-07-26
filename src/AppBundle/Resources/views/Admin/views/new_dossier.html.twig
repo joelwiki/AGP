@@ -2,6 +2,23 @@
 
 {% block title %}{{ parent() }} - Nouveau dossier{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+
+    <!-- Croppie -->
+    <link rel="stylesheet" href="{{ asset('css/croppie/croppie.css') }}">
+
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('css/select2/select2.min.css') }}"/>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <!-- Select2 -->
+    <link rel="stylesheet" href="{{ asset('css/select2/select2.min.css') }}"/>
+{% endblock %}
+
 {% block content %}
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -268,7 +285,48 @@
 {% block javascripts %}
     {{ parent() }}
 
+    <!-- Input masks -->
+    <script src="{{ asset('js/input-mask/jquery.inputmask.js') }}"></script>
+    <script src="{{ asset('js/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
+    <script src="{{ asset('js/input-mask/jquery.inputmask.extensions.js') }}"></script>
+
+    <!-- Input masks init -->
+    <script type="text/javascript">
+        $(function () {
+
+            $('[data-mask]').inputmask();
+
+            var birthDateInput = $('input#dossier_birthDate');
+
+            $(birthDateInput).keyup(function() {
+                if (birthDateInput.inputmask('isComplete')) {
+                    $.ajax({
+                        url: "{{ path('agp_calculate_age') }}",
+                        dataType: 'json',
+                        type: 'POST',
+                        data: { date : birthDateInput.val() },
+                        success: function (data) {
+                            if (data < 18) {
+                                $('input#dossier_parentalAuthorization').prop('required', true);
+                                $('div.parentalAuthorization').removeClass('no-display')
+                            } else {
+                                $('input#dossier_parentalAuthorization').prop('required', false);
+                                $('div.parentalAuthorization').addClass('no-display');
+                            }
+                        },
+                        error: function () {
+                            console.log('Veuillez remplir la date de naissance')
+                        }
+                    });
+                }
+            });
+        });
+    </script>
+
     <!-- Croppie -->
+    <script src="{{ asset('js/croppie/croppie.min.js') }}"></script>
+
+    <!-- Croppie init -->
     <script type="text/javascript">
         // Initialize image cropper
         var $uploadCrop = $('#article-image-preview').croppie({
@@ -308,36 +366,20 @@
         });
     </script>
 
-    <!-- Input masks -->
+    <!-- Select2 -->
+    <script src="{{ asset('js/select2/select2.min.js') }}"></script>
+
+    <!-- Select2 init -->
     <script type="text/javascript">
-        $(function () {
-
-            $('[data-mask]').inputmask();
-
-            var birthDateInput = $('input#dossier_birthDate');
-
-            $(birthDateInput).keyup(function() {
-                if (birthDateInput.inputmask('isComplete')) {
-                    $.ajax({
-                        url: "{{ path('agp_calculate_age') }}",
-                        dataType: 'json',
-                        type: 'POST',
-                        data: { date : birthDateInput.val() },
-                        success: function (data, textStatus, jqXHR) {
-                            if (data < 18) {
-                                $('input#dossier_parentalAuthorization').prop('required', true);
-                                $('div.parentalAuthorization').removeClass('no-display')
-                            } else {
-                                $('input#dossier_parentalAuthorization').prop('required', false);
-                                $('div.parentalAuthorization').addClass('no-display');
-                            }
-                        },
-                        error: function (jqXHR, textStatus, errorThrown) {
-                            console.log('Veuillez remplir la date de naissance')
-                        }
-                    });
-                }
+        $(document).ready(function() {
+            $('select').select2({
+                minimumResultsForSearch: Infinity,
+                width: 'none'
             });
+
+            if (window.location.hash != "") {
+                $('a[href="' + window.location.hash + '"]').click()
+            }
         });
     </script>
 {% endblock %}

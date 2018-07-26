@@ -87,3 +87,10 @@
     </section>
     <!-- /.content -->
 {% endblock %}
+
+{% block javascripts %}
+    {{ parent() }}
+
+    <!-- Search Tables -->
+    <script src="{{ asset('js/dist/search-table.js') }}"></script>
+{% endblock %}

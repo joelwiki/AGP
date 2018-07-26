@@ -34,7 +34,7 @@ class PageType extends AbstractType {
                 'label' => 'Contenu',
                 'attr' => [
                     'class' => 'form-control',
-                    'placeholder' => 'Contenu de lapage',
+                    'placeholder' => 'Contenu de la page',
                 ],
                 'error_bubbling' => true
             ))

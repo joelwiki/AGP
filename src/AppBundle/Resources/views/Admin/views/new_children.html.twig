@@ -60,8 +60,10 @@
                             <div class="input-group medium-input">
                                 {{ form_widget(form.birthDate) }}
                             </div>
-
-                            {{ form_widget(form.submit) }}
+                            <hr>
+                            <div class="col-md-12 text-center">
+                                {{ form_widget(form.submit, { attr: { 'class' : 'btn btn-primary bold' }}) }}
+                            </div>
                         </div>
                     </div>
                     {{ form_end(form) }}
@@ -75,10 +77,12 @@
 {% block javascripts %}
     {{ parent() }}
 
+    <!-- Input masks -->
     <script src="{{ asset('js/input-mask/jquery.inputmask.js') }}"></script>
     <script src="{{ asset('js/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
     <script src="{{ asset('js/input-mask/jquery.inputmask.extensions.js') }}"></script>
-    <!-- Input masks -->
+
+    <!-- Input masks init -->
     <script type="text/javascript">
         $(function () {
             $('[data-mask]').inputmask();

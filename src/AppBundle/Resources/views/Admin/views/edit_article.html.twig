@@ -2,6 +2,13 @@
 
 {% block title %}{{ parent() }} - Modifier un article{% endblock %}
 
+{% block stylesheets %}
+    {{ parent() }}
+
+    <!-- Croppie -->
+    <link rel="stylesheet" href="{{ asset('css/croppie/croppie.css') }}">
+{% endblock %}
+
 {% block content %}
     <!-- Content Header (Page header) -->
     <section class="content-header">
@@ -17,7 +24,16 @@
 {% block javascripts %}
     {{ parent() }}
 
+    <!-- TinyMCE -->
+    <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
+
+    <!-- TinyMCE init -->
+    <script type="text/javascript" src="{{ asset('tinymce/tinymce-init.js') }}"></script>
+
     <!-- Croppie -->
+    <script src="{{ asset('js/croppie/croppie.min.js') }}"></script>
+
+    <!-- Croppie init -->
     <script type="text/javascript">
         // Initialize image cropper
         var $uploadCrop = $('#article-image-preview').croppie({
