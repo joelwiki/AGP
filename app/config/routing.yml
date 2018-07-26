@@ -212,6 +212,10 @@ agp_calculate_age:
     path: /calculate-age
     defaults: { _controller: AppBundle:Dossier:calculateAge }
 
+agp_calculate_medical_certificate_date:
+    path: /calculate-medical-certificate-date
+    defaults: { _controller: AppBundle:Dossier:calculateMedicalCertificateDate}
+
 agp_add_fpk_registered:
     path: /fpk-add-registered/{id}
     defaults: { _controller: AppBundle:Dossier:fpkAddRegistered }

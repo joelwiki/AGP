@@ -19,7 +19,7 @@
                         <a href="{{ path('agp_login') }}">Connectez-vous</a> pour accéder à vos entraînements.
                     {% endif %}
 
-                    {% if app.user.dossier.enabled != 1 %}
+                    {% if app.user.dossier is defined or app.user.dossier.enabled != 1 %}
                         Vous devez avoir un dossier d'inscription valide pour accéder à vos entraînements.
                     {% else %}
                         {% for keys, training in trainings %}

@@ -251,7 +251,7 @@
                                                         <hr>
                                                         <div>
                                                             {% if user.dossier.medicalCertificate is not empty %}
-                                                                <a target="_blank" href="{{ asset('uploads/dossier/medical_certificate/certificat-' ~ user.dossier.uniqueId ~ '.' ~ user.dossier.medicalCertificate.image.alt|split('.')[1] ~ '') }}">
+                                                                <a target="_blank" href="{{ asset('uploads/dossier/medical_certificate/certificat-' ~ user.dossier.uniqueId ~ '.' ~ user.dossier.medicalCertificate.image.extension) }}">
                                                                     <i class="fa fa-external-link margin-r-5" aria-hidden="true"></i> Voir le certificat
                                                                 </a>
                                                             {% else %}

@@ -462,7 +462,7 @@ select#dossier_emergencyContactTwoRelation + span.select2, select#dossier_emerge
     width: 140px;
 }
 
-div.parentalAuthorization {
+div.parentalAuthorization, div.medicalSurvey {
     -webkit-transition: ease-in-out 0.3s;
     -moz-transition: ease-in-out 0.3s;
     -ms-transition: ease-in-out 0.3s;
@@ -471,7 +471,7 @@ div.parentalAuthorization {
     opacity: 1;
 }
 
-div.parentalAuthorization.no-display {
+div.parentalAuthorization.no-display, div.medicalSurvey.no-display {
     -webkit-transition: ease-in-out 0.3s;
     -moz-transition: ease-in-out 0.3s;
     -ms-transition: ease-in-out 0.3s;
@@ -480,14 +480,18 @@ div.parentalAuthorization.no-display {
     opacity: 0;
 }
 
-.parentalText {
+div.medicalSurvey.display-none {
+    display: none;
+}
+
+.parentalText, .medicalSurveyText {
     height: 30px;
     max-width: 340px;
     text-align: justify;
 }
 
 .align-medical {
-    padding: 0 0 114px 0;
+    padding: 0 0 105px 0;
 }
 
 .btn-disabled {

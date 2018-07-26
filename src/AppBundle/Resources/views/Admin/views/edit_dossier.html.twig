@@ -299,7 +299,7 @@
                                     {{ form_label(formMedical.image) }} <span class="required">*</span>
                                     {{ form_widget(formMedical.image) }}
                                     <p class="muted modele">
-                                        <a target="_blank" href="https://drive.google.com/file/d/0B51_MBaWYvfheTdsN0FDcEk2U2M/view">
+                                        <a target="_blank" href="{{ asset('resources/certificat_medical_parkour.pdf')}}">
                                             <i class="fa fa-external-link margin-r-5" aria-hidden="true"></i> Modèle téléchargeable
                                         </a>
                                     </p>
@@ -311,6 +311,7 @@
                                         <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
                                         {{ form_widget(formMedical.date) }}
                                     </div>
+                                    <span class="medical-date-error"></span>
                                 </div>
                             </div>
 
@@ -324,6 +325,21 @@
                                     <div class="input-group medium-input">
                                         <span class="input-group-addon"><i class="fa fa-phone" aria-hidden="true"></i></span>
                                         {{ form_widget(formMedical.doctorPhone) }}
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="medicalSurvey no-display display-none">
+                                        {{ form_label(formMedical.medicalSurvey) }} <span class="required">*</span>
+                                        <p class="text-muted">Le certificat médical date de plus de 6 mois, veuillez remplir le questionnaire médical.</p>
+                                        {{ form_widget(formMedical.medicalSurvey) }}
+                                        <p class="muted modele">
+                                            <a target="_blank" href="{{ asset('resources/certificat_medical_parkour.pdf')}}">
+                                                <i class="fa fa-external-link margin-r-5" aria-hidden="true"></i> Modèle téléchargeable
+                                            </a>
+                                        </p>
                                     </div>
                                 </div>
                             </div>
@@ -394,7 +410,7 @@
     <!-- Croppie -->
     <script type="text/javascript">
         // Initialize image cropper
-        var $uploadCrop = $('#article-image-preview').croppie({
+        let $uploadCrop = $('#article-image-preview').croppie({
             viewport: {
                 width: 200,
                 height: 200,
@@ -409,7 +425,7 @@
         });
 
         $('#article_image_file').on('change', function() {
-            var reader = new FileReader();
+            let reader = new FileReader();
             reader.onload = function (e) {
                 $uploadCrop.croppie('bind', {
                     url: e.target.result
@@ -424,7 +440,7 @@
                 size: 'viewport'
             }).then(function (resp) {
                 $("#add-article-image-preview").attr('src', resp);
-                var temp = resp;
+                let temp = resp;
 
                 document.getElementById('base64File_image').value = temp;
             });
@@ -437,7 +453,8 @@
 
             $('[data-mask]').inputmask();
 
-            var birthDateInput = $('input#dossier_birthDate');
+            let birthDateInput = $('input#dossier_birthDate');
+            let parentalAuthorization = $('div.parentalAuthorization');
 
             $(birthDateInput).keyup(function() {
                 if (birthDateInput.inputmask('isComplete')) {
@@ -446,18 +463,57 @@
                         dataType: 'json',
                         type: 'POST',
                         data: { date : birthDateInput.val() },
-                        success: function (data, textStatus, jqXHR) {
+                        success: function (data) {
                             if (data < 18) {
                                 $('input#dossier_parentalAuthorization').prop('required', true);
-                                $('div.parentalAuthorization').removeClass('no-display')
-                                $('div.parentalAuthorization').css('padding-bottom', '20px')
+                                $(parentalAuthorization).removeClass('no-display');
+                                $(parentalAuthorization).css('padding-bottom', '20px');
                             } else {
                                 $('input#dossier_parentalAuthorization').prop('required', false);
-                                $('div.parentalAuthorization').addClass('no-display');
-                                $('div.parentalAuthorization').css('padding-bottom', '0')
+                                $(parentalAuthorization).addClass('no-display');
+                                $(parentalAuthorization).css('padding-bottom', '0');
                             }
                         },
-                        error: function (jqXHR, textStatus, errorThrown) {
+                        error: function () {
+                            console.log('Veuillez remplir la date de naissance')
+                        }
+                    });
+                }
+            });
+
+            let medicalCertificateDate = $('input#medical_certificate_date');
+            let medicalSurvey = $('div.medicalSurvey');
+            let medicalError = $('span.medical-date-error');
+            let submitButton = $('button#medical_certificate_submit');
+
+            $(medicalCertificateDate).keyup(function() {
+                if (medicalCertificateDate.inputmask('isComplete')) {
+                    $.ajax({
+                        url: "{{ path('agp_calculate_medical_certificate_date') }}",
+                        dataType: 'json',
+                        type: 'POST',
+                        data: { date : medicalCertificateDate.val() },
+                        success: function (data) {
+                            console.log(data);
+                            if (data < 6) {
+                                $('input#medical_certificate_medicalSurvey_file').prop('required', false);
+                                $(medicalSurvey).addClass('no-display display-none');
+                                $(medicalError).empty();
+                                $(submitButton).prop('disabled', false);
+                            }
+                            if (data > 30) {
+                                $(medicalError).empty().append('Le certificat médical ne peut pas être daté de plus de 3 ans.').css('color', 'red');
+                                $(medicalSurvey).addClass('no-display display-none');
+                                $(submitButton).prop('disabled', true);
+                            }
+                            if (data > 6 && data < 30) {
+                                $('input#medical_certificate_medicalSurvey_file').prop('required', true);
+                                $(medicalSurvey).removeClass('no-display display-none');
+                                $(medicalError).empty();
+                                $(submitButton).prop('disabled', false);
+                            }
+                        },
+                        error: function () {
                             console.log('Veuillez remplir la date de naissance')
                         }
                     });

@@ -14,12 +14,12 @@ use AppBundle\Entity\Dossier;
 use AppBundle\Entity\DossierImage;
 use AppBundle\Entity\MedicalCertificate;
 use AppBundle\Entity\MedicalCertificateImage;
+use AppBundle\Entity\MedicalCertificateSurveyImage;
 use AppBundle\Form\CivilCertificateType;
 use AppBundle\Form\DossierType;
 use AppBundle\Form\MedicalCertificateType;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
-use Symfony\Component\Config\Definition\Exception\Exception;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -215,8 +215,13 @@ class DossierController extends Controller {
                 $medicalCertificateImage = new MedicalCertificateImage();
             }
 
-            $medicalCertificate->setImage($medicalCertificateImage);
+            if (NULL == $medicalCertificateSurvey = $medicalCertificate->getMedicalSurvey()) {
+                $medicalCertificateSurvey = new MedicalCertificateSurveyImage();
+            }
+
+            $medicalCertificate->setImage($medicalCertificateImage, $medicalCertificateSurvey);
             $medicalCertificateImage->setMedicalCertificate($medicalCertificate);
+            $medicalCertificateSurvey->setMedicalCertificate($medicalCertificate);
 
             if ($medicalCertificateImage->getId()) {
                 $medicalCertificateImage->upload();
@@ -226,6 +231,12 @@ class DossierController extends Controller {
                 $fileName = 'certificat-' . $dossier->getUniqueId() . '.' . $medicalCertificateImage->getFile()->getClientOriginalExtension();
                 $medicalCertificateImage->getFile()->move($medicalCertificateImage->getUploadDir(), $fileName);
                 $medicalCertificateImage->setSize($medicalCertificateImage->getFile()->getClientSize());
+            }
+
+            if ($medicalCertificateSurvey->getFile() != NULL) {
+                $fileName = 'questionnaire-' . $dossier->getUniqueId() . '.' . $medicalCertificateSurvey->getFile()->getClientOriginalExtension();
+                $medicalCertificateSurvey->getFile()->move($medicalCertificateSurvey->getUploadDir(), $fileName);
+                $medicalCertificateSurvey->setSize($medicalCertificateSurvey->getFile()->getClientSize());
             }
 
             if (!$medicalCertificateImage->getId()) {
@@ -443,6 +454,27 @@ class DossierController extends Controller {
             $interval = $birthDate->diff($today);
 
             return new JsonResponse($interval->y, 200);
+        }
+
+        return new JsonResponse("Error", 500);
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function calculateMedicalCertificateDateAction(Request $request) {
+
+        if ($data = $request->request->get('date')) {
+
+            $medicalCertificateDate = explode('/', $data);
+            $medicalCertificateDate = new \DateTime($medicalCertificateDate[2] . '-' . $medicalCertificateDate[1] . '-' . $medicalCertificateDate[0]);
+
+            $today = new \DateTime('now');
+
+            $interval = $medicalCertificateDate->diff($today);
+
+            return new JsonResponse(($interval->format('%y') * 12) + $interval->format('%m'), 200);
         }
 
         return new JsonResponse("Error", 500);

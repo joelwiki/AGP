@@ -58,6 +58,10 @@ class MedicalCertificate {
      */
     private $image;
 
+    /**
+     * @ORM\OneToOne(targetEntity="AppBundle\Entity\MedicalCertificateSurveyImage", mappedBy="medicalCertificate", cascade={"all"})
+     * @Assert\Valid
+     */
     private $medicalSurvey;
 
     public function __construct() {
@@ -160,5 +164,21 @@ class MedicalCertificate {
      */
     public function setImage($image) {
         $this->image = $image;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getMedicalSurvey()
+    {
+        return $this->medicalSurvey;
+    }
+
+    /**
+     * @param mixed $medicalSurvey
+     */
+    public function setMedicalSurvey($medicalSurvey)
+    {
+        $this->medicalSurvey = $medicalSurvey;
     }
 }
