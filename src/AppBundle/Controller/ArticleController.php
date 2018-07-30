@@ -126,7 +126,6 @@ class ArticleController extends Controller {
         $form = $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
             $em->flush();
 
             return $this->redirectToRoute('agp_list_articles');

@@ -143,4 +143,16 @@ class AppController extends Controller {
             'register' => $register
         ));
     }
+
+    /**
+     * @return Response
+     */
+    public function termsAction() {
+        $em = $this->getDoctrine()->getManager();
+        $terms = $em->getRepository('AppBundle:Page')->findOneBy(['slug' => 'conditions-utilisation']);
+
+        return $this->render('@App/App/views/show_page.html.twig', array(
+            'terms' => $terms
+        ));
+    }
 }

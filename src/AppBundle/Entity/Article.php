@@ -143,6 +143,8 @@ class Article {
      * @param string $uniqueId
      */
     public function setUniqueId($uniqueId) {
+        $uniqueId = substr(md5(mt_rand()), 0, 7);
+
         $this->uniqueId = $uniqueId;
     }
 

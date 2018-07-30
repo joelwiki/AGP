@@ -198,6 +198,9 @@ class Initiation {
      * @param \DateTime $date
      */
     public function setDate($date) {
-        $this->date = $date;
+        $dateFormatted = explode('/', $date);
+        $dateFormatted = new \DateTime($dateFormatted[2]. '-' . $dateFormatted[1] . '-' . $dateFormatted[0]);
+
+        $this->date = $dateFormatted;
     }
 }

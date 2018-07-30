@@ -45,24 +45,6 @@ class AdminController extends Controller {
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            /** Format dateRegistrationStart */
-            $dateRegistrationStart = explode('/', $global->getRegistrationDateStart());
-            $dateRegistrationStart = new \DateTime($dateRegistrationStart[2]. '-' . $dateRegistrationStart[1] . '-' . $dateRegistrationStart[0]);
-
-            $global->setRegistrationDateStart($dateRegistrationStart);
-
-            /** Format dateRegistrationEnd */
-            $dateRegistrationEnd = explode('/', $global->getRegistrationDateEnd());
-            $dateRegistrationEnd = new \DateTime($dateRegistrationEnd[2]. '-' . $dateRegistrationEnd[1] . '-' . $dateRegistrationEnd[0]);
-
-            $global->setRegistrationDateEnd($dateRegistrationEnd);
-
-            /** Format endOfYearDate */
-            $endOfYearDate = explode('/', $global->getEndOfYearDate());
-            $endOfYearDate = new \DateTime($endOfYearDate[2]. '-' . $endOfYearDate[1] . '-' . $endOfYearDate[0]);
-
-            $global->setEndOfYearDate($endOfYearDate);
-
             $today = new \DateTime('now');
 
             if ($global->getRegistrationDateStart() < $today && $global->getRegistrationDateEnd() > $today) {
@@ -89,7 +71,7 @@ class AdminController extends Controller {
                 }
             }
 
-            return $this->redirectToRoute('agp_dashboard');
+            return $this->redirectToRoute('agp_global_parameters');
         }
 
         return $this->render('@App/Admin/views/global_parameters.html.twig', array(

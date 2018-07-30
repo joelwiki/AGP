@@ -34,6 +34,7 @@ class LoadFixtures extends Fixture {
         $user->setBirthDate(new \DateTime('1996-01-24'));
         $user->setRoles(['ROLE_ADMIN']);
         $user->setEnabled(1);
+        $user->setGroup(3);
 
         $manager->persist($user);
 
@@ -117,6 +118,13 @@ class LoadFixtures extends Fixture {
         $page->setContent('Modifier le contenu de la page Inscription');
         $page->setUniqueId($uniqueId);
         $page->setSlug('inscription');
+        $manager->persist($page);
+
+        $page = new Page();
+        $page->setTitle('Conditions d\'utilisation');
+        $page->setContent('Modifier le contenu des conditions d\'utilisation');
+        $page->setUniqueId($uniqueId);
+        $page->setSlug('conditions-utilisation');
         $manager->persist($page);
 
         $manager->flush();

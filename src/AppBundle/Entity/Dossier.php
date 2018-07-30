@@ -323,7 +323,10 @@ class Dossier {
      * @param \DateTime $birthDate
      */
     public function setBirthDate($birthDate) {
-        $this->birthDate = $birthDate;
+        $birthDateFormatted = explode('/', $birthDate);
+        $birthDateFormatted = new \DateTime($birthDateFormatted[2] . '-' . $birthDateFormatted[1] . '-' . $birthDateFormatted[0]);
+
+        $this->birthDate = $birthDateFormatted;
     }
 
     /**
@@ -393,7 +396,9 @@ class Dossier {
      * @param mixed $phone
      */
     public function setPhone($phone) {
-        $this->phone = $phone;
+        $phoneFormatted = str_replace(' ', '', $phone);
+
+        $this->phone = $phoneFormatted;
     }
 
     /**
@@ -540,14 +545,16 @@ class Dossier {
      * @return mixed
      */
     public function getEmergencyContactPhone() {
-        return $this->emergencyContactPhone;
+        return wordwrap($this->emergencyContactPhone , 2 , '.' , true );
     }
 
     /**
      * @param mixed $emergencyContactPhone
      */
     public function setEmergencyContactPhone($emergencyContactPhone) {
-        $this->emergencyContactPhone = $emergencyContactPhone;
+        $emergencyContactPhoneFormatted = str_replace(' ', '', $emergencyContactPhone);
+
+        $this->emergencyContactPhone = $emergencyContactPhoneFormatted;
     }
 
     /**
@@ -596,14 +603,16 @@ class Dossier {
      * @return mixed
      */
     public function getEmergencyContactTwoPhone() {
-        return $this->emergencyContactTwoPhone;
+        return wordwrap($this->emergencyContactPhone , 2 , '.' , true );
     }
 
     /**
      * @param mixed $emergencyContactTwoPhone
      */
     public function setEmergencyContactTwoPhone($emergencyContactTwoPhone) {
-        $this->emergencyContactTwoPhone = $emergencyContactTwoPhone;
+        $emergencyContactTwoPhoneFormatted = str_replace(' ', '', $emergencyContactTwoPhone);
+
+        $this->emergencyContactTwoPhone = $emergencyContactTwoPhoneFormatted;
     }
 
     /**

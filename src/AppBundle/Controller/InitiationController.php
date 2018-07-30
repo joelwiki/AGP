@@ -37,12 +37,6 @@ class InitiationController extends Controller {
             $uniqueId = substr(md5(mt_rand()), 0, 7);
             $initiation->setUniqueId($uniqueId);
 
-            /** Format date */
-            $date = explode('/', $initiation->getDate());
-            $date = new \DateTime($date[2] . '-' . $date[1] . '-' . $date[0]);
-
-            $initiation->setDate($date);
-
             $em->persist($initiation);
             $em->flush();
 
@@ -83,13 +77,6 @@ class InitiationController extends Controller {
         $form = $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-
-            /** Format date */
-            $date = explode('/', $initiation->getDate());
-            $date = new \DateTime($date[2] . '-' . $date[1] . '-' . $date[0]);
-
-            $initiation->setDate($date);
-
             $em->flush();
 
             return $this->redirectToRoute('agp_list_initiations');

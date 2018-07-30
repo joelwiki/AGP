@@ -75,21 +75,6 @@ class DossierController extends Controller {
                 $image->setFile($file);
             }
 
-            /** Format birthDate */
-            $birthDate = explode('/', $dossier->getBirthDate());
-            $birthDate = new \DateTime($birthDate[2] . '-' . $birthDate[1] . '-' . $birthDate[0]);
-
-            $dossier->setBirthDate($birthDate);
-
-            /** Format phone numbers */
-            $phone = str_replace(' ', '', $dossier->getPhone());
-            $contactPhone = str_replace(' ', '', $dossier->getEmergencyContactPhone());
-            $contactTwoPhone = str_replace(' ', '', $dossier->getEmergencyContactTwoPhone());
-
-            $dossier->setPhone($phone);
-            $dossier->setEmergencyContactPhone($contactPhone);
-            $dossier->setEmergencyContactTwoPhone($contactTwoPhone);
-
             $dossier->setEnabled(0);
 
             $em->persist($dossier);
@@ -147,21 +132,6 @@ class DossierController extends Controller {
             $form = $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-
-                /** Format birthDate */
-                $birthDate = explode('/', $dossier->getBirthDate());
-                $birthDate = new \DateTime($birthDate[2] . '-' . $birthDate[1] . '-' . $birthDate[0]);
-
-                $dossier->setBirthDate($birthDate);
-
-                /** Format phone numbers */
-                $phone = str_replace(' ', '', $dossier->getPhone());
-                $contactPhone = str_replace(' ', '', $dossier->getEmergencyContactPhone());
-                $contactTwoPhone = str_replace(' ', '', $dossier->getEmergencyContactTwoPhone());
-
-                $dossier->setPhone($phone);
-                $dossier->setEmergencyContactPhone($contactPhone);
-                $dossier->setEmergencyContactTwoPhone($contactTwoPhone);
 
                 $em->flush();
 

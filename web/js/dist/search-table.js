@@ -1,16 +1,16 @@
 $(document).ready(function() {
     // When something is typed in search
     $('#system-search').keyup( function() {
-        var that = this;
-        var tableBody = $('.list-table tbody');
-        var tableRow = $('.list-table tbody tr');
+        let that = this;
+        let tableBody = $('.list-table tbody');
+        let tableRow = $('.list-table tbody tr');
         $('.search-nothing').remove();
 
         tableRow.each(function(i, val) {
 
             //Lower text for case sensitive
-            var rowText = $(val).text().toLowerCase();
-            var inputText = $(that).val().toLowerCase();
+            let rowText = $(val).text().toLowerCase();
+            let inputText = $(that).val().toLowerCase();
 
             if (inputText !== '') {
                 $('.search-value').remove();

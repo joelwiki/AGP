@@ -494,6 +494,11 @@ div.medicalSurvey.display-none {
     padding: 0 0 105px 0;
 }
 
+.trombinoscope-emergency .fa-phone {
+    padding: 0 4px 0 0;
+    font-size: 13px;
+}
+
 .btn-disabled {
     background-color: #b3b4b5;
     border-color: #b3b4b5 !important;

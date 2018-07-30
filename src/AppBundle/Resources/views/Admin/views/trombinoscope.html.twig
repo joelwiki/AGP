@@ -42,7 +42,7 @@
                                             {% endif %}
                                             <div class="text-center trombinoscope-name">{{ user.firstName }} {{ user.lastName }}</div>
                                         </a>
-                                        <div class="text-center trombinoscope-emergency">{{ user.dossier.emergencyContactRelation }} : {{ user.dossier.emergencyContactPhone }}</div>
+                                        <div class="text-center trombinoscope-emergency"><i class="fa fa-phone"></i>{{ user.dossier.emergencyContactRelation }} : {{ user.dossier.emergencyContactPhone }}</div>
                                     </td>
                                 </tr>
                             {% endif %}

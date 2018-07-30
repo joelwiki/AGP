@@ -144,7 +144,10 @@ class GlobalParameters {
      * @param \DateTime $registrationDateStart
      */
     public function setRegistrationDateStart($registrationDateStart) {
-        $this->registrationDateStart = $registrationDateStart;
+        $registrationDateStartFormatted = explode('/', $registrationDateStart);
+        $registrationDateStartFormatted = new \DateTime($registrationDateStartFormatted[2]. '-' . $registrationDateStartFormatted[1] . '-' . $registrationDateStartFormatted[0]);
+
+        $this->registrationDateStart = $registrationDateStartFormatted;
     }
 
     /**
@@ -158,13 +161,16 @@ class GlobalParameters {
      * @param \DateTime $registrationDateEnd
      */
     public function setRegistrationDateEnd($registrationDateEnd) {
-        $this->registrationDateEnd = $registrationDateEnd;
+        $registrationDateEndFormatted = explode('/', $registrationDateEnd);
+        $registrationDateEndFormatted = new \DateTime($registrationDateEndFormatted[2]. '-' . $registrationDateEndFormatted[1] . '-' . $registrationDateEndFormatted[0]);
+
+        $this->registrationDateEnd = $registrationDateEndFormatted;
     }
 
     /**
      * @return mixed
      */
-    public function getisRegistrationOpen() {
+    public function getIsRegistrationOpen() {
         return $this->isRegistrationOpen;
     }
 
@@ -200,6 +206,9 @@ class GlobalParameters {
      * @param \DateTime $endOfYearDate
      */
     public function setEndOfYearDate($endOfYearDate) {
-        $this->endOfYearDate = $endOfYearDate;
+        $endOfYearDateFormatted = explode('/', $endOfYearDate);
+        $endOfYearDateFormatted = new \DateTime($endOfYearDateFormatted[2]. '-' . $endOfYearDateFormatted[1] . '-' . $endOfYearDateFormatted[0]);
+
+        $this->endOfYearDate = $endOfYearDateFormatted;
     }
 }

@@ -114,6 +114,10 @@ agp_contact_page:
     path: /page/contact/show
     defaults: { _controller: AppBundle:App:contact }
 
+agp_terms_page:
+    path: /page/conditions-utilisation/show
+    defaults: { _controller: AppBundle:App:terms }
+
 agp_about_page:
     path: /page/a-propos/show
     defaults: { _controller: AppBundle:App:about }

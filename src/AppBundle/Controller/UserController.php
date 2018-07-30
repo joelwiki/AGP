@@ -239,14 +239,8 @@ class UserController extends Controller {
             $parentUser->addChild($children);
             $children->setEnabled(1);
 
-            /** Format birthDate */
-            $birthDate = explode('/', $children->getBirthDate());
-            $birthDate = new \DateTime($birthDate[2] . '-' . $birthDate[1] . '-' . $birthDate[0]);
-
-            $children->setBirthDate($birthDate);
-
             $today = new \DateTime('now');
-            $interval = $birthDate->diff($today);
+            $interval = $children->getBirthDate()->diff($today);
 
             $children->setAge($interval->y);
 

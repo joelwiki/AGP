@@ -24,8 +24,6 @@ class MedicalCertificateType extends AbstractType {
         /** @var MedicalCertificate $medicalCertificate */
         $medicalCertificate = $options['data'];
 
-        dump($medicalCertificate->getImage());
-
         $builder
             ->add('image', MedicalCertificateImageType::class, array(
                 'required' => true,
