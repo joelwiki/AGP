@@ -16,6 +16,33 @@
             <div class="box-header list-header">
                 <h3 class="box-title">Membres</h3>
 
+                <div class="box-filters">
+                    <button class="btn filters">Filtrer <span class="filter-button"><i class="fa fa-th" aria-hidden="true"></i></span></button>
+
+                    <div class="filters-options">
+                        <div>
+                            <label for="checkbox">Sexe:</label>
+                            <div>
+                                <input type="checkbox" class="gender" id="gender-male" name="gender"/>
+                                <label for="gender-male">Homme</label>
+
+                                <input type="checkbox" class="gender" id="gender-female" name="gender"/>
+                                <label for="gender-female">Femme</label>
+                            </div>
+                        </div>
+
+                        <div>
+                            <label for="select-group">Age:</label>
+                            <select class="form-control" id="select-group">
+                                <option value="none" selected></option>
+                                {% for key, group in groups %}
+                                    <option value="{{ group.name }}">{{ group.minAge }}-{{ group.maxAge }} ans</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
                 <div class="box-tools">
                     <div class="input-group input-group-sm" style="width: 250px;">
                         <input type="text" id="system-search" name="table_search" class="form-control pull-right" placeholder="Rechercher dans les membres">
@@ -28,26 +55,25 @@
             </div>
             <!-- /.box-header -->
             <div class="box-body table-responsive no-padding">
-
-                    <table class="table list-table list-trombinoscope">
-                        {% for key, user in users %}
-                            {% if user.dossier is not null and user.dossier.enabled == 1 %}
-                                <tr class="col-md-3">
-                                    <td class="box box-primary float-right">
-                                        <a href="{{ path('agp_show_user', {'id' : user.id}) }}">
-                                            {% if user.dossier.image is defined %}
-                                                <img src="{{ asset('uploads/dossier/image/image-' ~ user.dossier.uniqueId ~ '.' ~ user.dossier.image.extension ~ '') }}" class="img-responsive img-trombinoscope mar-auto"/>
-                                            {% else %}
-                                                <img src="{{ asset('img/no-user.png') }}" class="img-responsive img-trombinoscope mar-auto"/>
-                                            {% endif %}
-                                            <div class="text-center trombinoscope-name">{{ user.firstName }} {{ user.lastName }}</div>
-                                        </a>
-                                        <div class="text-center trombinoscope-emergency"><i class="fa fa-phone"></i>{{ user.dossier.emergencyContactRelation }} : {{ user.dossier.emergencyContactPhone }}</div>
-                                    </td>
-                                </tr>
-                            {% endif %}
-                        {% endfor %}
-                    </table>
+                <table class="table list-table list-trombinoscope">
+                    {% for key, user in users %}
+                        {% if user.dossier is not null and user.dossier.enabled == 1 %}
+                            <tr class="col-md-3" data-id="{{ user.dossier.id }}" data-gender="{{ user.dossier.sex }}" data-group="{{ user.group.name }}">
+                                <td class="box box-primary float-right">
+                                    <a href="{{ path('agp_show_user', {'id' : user.id}) }}">
+                                        {% if user.dossier.image is defined %}
+                                            <img src="{{ asset('uploads/dossier/image/image-' ~ user.dossier.uniqueId ~ '.' ~ user.dossier.image.extension ~ '') }}" class="img-responsive img-trombinoscope mar-auto"/>
+                                        {% else %}
+                                            <img src="{{ asset('img/no-user.png') }}" class="img-responsive img-trombinoscope mar-auto"/>
+                                        {% endif %}
+                                        <div class="text-center trombinoscope-name">{{ user.firstName }} {{ user.lastName }}</div>
+                                    </a>
+                                    <div class="text-center trombinoscope-emergency"><i class="fa fa-phone"></i>{{ user.dossier.emergencyContactRelation }} : {{ user.dossier.emergencyContactPhone }}</div>
+                                </td>
+                            </tr>
+                        {% endif %}
+                    {% endfor %}
+                </table>
             </div>
             <!-- /.box-body -->
         </div>
@@ -57,6 +83,56 @@
 
 {% block javascripts %}
     {{ parent() }}
+
+    <script type="text/javascript">
+        let maleCheck = $('.gender#gender-male');
+        let femaleCheck = $('.gender#gender-female');
+        let ageSelect = $('#select-group');
+        let tableRow = $('.list-table tbody tr');
+        let filters = $('.filters-options');
+        filters.hide();
+
+        // Toggle filters options
+        $('.filters').on('click', function() {
+            if (!$('.filters-options:visible').length) {
+                filters.show(300);
+            } else {
+                filters.hide(300);
+            }
+        });
+
+        $(tableRow.each(function(i) {
+            // Filter by gender
+            $(maleCheck.on('change', function() {
+                if (maleCheck.prop('checked') && tableRow.eq(i).data('gender') === 'Femme') {
+                    tableRow.eq(i).hide();
+                } else {
+                    tableRow.eq(i).show();
+                }
+            }));
+
+            $(femaleCheck.on('change', function() {
+                if (femaleCheck.prop('checked') && tableRow.eq(i).data('gender') === 'Homme') {
+                    tableRow.eq(i).hide();
+                } else {
+                    tableRow.eq(i).show();
+                }
+            }));
+
+            // Filter by age
+            $(ageSelect.on('change', function() {
+                if (tableRow.eq(i).data('group') !== ageSelect.val()) {
+                    tableRow.eq(i).hide();
+                } else {
+                    tableRow.eq(i).show();
+                }
+
+                if (ageSelect.val() === "none") {
+                    tableRow.eq(i).show();
+                }
+            }));
+        }));
+    </script>
 
     <!-- Search Tables -->
     <script src="{{ asset('js/dist/search-table.js') }}"></script>

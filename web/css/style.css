@@ -499,6 +499,49 @@ div.medicalSurvey.display-none {
     font-size: 13px;
 }
 
+.filters {
+    position: absolute;
+    top: 15px;
+    right: 300px;
+    color: #9ca2af;
+    border: 1px solid #ccc !important;
+    font-weight: 700 !important;
+    background: none;
+    padding: 0 0 0 12px !important;
+    max-height: 30px;
+    -webkit-transition: ease-in-out 0.3s;
+    -moz-transition: ease-in-out 0.3s;
+    -ms-transition: ease-in-out 0.3s;
+    -o-transition: ease-in-out 0.3s;
+    transition: ease-in-out 0.3s;
+}
+
+.filters:hover {
+    cursor: pointer;
+    color: #6a6c71;
+}
+
+select#select-group {
+    max-width: 150px;
+}
+
+label[for="gender-male"], label[for="gender-female"] {
+    color: #7f7f7f;
+}
+
+span.filter-button {
+    padding: 4px 12px 4px 12px;
+    display: inline-block;
+    border-left: 1px solid #dddddd;
+    margin: 0 0 0 6px;
+    background: #f4f4f4;
+    max-height: 30px;
+}
+
+.box-filters {
+    padding-top: 20px;
+}
+
 .btn-disabled {
     background-color: #b3b4b5;
     border-color: #b3b4b5 !important;

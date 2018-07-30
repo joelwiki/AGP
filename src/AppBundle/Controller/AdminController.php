@@ -87,9 +87,11 @@ class AdminController extends Controller {
     public function trombinoscopeAction() {
         $em = $this->getDoctrine()->getManager();
         $users = $em->getRepository('AppBundle:User')->findAll();
+        $groups = $em->getRepository('AppBundle:Group')->findAll();
 
         return $this->render('@App/Admin/views/trombinoscope.html.twig', array(
-            'users' => $users
+            'users' => $users,
+            'groups' => $groups
         ));
     }
 }
