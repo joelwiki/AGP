@@ -237,7 +237,7 @@
                                     <div class="col-md-4">
                                         <label>Date du dernier certificat</label>
                                         <div>
-                                            {{ user.dossier.medicalCertificate.date }}
+                                            {{ user.dossier.medicalCertificate.date|date('d/m/Y') }}
                                         </div>
 
                                         <label>Nom du médecin</label>
