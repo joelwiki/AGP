@@ -129,7 +129,7 @@ class DossierType extends AbstractType {
                 'error_bubbling' => true
             ))
             ->add('phone', TelType::class, array(
-                'required' => false,
+                'required' => true,
                 'label' => 'Numéro de téléphone',
                 'attr' => [
                     'class' => 'form-control medium-input',

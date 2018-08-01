@@ -39,6 +39,17 @@ class MedicalCertificate {
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank()
+     * @Assert\Regex(
+     *      pattern = "/^[a-zA-ZÀ-ÿ\-']*$/",
+     *      message = "Le nom du médecin n'est pas valide."
+     * )
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Le nom du médecin doit contenir au moins {{ limit }} lettres.",
+     *      maxMessage = "Le nom du médecin ne peut pas excéder {{ limit }} lettres."
+     * )
      */
     private $doctorName;
 
@@ -48,7 +59,16 @@ class MedicalCertificate {
     private $doctorPhone;
 
     /**
-     * @ORM\Column(type="string")
+     * @ORM\Column(type="date")
+     * @Assert\NotBlank()
+     * @Assert\DateTime(
+     *     format="d-m-Y",
+     *     message="Format de date incorrect, format attendu : '{{ format }}'."
+     * )
+     * @Assert\LessThan(
+     *     value="today",
+     *     message="La date de doit être inférieure au {{ value }}."
+     * )
      */
     private $date;
 
@@ -139,17 +159,20 @@ class MedicalCertificate {
     }
 
     /**
-     * @return mixed
+     * @return \DateTime
      */
     public function getDate() {
         return $this->date;
     }
 
     /**
-     * @param mixed $date
+     * @param \DateTime $date
      */
     public function setDate($date) {
-        $this->date = $date;
+        $dateFormatted = explode('/', $date);
+        $dateFormatted = new \DateTime($dateFormatted[2] . '-' . $dateFormatted[1] . '-' . $dateFormatted[0]);
+
+        $this->date = $dateFormatted;
     }
 
     /**

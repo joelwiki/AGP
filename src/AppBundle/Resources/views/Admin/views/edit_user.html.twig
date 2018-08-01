@@ -13,7 +13,6 @@
 {% endblock %}
 
 {% block content %}
-
     <div class="modal fade modal-dossier" id="cropp-image" tabindex="-1" role="dialog" aria-labelledby="cropp-image" aria-hidden="true">
         <div class="modal-dialog modal-dialog-article" role="document">
             <div class="modal-content">
@@ -59,6 +58,10 @@
                 <div class="box box-primary box-padding">
                     {{ form_start(form) }}
                     <div class="row">
+                        <span class="form-errors">
+                            {{ form_errors(form) }}
+                            {{ form_errors(form.username) }}
+                        </span>
                         <div class="col-md-6">
                             <div>
                                 <h3 class="page-header pad-t-20"><i class="fa fa-user margin-r-15" aria-hidden="true"></i>
@@ -79,7 +82,7 @@
                                 {{ form_label(form.username) }}
 
                                 <div>
-                                    {{ form_widget(form.username, { 'attr': {'class': 'form-control small-input'} }) }}
+                                    {{ form_widget(form.username, { 'attr': {'class': 'form-control small-input'}} ) }}
                                 </div>
                             </div>
 

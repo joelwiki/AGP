@@ -50,6 +50,10 @@
                 <li><a href="#cotisation" data-toggle="tab">Cotisation</a></li>
             </ul>
             <div class="tab-content tab-content-pad">
+                <span class="form-errors">
+                    {{ form_errors(form) }}
+                    {{ form_errors(formMedical) }}
+                </span>
                 <div class="tab-pane active" id="infos">
                     {{ form_start(form) }}
                     <div class="row">
@@ -319,7 +323,11 @@
                                     {{ form_label(formMedical.date) }} <span class="required">*</span>
                                     <div class="input-group medium-input">
                                         <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                                        {{ form_widget(formMedical.date) }}
+                                        {% if user.dossier.medicalCertificate.date is defined %}
+                                            {{ form_widget(formMedical.date, {'value': user.dossier.medicalCertificate.date|date('d/m/Y')}) }}
+                                        {% else %}
+                                            {{ form_widget(formMedical.date) }}
+                                        {% endif %}
                                     </div>
                                     <span class="medical-date-error"></span>
                                 </div>

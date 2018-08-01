@@ -50,12 +50,32 @@ class Dossier {
     /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
+     * @Assert\Regex(
+     *      pattern = "/^[a-zA-ZÀ-ÿ\-']*$/",
+     *      message = "Le prénom n'est pas valide."
+     * )
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Le prénom doit contenir au moins {{ limit }} lettres.",
+     *      maxMessage = "Le prénom ne peut pas excéder {{ limit }} lettres."
+     * )
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
+     * @Assert\Regex(
+     *      pattern = "/^[a-zA-ZÀ-ÿ\-']*$/",
+     *      message = "Le nom n'est pas valide."
+     * )
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Le nom doit contenir au moins {{ limit }} lettres.",
+     *      maxMessage = "Le nom ne peut pas excéder {{ limit }} lettres."
+     * )
      */
     private $lastName;
 
@@ -80,54 +100,112 @@ class Dossier {
      *
      * @ORM\Column(type="date")
      * @Assert\NotBlank()
+     * @Assert\DateTime(
+     *     format="d-m-Y",
+     *     message="Format de date incorrect, format attendu : '{{ format }}'."
+     * )
+     * @Assert\LessThan(
+     *     value="today",
+     *     message="La date de naissance doit être inférieure au {{ value }}."
+     * )
      */
     private $birthDate;
 
     /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "La rue doit contenir au moins {{ limit }} lettres.",
+     *      maxMessage = "La rue ne peut pas excéder {{ limit }} lettres.",
+     * )
      */
     private $street;
 
     /**
      * @ORM\Column(type="integer")
      * @Assert\NotBlank()
+     * @Assert\Range(
+     *      min = 01000,
+     *      max = 99999,
+     *      minMessage = "Le code postal doit être au minimum 01000.",
+     *      maxMessage = "Le code postal doit être au maximum 99999.",
+     *      invalidMessage = "Le code postal doit être un nombre."
+     * )
      */
     private $zipCode;
 
     /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "La ville doit contenir au moins {{ limit }} lettres.",
+     *      maxMessage = "La ville ne peut pas excéder {{ limit }} lettres.",
+     * )
      */
     private $city;
 
     /**
      * @ORM\Column(type="string")
-     * @Assert\Email()
      * @Assert\NotBlank()
+     * @Assert\Email(
+     *     message = "L'adresse '{{ value }}' n'est pas valide.",
+     *     checkMX = true
+     * )
      */
     private $email;
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\Type(
+     *      type = "alnum",
+     *      message = "Le numéro de téléphone ne doit contenir que des chiffres."
+     * )
      */
     private $phone;
 
     /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
+     * @Assert\Regex(
+     *      pattern = "/^[a-zA-ZÀ-ÿ\-']*$/",
+     *      message = "Le prénom du contact n'est pas valide."
+     * )
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Le prénom doit contenir au moins {{ limit }} lettres.",
+     *      maxMessage = "Le prénom ne peut pas excéder {{ limit }} lettres."
+     * )
      */
     private $emergencyContactFirstName;
 
     /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
+     * @Assert\Regex(
+     *      pattern = "/^[a-zA-ZÀ-ÿ\-']*$/",
+     *      message = "Le nom du contact n'est pas valide."
+     * )
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Le nom doit contenir au moins {{ limit }} lettres.",
+     *      maxMessage = "Le nom ne peut pas excéder {{ limit }} lettres."
+     * )
      */
     private $emergencyContactLastName;
 
     /**
      * @ORM\Column(type="string")
      * @Assert\NotBlank()
+     * @Assert\Type(
+     *      type = "alnum",
+     *      message = "Le numéro de téléphone de contact ne doit contenir que des chiffres."
+     * )
      */
     private $emergencyContactPhone;
 
@@ -139,11 +217,31 @@ class Dossier {
 
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @Assert\Regex(
+     *      pattern = "/^[a-zA-ZÀ-ÿ\-']*$/",
+     *      message = "Le prénom du second contact n'est pas valide."
+     * )
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Le prénom doit contenir au moins {{ limit }} lettres.",
+     *      maxMessage = "Le prénom ne peut pas excéder {{ limit }} lettres."
+     * )
      */
     private $emergencyContactTwoFirstName;
 
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @Assert\Regex(
+     *      pattern = "/^[a-zA-ZÀ-ÿ\-']*$/",
+     *      message = "Le nom du second contact n'est pas valide."
+     * )
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Le nom doit contenir au moins {{ limit }} lettres.",
+     *      maxMessage = "Le nom ne peut pas excéder {{ limit }} lettres."
+     * )
      */
     private $emergencyContactTwoLastName;
 
@@ -206,6 +304,10 @@ class Dossier {
 
     /**
      * @ORM\Column(type="integer", nullable=true)
+     * @Assert\Type(
+     *      type = "integer",
+     *      message = "Le montant payé doit être un nombre."
+     * )
      */
     private $paidAmount;
 

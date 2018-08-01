@@ -9,7 +9,9 @@
         <!-- /.register-logo -->
         <div class="register-box-body">
             <p class="register-box-msg">Créer un nouveau compte pour accéder à l'espace utilisateur</p>
-
+            <span class="form-errors">
+                {{ form_errors(form) }}
+            </span>
             <div class="register-inputs">
                 <div class="row">
                     <div class="col-md-12">
@@ -68,15 +70,17 @@
 </body>
 {{ form_end(form) }}
 
-<!-- jQuery 3 -->
-<script src="{{ asset('js/jquery/jquery.min.js') }}"></script>
-<!-- Input masks -->
-<script src="{{ asset('js/input-mask/jquery.inputmask.js') }}"></script>
-<script src="{{ asset('js/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
-<script src="{{ asset('js/input-mask/jquery.inputmask.extensions.js') }}"></script>
-<!-- Input masks -->
-<script type="text/javascript">
-    $(function () {
+{% block javascripts %}
+    <!-- jQuery 3 -->
+    <script src="{{ asset('js/jquery/jquery.min.js') }}"></script>
+
+    <!-- Input masks -->
+    <script src="{{ asset('js/input-mask/jquery.inputmask.js') }}"></script>
+    <script src="{{ asset('js/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
+    <script src="{{ asset('js/input-mask/jquery.inputmask.extensions.js') }}"></script>
+
+    <!-- Input masks init -->
+    <script type="text/javascript">
         $('[data-mask]').inputmask();
-    });
-</script>
+    </script>
+{% endblock %}

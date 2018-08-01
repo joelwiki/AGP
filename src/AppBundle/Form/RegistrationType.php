@@ -25,7 +25,7 @@ class RegistrationType extends AbstractType {
         $builder
             ->add('username', TextType::class, array(
                 'required' => true,
-                'label' => 'Pseudo',
+                'label' => 'Nom d\'utilisateur',
                 'attr' => [
                     'class' => 'form-control',
                     'placeholder' => 'Pseudo',

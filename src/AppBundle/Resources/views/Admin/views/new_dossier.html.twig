@@ -56,6 +56,10 @@
                 <div class="tab-pane active" id="infos">
                     {{ form_start(form) }}
                     <div class="row">
+                        <span class="form-errors">
+                            {{ form_errors(form) }}
+                        </span>
+
                         <div class="col-md-6">
                             <div>
                                 <h3 class="page-header pad-t-20"><i class="fa fa-user margin-r-15" aria-hidden="true"></i>Informations personnelles</h3>
@@ -289,7 +293,7 @@
 
             $('[data-mask]').inputmask();
 
-            var birthDateInput = $('input#dossier_birthDate');
+            let birthDateInput = $('input#dossier_birthDate');
 
             $(birthDateInput).keyup(function() {
                 if (birthDateInput.inputmask('isComplete')) {
@@ -322,7 +326,7 @@
     <!-- Croppie init -->
     <script type="text/javascript">
         // Initialize image cropper
-        var $uploadCrop = $('#article-image-preview').croppie({
+        let $uploadCrop = $('#article-image-preview').croppie({
             viewport: {
                 width: 200,
                 height: 200,
@@ -337,7 +341,7 @@
         });
 
         $('#article_image_file').on('change', function() {
-            var reader = new FileReader();
+            let reader = new FileReader();
             reader.onload = function (e) {
                 $uploadCrop.croppie('bind', {
                     url: e.target.result
@@ -352,7 +356,7 @@
                 size: 'viewport'
             }).then(function (resp) {
                 $("#add-article-image-preview").attr('src', resp);
-                var temp = resp;
+                let temp = resp;
 
                 document.getElementById('base64File_image').value = temp;
             });

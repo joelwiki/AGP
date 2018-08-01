@@ -15,7 +15,6 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
 /**
- * @ORM\Entity
  * @ORM\Table(name="agp_user")
  * @ORM\Entity(repositoryClass="AppBundle\Repository\UserRepository")
  */
@@ -29,16 +28,72 @@ class User extends BaseUser {
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank()
+     * @Assert\Regex(
+     *      pattern = "/^[a-zA-ZÀ-ÿ\-']*$/",
+     *      message = "Le prénom n'est pas valide."
+     * )
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Le prénom doit contenir au moins {{ limit }} lettres.",
+     *      maxMessage = "Le prénom ne peut pas excéder {{ limit }} lettres."
+     * )
      */
     private $firstName;
 
     /**
      * @ORM\Column(type="string")
+     * @Assert\NotBlank()
+     * @Assert\Regex(
+     *      pattern = "/^[a-zA-ZÀ-ÿ\-']*$/",
+     *      message = "Le nom n'est pas valide."
+     * )
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Le nom doit contenir au moins {{ limit }} lettres.",
+     *      maxMessage = "Le nom ne peut pas excéder {{ limit }} lettres."
+     * )
      */
     private $lastName;
 
     /**
+     * @Assert\NotBlank()
+     * @Assert\Email(
+     *     message = "L'adresse '{{ value }}' n'est pas valide.",
+     *     checkMX = true
+     * )
+     */
+    protected $email;
+
+    /**
+     * @Assert\NotBlank()
+     * @Assert\Regex(
+     *      pattern = "/^[a-zA-ZÀ-ÿ\-']*$/",
+     *      message = "Le pseudo du contact n'est pas valide."
+     * )
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "Le pseudo doit contenir au moins {{ limit }} lettres.",
+     *      maxMessage = "Le pseudo ne peut pas excéder {{ limit }} lettres."
+     * )
+     */
+    protected $username;
+
+    /**
      * @ORM\Column(type="string", nullable=true)
+     * @Assert\Regex(
+     *      pattern = "/^[a-zA-ZÀ-ÿ\-']*$/",
+     *      message = "Le nom n'est pas valide."
+     * )
+     * @Assert\Length(
+     *      min = 2,
+     *      max = 50,
+     *      minMessage = "La ville doit contenir au moins {{ limit }} lettres.",
+     *      maxMessage = "La ville ne peut pas excéder {{ limit }} lettres."
+     * )
      */
     private $city;
 
@@ -46,6 +101,15 @@ class User extends BaseUser {
      * @var \DateTime
      *
      * @ORM\Column(type="datetime", nullable=true)
+     * @Assert\NotBlank()
+     * @Assert\DateTime(
+     *     format="d-m-Y",
+     *     message="Format de date incorrect, format attendu : '{{ format }}'."
+     * )
+     * @Assert\LessThan(
+     *     value="today",
+     *     message="La date de naissance doit être inférieure au {{ value }}."
+     * )
      */
     private $birthDate;
 
@@ -63,6 +127,10 @@ class User extends BaseUser {
 
     /**
      * @ORM\Column(type="string", nullable=true)
+     * @Assert\Type(
+     *      type = "alnum",
+     *      message = "Le numéro de téléphone ne doit contenir que des chiffres."
+     * )
      */
     private $phone;
 

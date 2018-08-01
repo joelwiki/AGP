@@ -552,6 +552,10 @@ span.filter-button {
     color: #FFFFFF !important;
 }
 
+.form-errors {
+    color: red;
+}
+
 .forgotten-password {
     font-size: 10pt;
     float: right;
