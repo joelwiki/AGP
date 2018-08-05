@@ -66,9 +66,11 @@ class AppController extends Controller {
     public function trainingsAction() {
         $em = $this->getDoctrine()->getManager();
         $trainings = $em->getRepository('AppBundle:Training')->findLastTenArticles();
+        $globalParameters = $em->getRepository('AppBundle:GlobalParameters')->find(1);
 
         return $this->render('@App/App/views/trainings.html.twig', array(
-            'trainings' => $trainings
+            'trainings' => $trainings,
+            'global' => $globalParameters
         ));
     }
 
