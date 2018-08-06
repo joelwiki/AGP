@@ -27,6 +27,16 @@
 {% block javascripts %}
     {{ parent() }}
 
+    <!-- Input masks -->
+    <script src="{{ asset('js/input-mask/jquery.inputmask.js') }}"></script>
+    <script src="{{ asset('js/input-mask/jquery.inputmask.date.extensions.js') }}"></script>
+    <script src="{{ asset('js/input-mask/jquery.inputmask.extensions.js') }}"></script>
+
+    <!-- Input masks init -->
+    <script type="text/javascript">
+        $('[data-mask]').inputmask();
+    </script>
+
     <!-- DatePicker -->
     <script src="{{ asset('js/bootstrap/bootstrap-datepicker.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap/bootstrap-datepicker.fr.min.js') }}"></script>
@@ -38,7 +48,7 @@
             language: "fr",
             changeMonth: true,
             changeYear: true
-        })
+        });
     </script>
 
     <!-- Select2 -->

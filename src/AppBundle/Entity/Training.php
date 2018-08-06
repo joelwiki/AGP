@@ -46,7 +46,7 @@ class Training {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="date")
      * @Assert\NotBlank()
      */
     private $date;

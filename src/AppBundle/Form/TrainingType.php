@@ -56,9 +56,12 @@ class TrainingType extends AbstractType {
                 'required' => true,
                 'label' => 'Date',
                 'attr' => [
-                    'class' => 'form-control datepicker medium-input-addon',
-                    'placeholder' => 'jj/mm/aaaa'
-                ]
+                'class' => 'form-control datepicker medium-input-addon',
+                'placeholder' => 'Ex. 03/05/1980',
+                'data-inputmask' => "'alias': 'dd/mm/yyyy'",
+                'data-mask' => ""
+                ],
+                'error_bubbling' => true
             ))
             ->add('info', TextareaType::class, array(
                 'required' => false,
