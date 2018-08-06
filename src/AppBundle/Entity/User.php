@@ -100,7 +100,7 @@ class User extends BaseUser {
     /**
      * @var \DateTime
      *
-     * @ORM\Column(type="datetime", nullable=true)
+     * @ORM\Column(type="date", nullable=true)
      * @Assert\NotBlank()
      * @Assert\DateTime(
      *     format="d-m-Y",
@@ -221,14 +221,14 @@ class User extends BaseUser {
     }
 
     /**
-     * @return mixed
+     * @return \DateTime
      */
     public function getBirthDate() {
         return $this->birthDate;
     }
 
     /**
-     * @param mixed $birthDate
+     * @param \DateTime $birthDate
      */
     public function setBirthDate($birthDate) {
         $birthDateFormatted = explode('/', $birthDate);

@@ -10,6 +10,9 @@
 
     <!-- Select2 -->
     <link rel="stylesheet" href="{{ asset('css/select2/select2.min.css') }}"/>
+
+    <!-- DatePicker -->
+    <link rel="stylesheet" href="{{ asset('css/bootstrap/bootstrap-datepicker3.min.css') }}"/>
 {% endblock %}
 
 {% block content %}
@@ -168,7 +171,11 @@
                             {% if user.id is null or is_granted('ROLE_MEMBRE_CA') %}
                                 {{ form_label(form.birthdate) }}
                                 <div>
-                                    {{ form_widget(form.birthdate) }}
+                                    {% if user.birthdate is not empty %}
+                                        {{ form_widget(form.birthdate, {'value' : user.birthdate|date('d/m/Y')}) }}
+                                    {% else %}
+                                        {{ form_widget(form.birthdate) }}
+                                    {% endif %}
                                 </div>
                             {% endif %}
                         </div>
@@ -191,6 +198,20 @@
 
 {% block javascripts %}
     {{ parent() }}
+
+    <!-- DatePicker -->
+    <script src="{{ asset('js/bootstrap/bootstrap-datepicker.min.js') }}"></script>
+    <script src="{{ asset('js/bootstrap/bootstrap-datepicker.fr.min.js') }}"></script>
+
+    <!-- Datepicker init -->
+    <script>
+        $('.datepicker').datepicker({
+            format: "dd/mm/yyyy",
+            language: "fr",
+            changeMonth: true,
+            changeYear: true
+        })
+    </script>
 
     <!-- Input masks -->
     <script src="{{ asset('js/input-mask/jquery.inputmask.js') }}"></script>

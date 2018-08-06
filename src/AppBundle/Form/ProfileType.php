@@ -16,7 +16,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
-use Symfony\Component\Form\Extension\Core\Type\BirthdayType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\TelType;
 
@@ -125,12 +124,14 @@ class ProfileType extends AbstractType {
 
         if (!$user->getId() || $this->container->get('security.authorization_checker')->isGranted('ROLE_MEMBRE_CA')) {
             $builder
-                ->add('birthdate', BirthdayType::class, array(
+                ->add('birthdate', TextType::class, array(
                     'required' => false,
                     'label' => 'Date de naissance',
                     'attr' => [
-                        'class' => '',
-                        'placeholder' => 'Date de naissance',
+                        'class' => 'form-control datepicker medium-input',
+                        'placeholder' => 'Ex. 03/05/1980',
+                        'data-inputmask' => "'alias': 'dd/mm/yyyy'",
+                        'data-mask' => ""
                     ],
                     'error_bubbling' => true
                 ))
