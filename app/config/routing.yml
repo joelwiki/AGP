@@ -307,6 +307,10 @@ agp_list_groups:
     path: /group/list
     defaults: { _controller: AppBundle:Group:listGroups }
 
-agp_delete_group:
-    path: /group/{id}/delete
-    defaults: { _controller: AppBundle:Group:deleteGroup }
+agp_deactivate_group:
+    path: /group/{id}/deactivate
+    defaults: { _controller: AppBundle:Group:deactivateGroup }
+
+agp_activate_group:
+    path: /group/{id}/activate
+    defaults: { _controller: AppBundle:Group:activateGroup }

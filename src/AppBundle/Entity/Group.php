@@ -34,6 +34,15 @@ class Group extends BaseGroup {
      */
     private $maxAge;
 
+    /**
+     * @ORM\Column(type="boolean")
+     */
+    private $enabled;
+
+    public function __construct() {
+        $this->enabled = 1;
+    }
+
     public function __toString () {
         return $this->getMinAge() . '-' . $this->getMaxAge() . ' ans';
     }
@@ -78,5 +87,19 @@ class Group extends BaseGroup {
      */
     public function setMaxAge($maxAge) {
         $this->maxAge = $maxAge;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEnabled() {
+        return $this->enabled;
+    }
+
+    /**
+     * @param mixed $enabled
+     */
+    public function setEnabled($enabled) {
+        $this->enabled = $enabled;
     }
 }

@@ -91,11 +91,28 @@ class GroupController extends Controller {
      * @return RedirectResponse
      * @Security("has_role('ROLE_PRESIDENT')")
      */
-    public function deleteGroupAction($id) {
+    public function deactivateGroupAction($id) {
         $em = $this->getDoctrine()->getManager();
         $group = $em->getRepository('AppBundle:Group')->find($id);
 
-        $em->remove($group);
+        $group->setEnabled(0);
+
+        $em->flush();
+
+        return $this->redirectToRoute('agp_list_groups');
+    }
+
+    /**
+     * @param $id
+     * @return RedirectResponse
+     * @Security("has_role('ROLE_PRESIDENT')")
+     */
+    public function activateGroupAction($id) {
+        $em = $this->getDoctrine()->getManager();
+        $group = $em->getRepository('AppBundle:Group')->find($id);
+
+        $group->setEnabled(1);
+
         $em->flush();
 
         return $this->redirectToRoute('agp_list_groups');

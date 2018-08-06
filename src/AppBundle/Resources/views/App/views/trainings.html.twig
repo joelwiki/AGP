@@ -19,7 +19,7 @@
                         <a href="{{ path('agp_login') }}">Connectez-vous</a> pour accéder à vos entraînements.
                     {% elseif global.isRegistrationOpen == 1 %}
                         {% for keys, training in trainings %}
-                            {% if training.trainingType.category.name == app.user.group.name %}
+                            {% if training.trainingType.category.minAge >= app.user.group.minAge and training.trainingType.category.maxAge <= app.user.group.maxAge %}
                                 <div class="single-training">
                                     <div class="row">
                                         <div class="col-md-3">
@@ -72,7 +72,7 @@
                             <p>Vous devez avoir un dossier d'inscription valide pour accéder à vos entraînements.</p>
                         {% else %}
                             {% for keys, training in trainings %}
-                                {% if training.trainingType.category.name == app.user.group.name %}
+                                {% if training.trainingType.category.minAge >= app.user.group.minAge and training.trainingType.category.maxAge <= app.user.group.maxAge %}
                                     <div class="single-training">
                                         <div class="row">
                                             <div class="col-md-3">
