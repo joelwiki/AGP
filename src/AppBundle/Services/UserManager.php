@@ -19,6 +19,13 @@ class UserManager {
         $this->em = $em;
     }
 
+    public function getAgeFromBirthDate(User $user) {
+        $today = new \DateTime('now');
+        $interval = $user->getBirthDate()->diff($today);
+
+        $user->setAge($interval->y);
+    }
+
     public function assignGroupToAUserByAge(User $user = null) {
         $users = [];
 

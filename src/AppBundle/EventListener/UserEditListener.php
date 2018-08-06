@@ -17,19 +17,17 @@ class UserEditListener implements EventSubscriberInterface {
 
     protected $twig;
 
-    public function __construct(\Twig_Environment $twig)
-    {
+    public function __construct(\Twig_Environment $twig) {
         $this->twig = $twig;
     }
 
-    public static function getSubscribedEvents(){
+    public static function getSubscribedEvents() {
         return [
             FOSUserEvents::PROFILE_EDIT_INITIALIZE => 'onEditInitialize'
         ];
     }
 
     public function onEditInitialize(GetResponseUserEvent $event) {
-
         /** @var User $user */
         $user = $event->getUser();
 

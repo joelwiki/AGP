@@ -33,7 +33,6 @@ class RegistrationListener implements EventSubscriberInterface {
     }
 
     public function registrationSuccess(FormEvent $event) {
-        $this->getAgeFromBirthDate($event);
         $this->addUserToGroup($event);
     }
 
@@ -41,15 +40,8 @@ class RegistrationListener implements EventSubscriberInterface {
         /** @var User $user */
         $user = $event->getForm()->getData();
 
+        $this->container->get('app.user_manager')->getAgeFromBirthDate($user);
+
         $this->container->get('app.user_manager')->assignGroupToAUserByAge($user);
-    }
-
-    public function getAgeFromBirthDate(FormEvent $event) {
-        $user = $event->getForm()->getData();
-
-        $today = new \DateTime('now');
-        $interval = $user->getBirthDate()->diff($today);
-
-        $user->setAge($interval->y);
     }
 }

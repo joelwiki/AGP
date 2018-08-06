@@ -54,6 +54,9 @@ class UserController extends Controller {
         $form = $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            $this->get('app.user_manager')->getAgeFromBirthDate($user);
+            $this->get('app.user_manager')->assignGroupToAUserByAge($user);
+
             $em->flush();
 
             return $this->redirectToRoute('agp_dashboard');
