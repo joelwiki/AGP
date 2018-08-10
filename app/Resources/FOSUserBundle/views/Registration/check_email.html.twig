@@ -1,7 +1,18 @@
-{% extends "@FOSUser/layout.html.twig" %}
+{% extends "@App/Admin/base-admin.html.twig" %}
 
 {% trans_default_domain 'FOSUserBundle' %}
 
 {% block fos_user_content %}
-    <p>{{ 'registration.check_email'|trans({'%email%': user.email}) }}</p>
-{% endblock fos_user_content %}
+    <body class="hold-transition register-page">
+    <div class="register-box register-page">
+        <div class="register-logo">
+            <a href="{{ path('agp_index') }}"><b>AGP</b><span class="arkour">arkour</span></a>
+        </div>
+
+        <div class="register-box-body">
+            <p>{{ 'registration.check_email'|trans({'%email%': user.email}) }}</p>
+        </div>
+    </div>
+    </body>
+{% endblock %}
+
