@@ -1473,3 +1473,13 @@ i#edit-paidAmount:hover, i#validate-paidAmount:hover {
         padding: 25em 0 0 0;
     }
 }
+
+@media (max-width: 452px) {
+    .page-header {
+        padding: 0 !important;
+    }
+
+    .page {
+        padding: 0 !important;
+    }
+}
