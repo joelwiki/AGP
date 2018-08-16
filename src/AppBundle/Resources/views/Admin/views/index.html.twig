@@ -50,7 +50,11 @@
                                             <a href="{{ path('agp_charte_page') }}">Prenez connaissance de la charte FPK</a>
                                         </div>
                                         <div class="steps-link"><i class="fa fa-pencil-square-o" aria-hidden="true"></i>
-                                            <a href="{{ path('agp_new_dossier') }}">Créez votre dossier</a>
+                                            {% if app.user.dossier is not null %}
+                                                <a href="{{ path('agp_edit_dossier', {'id' : app.user.id, 'dossierId' : app.user.dossier.id}) }}">Modifiez votre dossier</a>
+                                            {% else %}
+                                                <a href="{{ path('agp_new_dossier') }}">Créez votre dossier</a>
+                                            {% endif %}
                                         </div>
                                         <div class="steps-link"><i class="fa fa-file-text-o" aria-hidden="true"></i>
                                             {% if app.user.dossier is not null %}
@@ -115,7 +119,7 @@
                             <label>Groupe :</label>
                             <div>
                                 {% if app.user.group.name is defined %}
-                                    {{ app.user.group.name }} ans
+                                    {{ app.user.group.name }}
                                 {% endif %}
                             </div>
                         </div>
@@ -190,9 +194,9 @@
                                         <label>Cotisation</label>
                                         <div>
                                             {% if app.user.dossier.hasPaidMembership == 0 %}
-                                            Non
+                                                Non
                                             {% elseif app.user.dossier.hasPaidMembership == 1 %}
-                                            Oui
+                                                Oui
                                             {% endif %}
                                         </div>
                                     </div>
