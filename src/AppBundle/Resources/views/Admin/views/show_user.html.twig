@@ -307,9 +307,9 @@
                                     <div class="tab-content">
                                         <div class="col-md-12">
                                             {% if user.children is not empty %}
+                                                <h4>Mes enfants</h4>
                                                 {% for child in children %}
                                                     <div>
-                                                        <h4>Mes enfants</h4>
                                                         <ul>
                                                             <li>
                                                                 <a target="_blank" href="{{ path('agp_show_user', {'id' : child.id}) }}">{{ child.firstName }} {{ child.lastName }}</a>
