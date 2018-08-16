@@ -114,11 +114,8 @@ class UserController extends Controller {
             $form = $form->handleRequest($request);
 
             if ($form->isSubmitted() && $form->isValid()) {
-                $birthDate = $user->getBirthDate();
-                $today = new \DateTime('now');
-                $interval = $birthDate->diff($today);
-
-                $user->setAge($interval->y);
+                $this->get('app.user_manager')->getAgeFromBirthDate($user);
+                $this->get('app.user_manager')->assignGroupToAUserByAge($user);
 
                 $em->flush();
 
@@ -242,12 +239,8 @@ class UserController extends Controller {
             $parentUser->addChild($children);
             $children->setEnabled(1);
 
-            $today = new \DateTime('now');
-            $interval = $children->getBirthDate()->diff($today);
-
-            $children->setAge($interval->y);
-
-            $this->container->get('app.user_manager')->assignGroupToAChildByAge($children);
+            $this->get('app.user_manager')->getAgeFromBirthDate($children);
+            $this->get('app.user_manager')->assignGroupToAUserByAge($children);
 
             $em->persist($children);
             $em->flush();
