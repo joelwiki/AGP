@@ -1487,7 +1487,7 @@ i#edit-paidAmount:hover, i#validate-paidAmount:hover {
         padding: 6em 0 2em 0 !important;
     }
 
-    .page {
+    .page, .article {
         padding: 0 !important;
     }
 }
