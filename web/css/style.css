@@ -1114,8 +1114,6 @@ section.index-three p {
 }
 
 .four-actions {
-    max-width: 50%;
-    margin: 0 auto;
     text-align: center;
 }
 
@@ -1317,9 +1315,13 @@ section.custom-settings span.select2-selection {
     margin: 5px 20px 5px 0;
 }
 
-.article-header-img, .page-header-img {
+.page-header-img {
     width: 100%;
     max-height: 300px;
+}
+
+.article-header-img {
+    width: 100%;
 }
 
 .main-navbar-container .dropdown .dropdown-menu {
@@ -1431,6 +1433,12 @@ i#edit-paidAmount:hover, i#validate-paidAmount:hover {
 
 /** MEDIA QUERIES **/
 
+@media (max-width: 1024px) {
+    .page {
+        padding: 0 !important;
+    }
+}
+
 @media (min-width: 768px) {
     .modal-article .modal-dialog {
         width: 1200px !important;
@@ -1475,8 +1483,8 @@ i#edit-paidAmount:hover, i#validate-paidAmount:hover {
 }
 
 @media (max-width: 452px) {
-    .page-header {
-        padding: 0 !important;
+    .page.header {
+        padding: 6em 0 2em 0 !important;
     }
 
     .page {
