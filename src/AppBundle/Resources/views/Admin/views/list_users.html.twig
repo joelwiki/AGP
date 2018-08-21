@@ -48,7 +48,7 @@
                     {% for key, user in users %}
                         <tr>
                             <td><a href="{{ path('agp_show_user', {'id' : user.id}) }}">{{ user.id }}</a></td>
-                            <td>{{ user.firstName }} {{ user.lastName }}</td>
+                            <td>{{ user.firstName|capitalize }} {{ user.lastName|upper }}</td>
                             <td><a href="mailto:{{ user.email }}">{{ user.email }}</a></td>
                             <td>{{ user.dateRegister|date('d') }} {{ user.dateRegister|date('F') | trans }} {{ user.dateRegister|date('Y') }}</td>
                             <td>
