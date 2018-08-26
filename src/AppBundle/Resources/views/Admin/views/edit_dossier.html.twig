@@ -25,7 +25,7 @@
         <div class="modal-dialog modal-dialog-article" role="document">
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="cropp-image-title">Redimensionnez la photo</h5>
+                    <h5 class="modal-title" id="cropp-image-title">Redimensionnez la photo du dossier</h5>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span aria-hidden="true">&times;</span>
                     </button>
@@ -511,22 +511,22 @@
     <!-- Croppie init -->
     <script type="text/javascript">
         // Initialize image cropper
-        let $uploadCrop = $('#article-image-preview').croppie({
+        var $uploadCrop = $('#article-image-preview').croppie({
             viewport: {
-                width: 200,
-                height: 200,
+                width: 300,
+                height: 300,
                 type: 'square'
             },
             boundary: {
-                width: 300,
-                height: 300
+                width: 400,
+                height: 400
             },
             enableOrientation: true,
             enableExif: true
         });
 
         $('#article_image_file').on('change', function() {
-            let reader = new FileReader();
+            var reader = new FileReader();
             reader.onload = function (e) {
                 $uploadCrop.croppie('bind', {
                     url: e.target.result
@@ -540,10 +540,12 @@
                 type: 'canvas',
                 size: 'viewport'
             }).then(function (resp) {
-                $("#add-article-image-preview").attr('src', resp);
-                let temp = resp;
 
-                document.getElementById('base64File_image').value = temp;
+                $.ajax({
+                    url: "{{ path('agp_edit_dossier_image', {'id' : dossier.id}) }}",
+                    type: "POST",
+                    data: {"image":resp},
+                });
             });
         });
     </script>

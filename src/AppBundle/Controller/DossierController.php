@@ -156,6 +156,41 @@ class DossierController extends Controller {
 
     /**
      * @param Request $request
+     * @param Dossier $dossier
+     * @return JsonResponse
+     */
+    public function editDossierImageAction(Request $request, Dossier $dossier) {
+        $em = $this->getDoctrine()->getManager();
+
+        if ($data = $request->request->get('image')) {
+            $dossier->getImage() ? $image = $dossier->getImage() : $image = new DossierImage();
+
+            list($type, $data) = explode(';', $data);
+            list(, $data)      = explode(',', $data);
+            $data = str_replace('data:image/png;base64,', '', $data);
+            $data = str_replace(' ', '+', $data);
+
+            $data = base64_decode($data);
+
+            $imageName = 'image-'.$dossier->getUniqueId().'.png';
+
+            file_put_contents('uploads/dossier/image/'.$imageName, $data);
+
+            $file = new UploadedFile('uploads/dossier/image/'. $imageName, $imageName,  'image/png');
+
+            $image->setDossier($dossier);
+            $dossier->setImage($image);
+            $image->setFile($file);
+
+            $em->flush();
+
+            return new JsonResponse("Image changed", 200);
+        }
+        return new JsonResponse("Image not changed", 500);
+    }
+
+    /**
+     * @param Request $request
      * @return RedirectResponse
      * @throws \Exception
      * @Security("has_role('ROLE_USER')")
