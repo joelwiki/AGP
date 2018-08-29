@@ -107,8 +107,7 @@ class User extends BaseUser {
      *     message="Format de date incorrect, format attendu : '{{ format }}'."
      * )
      * @Assert\LessThan(
-     *     value="today",
-     *     message="La date de naissance doit être inférieure au {{ value }}."
+     *     "today"
      * )
      */
     private $birthDate;
