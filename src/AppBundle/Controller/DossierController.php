@@ -120,9 +120,11 @@ class DossierController extends Controller {
         if ($currentUser->getId() == $user->getId() || $this->get('security.authorization_checker')->isGranted('ROLE_MEMBRE_CA') || $currentUser->getId() == $user->getParent()->getId()) {
             if (NULL == $medicalCertificate = $dossier->getMedicalCertificate()) {
                 $medicalCertificate = new MedicalCertificate();
+                $medicalCertificate->setDossier($dossier);
             }
             if (NULL == $civilCertificate = $dossier->getCivilLiabilityCertificate()) {
                 $civilCertificate = new CivilCertificate();
+                $civilCertificate->setDossier($dossier);
             }
 
             $form = $this->createForm(DossierType::class, $dossier);
@@ -130,7 +132,10 @@ class DossierController extends Controller {
             $formCivil = $this->createForm(CivilCertificateType::class, $civilCertificate);
 
             $form = $form->handleRequest($request);
+            $formMedical = $formMedical->handleRequest($request);
+            $formCivil = $formCivil->handleRequest($request);
 
+            // Submit main form
             if ($form->isSubmitted() && $form->isValid()) {
 
                 $em->flush();
@@ -139,6 +144,83 @@ class DossierController extends Controller {
                     'id' => $dossier->getUser()->getId(),
                     'dossierId' => $dossier->getId(),
                     '_fragment' => 'infos'
+                ));
+            }
+
+            // Submit medical form
+            if ($formMedical->isSubmitted() && $formMedical->isValid()) {
+
+                if (NULL == $medicalCertificateImage = $medicalCertificate->getImage()) {
+                    $medicalCertificateImage = new MedicalCertificateImage();
+                }
+
+                if (NULL == $medicalCertificateSurvey = $medicalCertificate->getMedicalSurvey()) {
+                    $medicalCertificateSurvey = new MedicalCertificateSurveyImage();
+                }
+
+                $medicalCertificate->setImage($medicalCertificateImage, $medicalCertificateSurvey);
+                $medicalCertificateImage->setMedicalCertificate($medicalCertificate);
+                $medicalCertificateSurvey->setMedicalCertificate($medicalCertificate);
+
+                if ($medicalCertificateImage->getId()) {
+                    $medicalCertificateImage->upload();
+                }
+
+                if ($medicalCertificateImage->getFile() != NULL) {
+                    $fileName = 'certificat-' . $dossier->getUniqueId() . '.' . $medicalCertificateImage->getFile()->getClientOriginalExtension();
+                    $medicalCertificateImage->getFile()->move($medicalCertificateImage->getUploadDir(), $fileName);
+                    $medicalCertificateImage->setSize($medicalCertificateImage->getFile()->getClientSize());
+                }
+
+                if ($medicalCertificateSurvey->getFile() != NULL) {
+                    $fileName = 'questionnaire-' . $dossier->getUniqueId() . '.' . $medicalCertificateSurvey->getFile()->getClientOriginalExtension();
+                    $medicalCertificateSurvey->getFile()->move($medicalCertificateSurvey->getUploadDir(), $fileName);
+                    $medicalCertificateSurvey->setSize($medicalCertificateSurvey->getFile()->getClientSize());
+                }
+
+                if (!$medicalCertificateImage->getId()) {
+                    $em->persist($medicalCertificateImage);
+                }
+
+                $medicalCertificate->setDoctorPhone(str_replace(' ', '', $medicalCertificate->getDoctorPhone()));
+
+                if (!$medicalCertificate->getId()) {
+                    $em->persist($medicalCertificate);
+                }
+
+                $em->flush();
+
+                return $this->redirectToRoute('agp_edit_dossier', array(
+                    'id' => $dossier->getUser()->getId(),
+                    'dossierId' => $dossier->getId(),
+                    '_fragment' => 'documents'
+                ));
+            }
+
+            // Submit civil form
+            if ($formCivil->isSubmitted() && $formCivil->isValid()) {
+                if ($civilCertificate->getId()) {
+                    $civilCertificate->upload();
+                }
+
+                if ($civilCertificate->getFile() != NULL) {
+                    $fileName = 'attestation-' . $dossier->getUniqueId() . '.' . $civilCertificate->getFile()->getClientOriginalExtension();
+                    $civilCertificate->getFile()->move($civilCertificate->getUploadDir(), $fileName);
+                    $civilCertificate->setSize($civilCertificate->getFile()->getClientSize());
+                }
+
+                if (!$civilCertificate->getId()) {
+                    $em->persist($civilCertificate);
+                }
+
+                $em->persist($civilCertificate);
+
+                $em->flush();
+
+                return $this->redirectToRoute('agp_edit_dossier', array(
+                    'id' => $dossier->getUser()->getId(),
+                    'dossierId' => $dossier->getId(),
+                    '_fragment' => 'documents'
                 ));
             }
 
@@ -187,133 +269,6 @@ class DossierController extends Controller {
             return new JsonResponse("Image changed", 200);
         }
         return new JsonResponse("Image not changed", 500);
-    }
-
-    /**
-     * @param Request $request
-     * @return RedirectResponse
-     * @throws \Exception
-     * @Security("has_role('ROLE_USER')")
-     */
-    public function editMedicalCertificateAction(Request $request) {
-
-        if (!$dossierId = $request->get('dossierId')) {
-            throw new \Exception('Dossier ID missing');
-        }
-
-        $em = $this->getDoctrine()->getManager();
-
-        $dossier = $em->getRepository('AppBundle:Dossier')->find($dossierId);
-
-        if (NULL == $medicalCertificate = $dossier->getMedicalCertificate()) {
-            $medicalCertificate = new MedicalCertificate();
-            $medicalCertificate->setDossier($dossier);
-        }
-
-        $form = $this->createForm(MedicalCertificateType::class, $medicalCertificate);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            if (NULL == $medicalCertificateImage = $medicalCertificate->getImage()) {
-                $medicalCertificateImage = new MedicalCertificateImage();
-            }
-
-            if (NULL == $medicalCertificateSurvey = $medicalCertificate->getMedicalSurvey()) {
-                $medicalCertificateSurvey = new MedicalCertificateSurveyImage();
-            }
-
-            $medicalCertificate->setImage($medicalCertificateImage, $medicalCertificateSurvey);
-            $medicalCertificateImage->setMedicalCertificate($medicalCertificate);
-            $medicalCertificateSurvey->setMedicalCertificate($medicalCertificate);
-
-            if ($medicalCertificateImage->getId()) {
-                $medicalCertificateImage->upload();
-            }
-
-            if ($medicalCertificateImage->getFile() != NULL) {
-                $fileName = 'certificat-' . $dossier->getUniqueId() . '.' . $medicalCertificateImage->getFile()->getClientOriginalExtension();
-                $medicalCertificateImage->getFile()->move($medicalCertificateImage->getUploadDir(), $fileName);
-                $medicalCertificateImage->setSize($medicalCertificateImage->getFile()->getClientSize());
-            }
-
-            if ($medicalCertificateSurvey->getFile() != NULL) {
-                $fileName = 'questionnaire-' . $dossier->getUniqueId() . '.' . $medicalCertificateSurvey->getFile()->getClientOriginalExtension();
-                $medicalCertificateSurvey->getFile()->move($medicalCertificateSurvey->getUploadDir(), $fileName);
-                $medicalCertificateSurvey->setSize($medicalCertificateSurvey->getFile()->getClientSize());
-            }
-
-            if (!$medicalCertificateImage->getId()) {
-                $em->persist($medicalCertificateImage);
-            }
-
-            $medicalCertificate->setDoctorPhone(str_replace(' ', '', $medicalCertificate->getDoctorPhone()));
-
-            if (!$medicalCertificate->getId()) {
-                $em->persist($medicalCertificate);
-            }
-
-            $em->flush();
-        }
-
-        return $this->redirectToRoute('agp_edit_dossier', array(
-            'id' => $dossier->getUser()->getId(),
-            'dossierId' => $dossier->getId(),
-            '_fragment' => 'documents'
-        ));
-    }
-
-    /**
-     * @param Request $request
-     * @return RedirectResponse
-     * @throws \Exception
-     * @Security("has_role('ROLE_USER')")
-     */
-    public function editCivilCertificateAction(Request $request) {
-        if (!$dossierId = $request->get('dossierId')) {
-            throw new \Exception('Dossier ID missing');
-        }
-
-        $em = $this->getDoctrine()->getManager();
-
-        $dossier = $em->getRepository('AppBundle:Dossier')->find($dossierId);
-
-        if (NULL == $civilCertificate = $dossier->getCivilLiabilityCertificate()) {
-            $civilCertificate = new CivilCertificate();
-            $civilCertificate->setDossier($dossier);
-        }
-
-        $form = $this->createForm(CivilCertificateType::class, $civilCertificate);
-
-        $form->handleRequest($request);
-
-        if ($form->isSubmitted() && $form->isValid()) {
-
-            if ($civilCertificate->getId()) {
-                $civilCertificate->upload();
-            }
-
-            if ($civilCertificate->getFile() != NULL) {
-                $fileName = 'attestation-' . $dossier->getUniqueId() . '.' . $civilCertificate->getFile()->getClientOriginalExtension();
-                $civilCertificate->getFile()->move($civilCertificate->getUploadDir(), $fileName);
-                $civilCertificate->setSize($civilCertificate->getFile()->getClientSize());
-            }
-
-            if (!$civilCertificate->getId()) {
-                $em->persist($civilCertificate);
-            }
-
-            $em->persist($civilCertificate);
-
-            $em->flush();
-        }
-
-        return $this->redirectToRoute('agp_edit_dossier', array(
-            'id' => $dossier->getUser()->getId(),
-            'dossierId' => $dossier->getId(),
-            '_fragment' => 'documents'
-        ));
     }
 
     /**

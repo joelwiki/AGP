@@ -36,7 +36,7 @@ class MedicalCertificateImage {
 
     /**
      * @Assert\File(
-     *     maxSize="3M",
+     *     maxSize="5M",
      *     mimeTypes={ "image/png", "image/jpg", "image/jpeg", "application/pdf", "application/x-pdf" },
      *     mimeTypesMessage="Les formats d'image autorisés sont .jpg, .jpeg, .png ou .pdf"
      * )

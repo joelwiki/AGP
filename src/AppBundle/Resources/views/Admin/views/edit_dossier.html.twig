@@ -53,6 +53,8 @@
                 <span class="form-errors">
                     {{ form_errors(form) }}
                     {{ form_errors(formMedical) }}
+                    {{ form_errors(formMedical.image.file) }}
+                    {{ form_errors(formCivil.file) }}
                 </span>
                 <div class="tab-pane active" id="infos">
                     {{ form_start(form) }}
@@ -90,7 +92,6 @@
                                     {{ form_row(form.lastName) }}
                                 </div>
                             </div>
-
 
                             <div class="row">
                                 <div class="col-md-6">
@@ -306,7 +307,7 @@
                                 </h3>
                             </div>
 
-                            {{ form_start(formMedical, {'action' : path('agp_edit_medical_certificate', {'dossierId' : dossier.id}) }) }}
+                            {{ form_start(formMedical) }}
 
                             <div class="row">
                                 <div class="col-md-6">
@@ -390,7 +391,7 @@
                                 </h3>
                             </div>
 
-                            {{ form_start(formCivil, {'action' : path('agp_edit_civil_certificate', {'dossierId' : dossier.id }) }) }}
+                            {{ form_start(formCivil) }}
 
                             <div class="row">
                                 <div class="col-md-12 align-medical">
